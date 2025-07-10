@@ -1,0 +1,71 @@
+{
+    "topSection": {
+        "title": "Doug's Kitchen",
+        "subtitle": "Handcrafted, wholesome, and made with care. Doug’s Kitchen brings you freshly baked bread and house-made hummus, combining tradition and flavor for the perfect bite.",
+        "image": "/dougsKitchenAssets/dougsKitchen.png",
+        "buttonLabel": "Explore Products"
+    },
+    "exploreProducts": {
+        "title": "Explore Our Products",
+        "subtitle": "Experience the essence of authentic flavors with our freshly baked breads and house-made hummus. Each product is crafted with high-quality ingredients and traditional techniques to bring warmth and flavor to your table. Whether you're enjoying a simple snack or elevating a meal, Doug’s Kitchen delivers handcrafted goodness in every bite.",
+        "ids": ["bread", "hummus", "pound-cakes"],
+        "images": [
+            "/dougsKitchenAssets/landingSourDough.jpg",
+            "/dougsKitchenAssets/landingHummus.jpg",
+            "/dougsKitchenAssets/poundCake.jpg"
+        ],
+        "titles": [
+            "Sourdough & Rolls",
+            "Bold House-Made Hummus",
+            "Sourdough Pound Cakes"
+        ],
+        "descriptions": [
+            "From classic sourdough rounds and sandwich loaves to fluffy ciabatta rolls—our breads are fermented naturally and baked to perfection for rich flavor and texture.",
+            "Explore our vibrant hummus flavors—pesto basil, garlic, buffalo, and roasted red pepper—each made fresh with quality ingredients and no fillers.",
+            "Indulgent pound cakes made with a sourdough twist—try our lemon blueberry or glazed lemon varieties for a moist, tangy-sweet treat you’ll crave."
+        ],
+        "links": [
+            "/products?filter=bread",
+            "/products?filter=hummus",
+            "/products?filter=bread"
+        ],
+        "buttonLabels": [
+            "Explore Sourdough",
+            "Explore Hummus",
+            "Explore Pound Cake"
+        ]
+    },
+    "cardSection": {
+        "ids": ["baked-fresh", "flavor-forward", "crafted-local"],
+        "images": [
+            "/dougsKitchenAssets/authenticIngredients.avif",
+            "/dougsKitchenAssets/unmatchedFlavor.jpg",
+            "/dougsKitchenAssets/craftedWithCare.jpg"
+        ],
+        "titles": [
+            "Baked Fresh, Always",
+            "Flavor-Forward Recipes",
+            "Crafted with Heart"
+        ],
+        "descriptions": [
+            "From crusty sourdough rounds to soft sandwich loaves and ciabatta rolls, every item is made fresh with high-quality ingredients and traditional techniques.",
+            "Our lemon-glazed pound cakes and boldly seasoned hummus blends like garlic, buffalo, and pesto are designed to delight your taste buds without compromise.",
+            "Doug’s Kitchen is built on small-batch quality and local love—bringing wholesome, honest food to your table the way it was meant to be."
+        ],
+        "icons": [
+            "verified",
+            "restaurant",
+            "handshake"
+        ]
+    },
+    "aboutSection": {
+        "title": "Meet The Founder",
+        "subtitle": "Doug Ceccarelli is more than just a culinary enthusiast—he’s a dedicated <strong>healthcare professional and family man</strong> with a deep passion for bringing people together through great food.<br /><br /> As an essential worker, Doug has spent years serving his community with care and dedication. When he's not working, you’ll find him in the kitchen, crafting delicious, home-cooked meals that bring warmth and comfort to family and friends.<br /><br /> With <strong>Doug’s Kitchen</strong>, he shares his love for <strong>authentic flavors and high-quality ingredients</strong>, ensuring that every loaf of freshly baked bread and every batch of handcrafted hummus is made with the same level of care and passion he brings to everything he does.",
+        "image": "/dougsKitchenAssets/dougsKitchenIcon.png"
+    },
+    "contactSection": {
+        "title": "Contact Us",
+        "subtitle": "Have questions or need more information? Fill out the form, and we’ll get back to you as soon as possible. Whether you’re looking for product details or just want to say hello, we'd love to hear from you!",
+        "buttonLabel": "Send Message"
+    }
+}

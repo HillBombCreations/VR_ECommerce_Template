@@ -1,0 +1,12 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url><loc>https://www.placeholder/index.html</loc><component>landing</component><path>/</path></url>
+	<url><loc>https://www.placeholder</loc><component>landing</component><path>/</path></url>
+	<url><loc>https://www.placeholder/products</loc><component>products</component><path>/products</path><group>products</group><linklabel>All Products</linklabel></url>
+	<url><loc>https://www.placeholder/privacypolicy</loc><component>privacyPolicy</component><path>/privacypolicy</path></url>
+	<url><loc>https://www.placeholder/termsofuse</loc><component>termsOfUse</component><path>/termsofuse</path></url>
+	<url><loc>https://www.placeholder/checkoutsuccess</loc><component>checkoutSuccess</component><path>/checkoutsuccess</path></url>
+	<url><loc>https://www.placeholder/checkoutcancel</loc><component>checkoutCancel</component><path>/checkoutcancel</path></url>
+	<url><loc>https://www.placeholder/termsofuse</loc><component>termsOfUse</component><path>/termsofuse</path></url>
+	<url><loc>https://www.placeholder/fulfillmentpolicy</loc><component>fulfillmentPolicy</component><path>/fulfillmentpolicy</path></url>
+	<url><loc>https://www.placeholder/sitemap</loc><component>siteMap</component><path>/sitemap</path></url>
+</urlset>

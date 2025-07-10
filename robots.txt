@@ -1,0 +1,16 @@
+User-agent: *
+Disallow: /checkout
+Disallow: /checkoutsuccess
+Disallow: /checkoutcancel
+Disallow: /cart
+Disallow: /account
+Disallow: /admin
+Disallow: /api
+Disallow: /private
+
+# Allow everything else
+Allow: /
+
+# Sitemap reference
+UPDATE
+Sitemap: https://www.domainname.com/sitemap.xml

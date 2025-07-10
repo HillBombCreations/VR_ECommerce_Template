@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+.app {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+#root {
+  --primary: black;
+  --secondary: #003ba3;
+  --accent: #fde08a;
+  --headerColor: #5d8842;
+  --sand: #d0ad7b;
+}
+.app-styleguide {
+  font-family: Poppins,sans-serif;
+}
+.app-styleguide .primaryColor {
+  color: var(--primary);
+}
+.app-styleguide .primaryBackground {
+  background: var(--primary);
+}
+.app-styleguide .secondaryColor {
+  color: var(--secondary);
+}
+
+.slick-slider {
+  display: flex !important;
+  align-items: center !important;
+  overflow: hidden !important;
+}
+
+.slick-slide {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 120px !important; /* Match the height of the logos */
+  overflow: hidden !important;
+}
+
+.slick-slide img {
+  width: 200 !important; /* Match the logo width */
+  height: 120px !important; /* Match the logo height */
+  object-fit: contain !important;
+}
+
+
+.app-styleguide .secondaryBackground {
+  background: var(--secondary);
+}
+.app-styleguide .accentColor {
+  color: var(--accent);
+}
+.app-styleguide .accentBackground {
+  background: var(--accent);
+}
+.app-styleguide .sandBG {
+  background: var(--sand);
+}
+
+.app-styleguide .headerBG {
+  background: var(--headerColor);
+}
+
+.app-styleguide .headerColor {
+  color: var(--headerColor);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  border: 1px solid #dadada80;
+  box-shadow: inset 0 0 6px #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b6b6b;
+}
+
+/* navbar */
+a.navDialog:hover {
+  background: #5d884257;
+}

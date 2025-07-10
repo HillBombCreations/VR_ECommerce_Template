@@ -1,0 +1,23 @@
+:root {
+  line-height: 1.5;
+
+  color-scheme: light dark;
+  background-color: black;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Poppins,sans-serif;
+  color: black;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: black;
+}
+
+@media (prefers-color-scheme: light) {}
