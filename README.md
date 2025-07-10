@@ -23,7 +23,8 @@ Most content you’ll want to change is marked with `// UPDATE` comments directl
 ### 🔎 How to find and update your info:
 
 1. Open the project in GitHub Codespaces or your preferred code editor.
-2. Use the **magnifying glass icon on the left sidebar** (like the search feature in VSCode) to search the entire project.
+2. If in a Codespace or VSCode you can use the **magnifying glass icon on the left sidebar** to search the entire project.  
+   - If you are using a different editor, use its global search or "Find in Files" feature (usually available via `Ctrl+Shift+F` or `Cmd+Shift+F`).
 3. Search for `// UPDATE`.
 4. Replace placeholder text such as company name, contact info, policy dates, and emails with your own details.
 5. Save your changes.
