@@ -63,7 +63,7 @@ const OverflowToolTip = (props) => {
 
 export default OverflowToolTip;
 OverflowToolTip.propTypes = {
-  cursor: PropTypes.bool.isRequired,
+  cursor: PropTypes.bool,
   string: PropTypes.string.isRequired,
-  placement: PropTypes.string.isRequired
+  placement: PropTypes.string
 };

@@ -53,5 +53,5 @@ export default function AddedToCartSnackBar({ itemAdded, setItemAdded }) {
 
 AddedToCartSnackBar.propTypes = {
     itemAdded: PropTypes.bool.isRequired,
-    setItemAdded: PropTypes.func.isRequired,
+    setItemAdded: PropTypes.func,
 };

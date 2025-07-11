@@ -174,5 +174,5 @@ const CardComponent = ({ qualityData }) => {
 export default CardComponent;
 
 CardComponent.propTypes = {
-    qualityData: PropTypes.object.isRequired,
+    qualityData: PropTypes.array.isRequired,
 };

@@ -41,7 +41,7 @@ const LoadingPage = () => {
           src='/siteAssets/placeHolder.png'
           alt="Loading logo"
           style={{
-            width: '150px',
+            width: '100px',
             height: 'auto',
             animation: 'spin 1.5s linear infinite',
             marginBottom: '20px',

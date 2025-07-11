@@ -85,10 +85,11 @@ const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, varia
         setDisableButtons(true);
 
         const products = Object.values(cartItems).map((item) => ({
-            price: item.priceID,
+            price: typeof item.priceID === 'object' && item.variant
+              ? item.priceID[item.variant]
+              : item.priceID,
             quantity: item.quantity,
         }));
-
         try {
             const { data } = await axios.post(
                 `${API_URL}/tenant/createCheckoutSession`,
@@ -181,6 +182,6 @@ FloatingCartDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     cartCount: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
-    product: PropTypes.number.isRequired,
-    variant: PropTypes.number.isRequired
+    product: PropTypes.object,
+    variant: PropTypes.string
 };
