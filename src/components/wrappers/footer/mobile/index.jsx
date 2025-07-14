@@ -138,6 +138,24 @@ export default class Footer extends Component {
                     <Typography sx={{ color: 'var(--color-text-secondary)' }} fontSize={11}>© {`${new Date().getFullYear()} Company Name`}</Typography>
                     <Typography sx={{ color: 'var(--color-text-secondary)' }} fontSize={11}>United States</Typography>
                 </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mt: 2,
+                        gap: 1
+                    }}
+                >
+                    <img
+                        src="/siteAssets/placeHolder.png"
+                        alt="Vivreal Logo"
+                        style={{ width: '16px', height: '16px' }}
+                    />
+                    <Typography sx={{ fontSize: '10px', color: 'var(--color-text-secondary)' }}>
+                        Powered by Vivreal
+                    </Typography>
+                </Box>
             </Box>
         );
     }

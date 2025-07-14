@@ -33,8 +33,8 @@ export default function ShippingBannerMobile() {
         severity="info"
         icon={false}
         sx={{
-          backgroundColor: '#fefefe',
-          color: '#2e2e2e',
+          backgroundColor: 'var(--color-surface)',
+          color: 'var(--color-text-primary)',
           borderBottom: '1px solid #e0e0e0',
           boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
           display: 'flex',
@@ -51,14 +51,11 @@ export default function ShippingBannerMobile() {
             onClick={handleDismissBanner}
             sx={{
               mt: 1,
-              backgroundColor: 'rgba(93, 136, 66, 0.9)',
-              color: '#fff',
+              backgroundColor: 'var(--color-primary)',
+              color: 'var(--color-text-inverse)',
               textTransform: 'none',
               fontWeight: 500,
               borderRadius: '6px',
-              '&:hover': {
-                backgroundColor: '#2f4f87',
-              },
             }}
           >
             I Understand
