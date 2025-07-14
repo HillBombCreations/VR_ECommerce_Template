@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import Header  from '../../../components/wrappers/header/index.jsx';
 import Footer  from '../../../components/wrappers/footer/index.jsx';
 // Components
-import CookiePopup  from '../../../components/pages/landing/cookiePopup/index.jsx';
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 import ContactComponent from '../../../components/universal/contactCard/index.jsx';
 
 // CSS

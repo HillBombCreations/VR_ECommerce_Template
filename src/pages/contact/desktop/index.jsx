@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import Header  from '../../../components/wrappers/header/index.jsx';
 import Footer  from '../../../components/wrappers/footer/index.jsx';
 // Components
-import CookiePopup  from '../../../components/pages/landing/cookiePopup/index.jsx';
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 import ContactComponent from '../../../components/universal/contactCard/index.jsx';
 
 // CSS
@@ -39,7 +39,6 @@ export default class Contact extends Component {
             >
                 <Header />
                 <div
-                    className="primaryColor"
                     style={{
                         flexGrow: 1,
                         display: 'flex',
@@ -49,6 +48,7 @@ export default class Contact extends Component {
                         alignItems: 'center',
                         width: '100%',
                         marginTop: '100px',
+                        background: 'var(--primary-color)'
                     }}
                 >
                     <ContactComponent />

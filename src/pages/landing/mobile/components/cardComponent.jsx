@@ -9,7 +9,7 @@ const SectionWrapper = styled(Box)(() => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "#fff",
+  backgroundColor: "var(--color-surface-alt)",
   padding: "5vh 5vw",
   gap: "5vh"
   
@@ -41,15 +41,16 @@ const CardList = styled(Box)(({ theme }) => ({
 }));
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(3),
   display: "flex",
-  alignItems: "center",
-  gap: theme.spacing(2),
-  cursor: "pointer",
   borderRadius: "12px",
   transition: "all 0.3s ease",
-  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-  background: "#f8f8f8"
+  boxShadow: "var(--shadow-medium)",
+  background: "var(--color-surface)",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  padding: theme.spacing(3),
+  gap: theme.spacing(2),
+  cursor: { xs: "default", md: "pointer" },
 }));
 
 const IconBox = styled(Box)(() => ({
@@ -60,7 +61,7 @@ const IconBox = styled(Box)(() => ({
   height: "50px",
   borderRadius: "50%",
   transition: "all 0.3s ease",
-  color: "#5d8842",
+  color: "var(--color-primary)",
 }));
 
 const HeaderText = styled(Typography)(() => ({
@@ -71,6 +72,7 @@ const HeaderText = styled(Typography)(() => ({
 const BodyText = styled(Typography)(() => ({
   fontSize: "1rem",
   lineHeight: "1.5",
+  color: 'var(--color-text-secondary)'
 }));
 
 const iconDict = {
@@ -90,16 +92,7 @@ const CardComponent = ({ qualityData }) => {
                             <StyledPaper
                                 key={card.id}
                                 sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "flex-start",
-                                    gap: 2,
-                                    padding: 3,
-                                    cursor: { xs: "default", md: "pointer" },
-                                    "&:hover": {
-                                    background: { xs: "#f8f8f8", md: "#5d8842" },
-                                    color: { xs: "#3c4748", md: "#fff" },
-                                    },
+                                    
                                 }}
                             >
                                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>

@@ -26,27 +26,21 @@ const ProductInfoContainer = styled(Box)(() => ({
 
 const ViewBagButton = styled(Button)(() => ({
     width: "100%",
-    backgroundColor: "#f5f5f5",
-    color: "#333",
+    backgroundColor: "var(--color-surface-alt)",
+    color: "var(--color-text-primary)",
     marginBottom: "10px",
     fontWeight: "bold",
     borderRadius: "25px",
     padding: "12px",
-    "&:hover": {
-        backgroundColor: "#e0e0e0",
-    },
 }));
 
 const CheckoutButton = styled(Button)(() => ({
     width: "100%",
-    backgroundColor: "#000",
-    color: "#fff",
+    backgroundColor: "var(--color-text-primary)",
+    color: "var(--color-text-inverse)",
     fontWeight: "bold",
     borderRadius: "25px",
     padding: "12px",
-    "&:hover": {
-        backgroundColor: "#333",
-    },
 }));
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -133,8 +127,8 @@ const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, varia
                     height: '40vh',
                     borderRadius: "12px",
                     padding: "16px",
-                    backgroundColor: "#fff",
-                    boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+                    backgroundColor: "var(--color-surface)",
+                    boxShadow: "0px 8px 16px var(--shadow-medium)",
                     overflow: "hidden",
                     transition: "all 0.3s ease-in-out",
                 },
@@ -186,7 +180,7 @@ const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, varia
                 <CheckoutButton onClick={handleCheckout} disabled={disableButtons}>
                     {loadingCheckout ? (
                         <>
-                            <CircularProgress size={20} sx={{ color: "#fff" }} />
+                            <CircularProgress size={20} sx={{ color: "var(--color-surface)" }} />
                         </>
                     ) : (
                         "Checkout"

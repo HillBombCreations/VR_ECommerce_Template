@@ -16,7 +16,7 @@ import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
 
 // Components
-import CookiePopup from "../../../components/pages/landing/cookiePopup/index.jsx";
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 
 // MUI Imports
 import { ArrowBack } from "@mui/icons-material";
@@ -31,7 +31,7 @@ const PageContainer = styled(Box)(({ theme }) => ({
     flexDirection: "column",
     alignItems: "center",
     gap: theme.spacing(4),
-    background: '#fff',
+    background: "var(--color-surface)",
     overflow: "hidden",
     scrollBehavior: "smooth",
     width: "100%",
@@ -50,17 +50,17 @@ const ProductContainer = styled(Box)(({ theme }) => ({
     margin: "auto",
     flexWrap: "wrap",
     minHeight: "calc(100vh - 160px)",
-  }));
+}));
 
 const ProductImageWrapper = styled(Box)(() => ({
     width: "500px",
     height: "400px",
-    borderRadius: "10px",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    borderRadius: "var(--radius-base)",
+    boxShadow: "var(--shadow-medium)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fafafa",
+    backgroundColor: "var(--color-surface-alt)",
     overflow: "hidden",
 }));
 
@@ -70,14 +70,14 @@ const ProductDetails = styled(Box)(({ theme }) => ({
     gap: theme.spacing(2),
     flex: "1 1 350px",
     padding: theme.spacing(3),
-    border: "2px solid #5d8842",
-    borderRadius: "12px",
+    border: "2px solid var(--color-primary)",
+    borderRadius: "var(--radius-base)",
     minWidth: "320px",
 }));
 
 const ButtonGroup = styled(Box)(({ theme }) => ({
     display: "flex",
-    marginTop: '3vh',
+    marginTop: "3vh",
     flexDirection: "column",
     gap: theme.spacing(2),
     width: "100%",
@@ -197,15 +197,16 @@ const ProductPage = () => {
                     onClick={() => navigate("/products")}
                     sx={{
                         alignSelf: "flex-start",
-                        color: "#5d8842",
+                        color: "var(--color-primary)",
                         textTransform: "none",
                         fontSize: "1rem",
                         display: "flex",
                         alignItems: "center",
-                        '&:hover': {
-                            textDecoration: "underline",
-                            backgroundColor: "transparent"
-                        }
+                        transition: "var(--transition-base)",
+                        "&:hover": {
+                        textDecoration: "underline",
+                        backgroundColor: "transparent",
+                        },
                     }}
                 >
                     <ArrowBack sx={{ marginRight: 1 }} /> Back to All Products
@@ -213,16 +214,16 @@ const ProductPage = () => {
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
                     <Box
                         sx={{
-                            backgroundColor: '#fffde7',
-                            borderTop: '1px solid #fdd835',
-                            width: '100%',
-                            borderBottom: '1px solid #fdd835',
-                            color: '#795548',
-                            padding: '10px 16px',
-                            textAlign: 'center',
+                            backgroundColor: "var(--color-surface-alt)",
+                            borderTop: "1px solid var(--color-primary)",
+                            width: "100%",
+                            borderBottom: "1px solid var(--color-primary)",
+                            color: "var(--color-text-primary)",
+                            padding: "10px 16px",
+                            textAlign: "center",
                             fontWeight: 500,
-                            fontSize: '0.95rem',
-                            boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                            fontSize: "0.95rem",
+                            boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
                             zIndex: 1,
                         }}
                     >
@@ -250,7 +251,7 @@ const ProductPage = () => {
                                 <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: "1.5rem" }}>
                                     {getSafeFieldValue("name")}
                                 </Typography>
-                                <Typography variant="h6" sx={{ color: "#5d8842", fontWeight: "bold", fontSize: "1.5rem" }}>
+                                <Typography variant="h6" sx={{ color: "var(--color-primary)", fontWeight: "bold", fontSize: "1.5rem" }}>
                                     ${getSafeFieldValue("price")}
                                 </Typography>
                             </Box>
@@ -272,12 +273,12 @@ const ProductPage = () => {
                                             px: 1.5,
                                             borderRadius: "12px",
                                             textTransform: "none",
-                                            backgroundColor: isSelected ? "#5d8842" : "transparent",
-                                            color: isSelected ? "#fff" : "#5d8842",
-                                            border: isSelected ? "2px solid #365b99" : "1px solid #5d8842",
+                                            backgroundColor: isSelected ? "var(--color-primary)" : "transparent",
+                                            color: isSelected ? "#fff" : "var(--color-primary)",
+                                            border: isSelected ? "2px solid #365b99" : "1px solid var(--color-primary)",
                                             fontWeight: isSelected ? 600 : 500,
                                             '&:hover': {
-                                            backgroundColor: isSelected ? "#4a7336" : "#e0f2e0",
+                                                backgroundColor: "var(--color-light-hover)",
                                             },
                                         }}
                                         >
@@ -294,7 +295,7 @@ const ProductPage = () => {
                                     displayEmpty
                                     renderValue={(selected) => `Quantity: ${selected}`}
                                     sx={{
-                                    backgroundColor: "#f5f5f5",
+                                    backgroundColor: "var(--color-surface-alt)",
                                     borderRadius: "8px",
                                     "& .MuiOutlinedInput-notchedOutline": { border: "none" },
                                     }}
@@ -311,7 +312,7 @@ const ProductPage = () => {
                                     variant="contained"
                                     disabled={loadingCheckout}
                                     sx={{
-                                    backgroundColor: "#5d8842",
+                                    backgroundColor: "var(--color-primary)",
                                     color: "white",
                                     width: "100%",
                                     borderRadius: "25px",
@@ -325,21 +326,21 @@ const ProductPage = () => {
                                     variant="outlined"
                                     disabled={loadingCheckout}
                                     sx={{
-                                    borderColor: "#5d8842",
-                                    color: "#5d8842",
+                                    borderColor: "var(--color-primary)",
+                                    color: "var(--color-primary)",
                                     width: "100%",
                                     borderRadius: "25px",
                                     fontSize: "1.2rem",
                                     '&:hover': {
-                                        backgroundColor: "#eaf3e0",
-                                        borderColor: "#4a7336",
-                                        color: "#4a7336",
+                                        backgroundColor: "var(--color-light-hover)",
+                                        borderColor: "var(--color-primary-hover)",
+                                        color: "var(--color-primary-hover)",
                                     },
                                     }}
                                     onClick={handleCheckout}
                                 >
                                     {loadingCheckout ? (
-                                    <CircularProgress size={20} sx={{ color: "#5d8842" }} />
+                                    <CircularProgress size={20} sx={{ color: "var(--color-primary)" }} />
                                     ) : (
                                     "Buy Now"
                                     )}

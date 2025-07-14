@@ -12,11 +12,12 @@ export default class Footer extends Component {
 
         return (
             <Box
-                className='headerBG'
                 sx={{
+                    backgroundColor: 'var(--color-surface-alt)',
                     paddingY: 4,
                     paddingX: 2,
                     textAlign: 'center',
+                    borderTop: '1px solid var(--color-border)',
                 }}
             >
                 <Box sx={{ 
@@ -37,7 +38,7 @@ export default class Footer extends Component {
                         <Typography 
                             variant="h5" 
                             sx={{ 
-                                color: '#f3efd2', 
+                                color: 'var(--color-text-secondary)', 
                                 fontWeight: 'bold', 
                                 marginLeft: '10px',
                                 textTransform: 'uppercase',
@@ -75,7 +76,7 @@ export default class Footer extends Component {
                                     fontSize: '14px',
                                     fontWeight: 700,
                                     marginBottom: 1,
-                                    color: '#f3efd2'
+                                    color: 'var(--color-text-secondary)'
                                 }}
                             >
                                 {group.label}
@@ -87,7 +88,7 @@ export default class Footer extends Component {
                                     underline="none"
                                     sx={{
                                         display: 'block',
-                                        color: '#f3efd2',
+                                        color: 'var(--color-text-secondary)',
                                         fontSize: '12px',
                                         marginBottom: 0.5,
                                         '&:hover': { color: 'rgba(0,0,0,0.5)' },
@@ -104,7 +105,7 @@ export default class Footer extends Component {
                 <Box sx={{ marginBottom: 2, fontSize: '8pt' }}>
                     <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
                         {/* UPDATE */}
-                        <Link href="mailto:placeholder@email.com" underline="none" sx={{ color: '#f3efd2', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        <Link href="mailto:placeholder@email.com" underline="none" sx={{ color: 'var(--color-text-secondary)', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
                             placeholder@email.com
                         </Link>
                     </Box>
@@ -113,19 +114,19 @@ export default class Footer extends Component {
                 <Divider sx={{ marginBottom: 2 }} />
                 <Box sx={{ marginBottom: 2, fontSize: '8pt' }}>
                     <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
-                        <Link href="/fulfillmentPolicy" underline="none" sx={{  color: '#f3efd2', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        <Link href="/fulfillmentPolicy" underline="none" sx={{  color: 'var(--color-text-secondary)', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
                             Fulfillment Policy
                         </Link>
                         <Typography>|</Typography>
-                        <Link href="/privacypolicy" underline="none" sx={{  color: '#f3efd2', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        <Link href="/privacypolicy" underline="none" sx={{  color: 'var(--color-text-secondary)', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
                             Privacy Policy
                         </Link>
                         <Typography>|</Typography>
-                        <Link href="/termsofuse" underline="none" sx={{  color: '#f3efd2', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        <Link href="/termsofuse" underline="none" sx={{  color: 'var(--color-text-secondary)', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
                             Terms of Use
                         </Link>
                         <Typography>|</Typography>
-                        <Link href="/sitemap.xml" underline="none" sx={{  color: '#f3efd2', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        <Link href="/sitemap.xml" underline="none" sx={{  color: 'var(--color-text-secondary)', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
                             Site Map
                         </Link>
                     </Box>
@@ -134,8 +135,8 @@ export default class Footer extends Component {
                 <Divider sx={{ marginBottom: 2 }} />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     {/* UPDATE */}
-                    <Typography sx={{ color: '#f3efd2' }} fontSize={11}>© {`${new Date().getFullYear()} Company Name`}</Typography>
-                    <Typography sx={{ color: '#f3efd2' }} fontSize={11}>United States</Typography>
+                    <Typography sx={{ color: 'var(--color-text-secondary)' }} fontSize={11}>© {`${new Date().getFullYear()} Company Name`}</Typography>
+                    <Typography sx={{ color: 'var(--color-text-secondary)' }} fontSize={11}>United States</Typography>
                 </Box>
             </Box>
         );

@@ -28,18 +28,18 @@ export default function AddedToCartSnackBar({ itemAdded, setItemAdded }) {
     return (
         <Snackbar
             open={open}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
             <Alert
                 severity="success"
                 icon={false}
                 sx={{
-                    backgroundColor: '#333',
-                    color: '#fff',
+                    backgroundColor: 'var(--color-text-primary)',
+                    color: 'var(--color-text-inverse)',
                     fontWeight: 'bold',
                     padding: '12px 24px',
                     borderRadius: '10px',
-                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+                    boxShadow: '0px 4px 12px var(--shadow-medium)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',

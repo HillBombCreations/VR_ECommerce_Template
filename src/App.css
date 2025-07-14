@@ -4,12 +4,20 @@
   width: 100vw;
   overflow-x: hidden;
 }
-#root {
-  --primary: black;
-  --secondary: #003ba3;
-  --accent: #fde08a;
-  --headerColor: #5d8842;
-  --sand: #d0ad7b;
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-hover: 	#2563eb;
+  --color-hover: #b9d2fa;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f9fafb;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #6b7280;
+  --color-text-inverse: #ffffff;      
+  --color-success: #5d8842;
+  --color-error: #ff6f61;
+  --shadow-medium: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  --radius-base: 8px;
+  --transition-base: all 0.3s ease;
 }
 .app-styleguide {
   font-family: Poppins,sans-serif;
@@ -34,13 +42,13 @@
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  height: 120px !important; /* Match the height of the logos */
+  height: 120px !important;
   overflow: hidden !important;
 }
 
 .slick-slide img {
-  width: 200 !important; /* Match the logo width */
-  height: 120px !important; /* Match the logo height */
+  width: 200 !important;
+  height: 120px !important;
   object-fit: contain !important;
 }
 

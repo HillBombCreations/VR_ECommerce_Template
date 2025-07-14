@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 // Wrappers
 import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
-import CookiePopup from "../../../components/pages/landing/cookiePopup/index.jsx";
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 
 // MUI Imports
 import { Box, Typography, Container, Divider, Link } from "@mui/material";
@@ -18,28 +18,24 @@ const PageContainer = styled(Box)(() => ({
   minHeight: "100vh",
   width: "100vw",
   overflowX: "hidden",
-  backgroundColor: "#fff",
+  backgroundColor: "var(--color-surface)",
 }));
 
-const ContentWrapper = styled(Container)(({ theme }) => ({
+const ContentWrapper = styled(Container)(() => ({
   flexGrow: 1,
   paddingTop: "80px",
   paddingBottom: "50px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   maxWidth: "800px",
   textAlign: "left",
-  [theme.breakpoints.down("sm")]: {
-    paddingTop: "60px",
-    paddingBottom: "30px",
-    paddingLeft: "15px",
-    paddingRight: "15px",
-  },
+  paddingLeft: "15px",
+  paddingRight: "15px",
 }));
 
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "#5d8842",
+  color: "var(--color-primary)",
   marginBottom: "15px",
 }));
 
@@ -52,7 +48,7 @@ const StyledListItem = styled("li")(() => ({
   fontSize: "1rem",
   lineHeight: "1.5",
   marginBottom: "10px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
 }));
 
 export default class TermsOfUse extends Component {
@@ -79,7 +75,7 @@ export default class TermsOfUse extends Component {
             <strong>Effective Date:</strong> [MM/DD/YYYY]
           </Typography>
 
-          <Divider sx={{ my: 3, backgroundColor: "#5d8842" }} />
+          <Divider sx={{ my: 3, backgroundColor: "var(--color-primary)" }} />
 
           <SectionTitle>1. Acceptance of Terms</SectionTitle>
           <Typography>
@@ -161,7 +157,7 @@ export default class TermsOfUse extends Component {
             <StyledListItem>
               <strong>Email:</strong>{" "}
               {/* UPDATE */}
-              <Link href="mailto:support@example.com" sx={{ color: "#5d8842", fontWeight: "bold" }}>
+              <Link href="mailto:support@example.com" sx={{ color: "var(--color-primary)", fontWeight: "bold" }}>
                 support@example.com
               </Link>
             </StyledListItem>

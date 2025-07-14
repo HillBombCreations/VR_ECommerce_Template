@@ -29,7 +29,7 @@ const PageContainer = styled(Box)(({ theme }) => ({
     flexDirection: "column",
     alignItems: "center",
     gap: theme.spacing(2),
-    background: "#fff",
+    background: "var(--color-surface)",
     flexGrow: 1,
     width: "90%",
     padding: theme.spacing(2),
@@ -46,11 +46,11 @@ const ProductContainer = styled(Box)(({ theme }) => ({
 
 const ProductImage = styled("img")(() => ({
     width: "100%",
-    height: "250px", // fixed consistent height
+    height: "250px",
     borderRadius: "10px",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-    objectFit: "contain", // ensures image doesn't overflow
-    backgroundColor: "#fafafa", // optional for contrast if images are smaller
+    boxShadow: "0px 4px 10px var(--shadow-medium)",
+    objectFit: "contain",
+    backgroundColor: "var(--color-surface-alt)",
 }));
 
 const ProductDetails = styled(Box)(({ theme }) => ({
@@ -173,7 +173,7 @@ const ProductPage = () => {
                             <IconButton
                                 onClick={() => navigate("/products")}
                                 sx={{
-                                    color: "#5d8842",
+                                    color: "var(--color-primary)",
                                     textTransform: "none",
                                     fontSize: "1rem",
                                     display: "flex",
@@ -189,11 +189,11 @@ const ProductPage = () => {
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
                                 <Box
                                     sx={{
-                                        backgroundColor: '#fffde7',
-                                        borderTop: '1px solid #fdd835',
+                                        backgroundColor: 'var(--color-surface-alt)',
+                                        borderTop: '1px solid var(--color-primary)',
                                         width: '100%',
-                                        borderBottom: '1px solid #fdd835',
-                                        color: '#795548',
+                                        borderBottom: '1px solid var(--color-primary)',
+                                        color: 'var(--color-text-primary)',
                                         padding: '10px 16px',
                                         textAlign: 'center',
                                         fontWeight: 500,
@@ -212,7 +212,7 @@ const ProductPage = () => {
                                 alt={getSafeFieldValue("name")}
                             />
                             <ProductDetails>
-                                <Typography variant="h4" sx={{ fontWeight: "bold", color: "#5d8842" }}>
+                                <Typography variant="h4" sx={{ fontWeight: "bold", color: "var(--color-primary)" }}>
                                     ${getSafeFieldValue("price")}
                                 </Typography>
                                 <Typography variant="body2" sx={{ marginBottom: 2 }}>{getSafeFieldValue("description")}</Typography>
@@ -231,17 +231,13 @@ const ProductPage = () => {
                                                         px: 1.5,
                                                         borderRadius: "12px",
                                                         textTransform: "none",
-                                                        backgroundColor: isSelected ? "#5d8842" : "transparent",
-                                                        color: isSelected ? "#fff" : "#5d8842",
+                                                        backgroundColor: isSelected ? "var(--color-primary)" : "transparent",
+                                                        color: isSelected ? "var(--color-surface)" : "var(--color-primary)",
                                                         fontWeight: isSelected ? 600 : 500,
-                                                        border: isSelected ? "none" : "1px solid #5d8842",
+                                                        border: isSelected ? "none" : "1px solid var(--color-primary)",
                                                         outline: "none",
                                                         boxShadow: "none",
                                                         WebkitTapHighlightColor: "transparent",
-                                                        '&:hover': {
-                                                          backgroundColor: isSelected ? "#4a7336" : "#e0f2e0",
-                                                          border: isSelected ? "none" : "1px solid #365b99",
-                                                        },
                                                         '&:focus': {
                                                           outline: "none",
                                                           boxShadow: "none",
@@ -261,7 +257,7 @@ const ProductPage = () => {
                                         displayEmpty
                                         renderValue={(selected) => `Quantity: ${selected}`}
                                         sx={{
-                                            backgroundColor: "#f5f5f5",
+                                            backgroundColor: "var(--color-surface-alt)",
                                             borderRadius: "8px",
                                             padding: "4px 8px",
                                             boxShadow: "none",
@@ -280,15 +276,12 @@ const ProductPage = () => {
                                 variant="contained"
                                 disabled={loadingCheckout}
                                 sx={{
-                                    backgroundColor: "#5d8842",
+                                    backgroundColor: "var(--color-primary)",
                                     color: "white",
                                     width: "100%",
                                     padding: "12px",
                                     borderRadius: "20px",
                                     fontSize: "1rem",
-                                    '&:hover': {
-                                        backgroundColor: "#4a7336",
-                                    },
                                 }}
                                 onClick={handleAddToCart}
                             >
@@ -298,21 +291,16 @@ const ProductPage = () => {
                                 variant="outlined"
                                 disabled={loadingCheckout}
                                 sx={{
-                                    borderColor: "#5d8842",
-                                    color: "#5d8842",
+                                    borderColor: "var(--color-primary)",
+                                    color: "var(--color-primary)",
                                     width: "100%",
                                     padding: "12px",
                                     borderRadius: "20px",
                                     fontSize: "1rem",
-                                    '&:hover': {
-                                        backgroundColor: "#eaf3e0",
-                                        borderColor: "#4a7336",
-                                        color: "#4a7336",
-                                    },
                                 }}
                                 onClick={handleCheckout}
                             >
-                                {loadingCheckout ? <CircularProgress size={20} sx={{ color: "#5d8842" }} /> : 'Buy Now'}
+                                {loadingCheckout ? <CircularProgress size={20} sx={{ color: "var(--color-primary)" }} /> : 'Buy Now'}
                             </Button>
                         </ButtonGroup>
                     </>

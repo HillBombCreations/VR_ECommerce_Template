@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 // Wrappers
 import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
-import CookiePopup from "../../../components/pages/landing/cookiePopup/index.jsx";
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 
 // MUI Imports
 import { Box, Typography, Container, Divider, Link } from "@mui/material";
@@ -18,14 +18,14 @@ const PageContainer = styled(Box)(() => ({
   minHeight: "100vh",
   width: "100vw",
   overflowX: "hidden",
-  backgroundColor: "#fff",
+  backgroundColor: "var(--color-surface)",
 }));
 
 const ContentWrapper = styled(Container)(({ theme }) => ({
   flexGrow: 1,
   paddingTop: "80px",
   paddingBottom: "50px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   maxWidth: "800px",
   textAlign: "left",
   [theme.breakpoints.down("sm")]: {
@@ -39,7 +39,7 @@ const ContentWrapper = styled(Container)(({ theme }) => ({
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "#5d8842",
+  color: "var(--color-primary-hover)",
   marginBottom: "15px",
 }));
 
@@ -52,7 +52,7 @@ const StyledListItem = styled("li")(() => ({
   fontSize: "1rem",
   lineHeight: "1.5",
   marginBottom: "10px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
 }));
 
 export default class TermsOfUse extends Component {
@@ -75,15 +75,13 @@ export default class TermsOfUse extends Component {
         <ContentWrapper>
           <SectionTitle>Terms of Use</SectionTitle>
           <Typography>
-             {/* UPDATE */}
             <strong>Effective Date:</strong> [MM/DD/YYYY]
           </Typography>
 
-          <Divider sx={{ my: 3, backgroundColor: "#5d8842" }} />
+          <Divider sx={{ my: 3, backgroundColor: "var(--color-primary-hover)" }} />
 
           <SectionTitle>1. Acceptance of Terms</SectionTitle>
           <Typography>
-            {/* UPDATE */}
             By accessing or using the website and services of <strong>[Your Company Name]</strong> ("we," "us," or "our"), you agree to abide by these Terms of Use. If you do not agree, please do not use our website.
           </Typography>
 
@@ -92,7 +90,6 @@ export default class TermsOfUse extends Component {
             We offer a range of products and/or services, which may include but are not limited to:
           </Typography>
           <StyledList>
-            {/* UPDATE */}
             <StyledListItem>Custom goods, digital products, or professional services.</StyledListItem>
             <StyledListItem>Content, tools, or software for individual or business use.</StyledListItem>
             <StyledListItem>Online ordering, support, or consulting services.</StyledListItem>
@@ -111,13 +108,11 @@ export default class TermsOfUse extends Component {
 
           <SectionTitle>4. Intellectual Property</SectionTitle>
           <Typography>
-            {/* UPDATE */}
             All content, including trademarks, logos, text, images, and software, is the property of <strong>[Your Company Name]</strong> or its licensors. You may not copy or distribute our content without prior written consent.
           </Typography>
 
           <SectionTitle>5. Pricing & Payments</SectionTitle>
           <Typography>
-            {/* UPDATE */}
             Prices are listed in <strong>[Your Currency]</strong> and may change without notice. Payments are securely processed via third-party providers. We do not store credit card or payment details.
           </Typography>
 
@@ -127,13 +122,11 @@ export default class TermsOfUse extends Component {
           </Typography>
 
           <SectionTitle>7. Refund & Return Policy</SectionTitle>
-          {/* UPDATE */}
           <Typography>
             We stand behind our products and services. For refund or return eligibility, please contact us at <strong>[support@example.com]</strong> within <strong>[X days]</strong> of receiving your order.
           </Typography>
 
           <SectionTitle>8. Limitation of Liability</SectionTitle>
-          {/* UPDATE */}
           <Typography>
             <strong>[Your Company Name]</strong> is not liable for indirect, incidental, or consequential damages arising from your use of our site or services.
           </Typography>
@@ -144,7 +137,6 @@ export default class TermsOfUse extends Component {
           </Typography>
 
           <SectionTitle>10. Governing Law</SectionTitle>
-          {/* UPDATE */}
           <Typography>
             These Terms shall be governed by the laws of the jurisdiction in which <strong>[Your Company Name]</strong> operates.
           </Typography>
@@ -159,17 +151,16 @@ export default class TermsOfUse extends Component {
           <StyledList>
             <StyledListItem>
               <strong>Email:</strong>{" "}
-              {/* UPDATE */}
-              <Link href="mailto:support@example.com" sx={{ color: "#5d8842", fontWeight: "bold" }}>
+              <Link
+                href="mailto:support@example.com"
+                sx={{ color: "var(--color-primary-hover)", fontWeight: "bold" }}
+              >
                 support@example.com
               </Link>
             </StyledListItem>
-            {/* UPDATE */}
             <StyledListItem>
               <strong>Phone:</strong> (000) 000-0000
             </StyledListItem>
-
-            {/* UPDATE */}
             <StyledListItem>
               <strong>Business Address:</strong> 123 Your St, Your City, ST 00000
             </StyledListItem>

@@ -10,14 +10,13 @@ export default class Footer extends Component {
         const { capitalize } = formatStringFns();
         return (
             <Box
-                className='headerBG'
                 component="footer"
                 sx={{
-                    backgroundColor: '#f5faff',
+                    backgroundColor: 'var(--color-surface-alt)',
                     marginTop: 'auto',
                     paddingY: 2,
                     paddingX: 1,
-                    borderTop: '1px solid #e0e0e0',
+                    borderTop: '1px solid var(--color-border)',
                 }}
             >
                 <Grid
@@ -33,21 +32,33 @@ export default class Footer extends Component {
                         item
                         xs={12}
                         sm={3}
-                        sx={{ textAlign: { xs: 'center', sm: 'left' }, display: 'flex', flexDirection: 'column', fontSize: '10px' }}
+                        sx={{
+                            textAlign: { xs: 'center', sm: 'left' },
+                            display: 'flex',
+                            flexDirection: 'column',
+                            fontSize: '10px'
+                        }}
                     >
                         <a href='/' style={{ display: 'flex', overflow: 'hidden', alignItems: 'center' }}>
-                            {/* DEV UPDATE MOVE TO CMS AS WELL OR ALLOW LOCAL IMAGE  */}
                             <img
                                 src="/siteAssets/placeHolder.png"
                                 alt="Company Name Icon Logo"
-                                style={{ width: '60px', height: 'auto', marginBottom: '12px' }} // Reduced logo size
+                                style={{ width: '60px', height: 'auto', marginBottom: '12px' }}
                             />
                         </a>
-                        {/* UPDATE */}
-                        <Link href="mailto:placeholder@email.com" underline="none" sx={{ fontSize: "10px", color: '#f3efd2', '&:hover': { color: '#f3efd2' } }}>
+                        <Link
+                            href="mailto:placeholder@email.com"
+                            underline="none"
+                            sx={{
+                                fontSize: "10px",
+                                color: 'var(--color-text-secondary)',
+                                '&:hover': { color: 'var(--color-text-secondary)' }
+                            }}
+                        >
                             placeholder@email.com
                         </Link>
                     </Grid>
+
                     {this.context.xmlToJSON.map((group, gIdx) => (
                         <Grid
                             item
@@ -57,7 +68,14 @@ export default class Footer extends Component {
                             className='primaryColor'
                             sx={{ textAlign: { xs: 'center', sm: 'left' } }}
                         >
-                            <Typography sx={{ fontSize: '14px', color: '#f3efd2', fontWeight: 700, marginBottom: 1 }}>
+                            <Typography
+                                sx={{
+                                    fontSize: '14px',
+                                    color: 'var(--color-text-secondary)',
+                                    fontWeight: 700,
+                                    marginBottom: 1
+                                }}
+                            >
                                 {group.label}
                             </Typography>
                             {group.pages.map((page, pIdx) => (
@@ -69,8 +87,10 @@ export default class Footer extends Component {
                                         display: 'block',
                                         fontSize: '10px',
                                         marginBottom: 0.5,
-                                        color: '#f3efd2',
-                                        '&:hover': { color: '#f3efd2' },
+                                        color: 'var(--color-text-secondary)',
+                                        '&:hover': {
+                                            color: 'var(--color-text-secondary)'
+                                        },
                                     }}
                                 >
                                     {capitalize(page.linklabel)}
@@ -79,7 +99,9 @@ export default class Footer extends Component {
                         </Grid>
                     ))}
                 </Grid>
+
                 <Divider sx={{ marginY: 3 }} />
+
                 <Box
                     className='primaryColor'
                     sx={{
@@ -90,34 +112,107 @@ export default class Footer extends Component {
                         maxWidth: '1000px',
                         margin: '0 auto',
                         fontSize: '10px',
-                        color: '#6d6d6d',
+                        color: 'var(--color-text-muted)',
                         textAlign: { xs: 'center', sm: 'left' },
                         gap: 1,
                     }}
                 >
-                    <Box sx={{ marginBottom: { xs: 1, sm: 0 }, textAlign: { xs: 'center', sm: 'left' } }}>
-                        {/* UPDATE */}
-                        <Typography sx={{ color: '#f3efd2' }} fontSize={10}>© {`${new Date().getFullYear()} Company Name`}. All rights reserved.</Typography>
+                    <Box
+                        sx={{
+                            marginBottom: { xs: 1, sm: 0 },
+                            textAlign: { xs: 'center', sm: 'left' }
+                        }}
+                    >
+                        <Typography
+                            sx={{ color: 'var(--color-text-secondary)' }}
+                            fontSize={10}
+                        >
+                            © {`${new Date().getFullYear()} Company Name`}. All rights reserved.
+                        </Typography>
                     </Box>
+
                     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                        <Link href="/fulfillmentPolicy" underline="none" sx={{ fontSize: '10px', color: '#f3efd2', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        <Link
+                            href="/fulfillmentPolicy"
+                            underline="none"
+                            sx={{
+                                fontSize: '10px',
+                                color: 'var(--color-text-secondary)',
+                                '&:hover': {
+                                    color: 'var(--color-text-muted)'
+                                }
+                            }}
+                        >
                             Fulfillment Policy
                         </Link>
-                        <Typography sx={{ color: '#f3efd2', fontSize: '10px' }}>|</Typography>
-                        <Link href="/privacypolicy" underline="none" sx={{ fontSize: '10px', color: '#f3efd2', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        <Typography sx={{ color: 'var(--color-text-secondary)', fontSize: '10px' }}>|</Typography>
+                        <Link
+                            href="/privacypolicy"
+                            underline="none"
+                            sx={{
+                                fontSize: '10px',
+                                color: 'var(--color-text-secondary)',
+                                '&:hover': {
+                                    color: 'var(--color-text-muted)'
+                                }
+                            }}
+                        >
                             Privacy Policy
                         </Link>
-                        <Typography sx={{ color: '#f3efd2', fontSize: '10px' }}>|</Typography>
-                        <Link href="/termsofuse" underline="none" sx={{ fontSize: '10px', color: '#f3efd2', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        <Typography sx={{ color: 'var(--color-text-secondary)', fontSize: '10px' }}>|</Typography>
+                        <Link
+                            href="/termsofuse"
+                            underline="none"
+                            sx={{
+                                fontSize: '10px',
+                                color: 'var(--color-text-secondary)',
+                                '&:hover': {
+                                    color: 'var(--color-text-muted)'
+                                }
+                            }}
+                        >
                             Terms of Use
                         </Link>
-                        <Typography sx={{ color: '#f3efd2', fontSize: '10px' }}>|</Typography>
-                        <Link href="/sitemap" underline="none" sx={{ fontSize: '10px', color: '#f3efd2', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        <Typography sx={{ color: 'var(--color-text-secondary)', fontSize: '10px' }}>|</Typography>
+                        <Link
+                            href="/sitemap"
+                            underline="none"
+                            sx={{
+                                fontSize: '10px',
+                                color: 'var(--color-text-secondary)',
+                                '&:hover': {
+                                    color: 'var(--color-text-muted)'
+                                }
+                            }}
+                        >
                             Site Map
                         </Link>
                     </Box>
 
-                    <Typography sx={{ color: '#f3efd2' }} fontSize={10}>United States</Typography>
+                    <Typography
+                        sx={{ color: 'var(--color-text-secondary)' }}
+                        fontSize={10}
+                    >
+                        United States
+                    </Typography>
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mt: 2,
+                        gap: 1
+                    }}
+                >
+                    <img
+                        src="/siteAssets/placeHolder.png"
+                        alt="Vivreal Logo"
+                        style={{ width: '16px', height: '16px' }}
+                    />
+                    <Typography sx={{ fontSize: '10px', color: 'var(--color-text-secondary)' }}>
+                        Powered by Vivreal
+                    </Typography>
                 </Box>
             </Box>
         );

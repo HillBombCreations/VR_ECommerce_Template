@@ -5,27 +5,27 @@ import Cookies from "js-cookie";
 // Wrappers
 import Header from "../../../components/wrappers/header";
 import Footer from "../../../components/wrappers/footer";
-import CookiePopup from "../../../components/pages/landing/cookiePopup";
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 
 // MUI
 import { Box, Typography, Container, Divider, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-// Styled Components
+// Styled Components using CSS variables
 const PageContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
   minHeight: "100vh",
   width: "100vw",
   overflowX: "hidden",
-  backgroundColor: "#fff",
+  backgroundColor: "var(--color-surface)",
 }));
 
 const ContentWrapper = styled(Container)(({ theme }) => ({
   flexGrow: 1,
   paddingTop: "80px",
   paddingBottom: "50px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   maxWidth: "800px",
   textAlign: "left",
   [theme.breakpoints.down("sm")]: {
@@ -39,13 +39,13 @@ const ContentWrapper = styled(Container)(({ theme }) => ({
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "#5d8842",
+  color: "var(--color-primary)",
   marginBottom: "15px",
 }));
 
 const SectionSubtitle = styled(Typography)(() => ({
   fontSize: "1.2rem",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   marginBottom: "15px",
 }));
 
@@ -58,7 +58,7 @@ const StyledListItem = styled("li")(() => ({
   fontSize: "1rem",
   lineHeight: "1.5",
   marginBottom: "10px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
 }));
 
 const FulfillmentPolicy = () => {
@@ -79,24 +79,21 @@ const FulfillmentPolicy = () => {
       <ContentWrapper>
         <SectionTitle>Fulfillment and Refund Policy</SectionTitle>
         <SectionSubtitle>
-          {/* UPDATE effective/last updated dates */}
           <strong>Effective Date:</strong> MM/DD/YYYY <br />
           <strong>Last Updated:</strong> MM/DD/YYYY
         </SectionSubtitle>
 
         <Typography paragraph>
-          {/* UPDATE company name and context */}
           At <strong>[Your Company Name]</strong>, we’re committed to providing high-quality products and services. All orders are handled with care and attention to ensure a great customer experience.
         </Typography>
 
-        <Divider sx={{ my: 3, backgroundColor: "#5d8842" }} />
+        <Divider sx={{ my: 3, backgroundColor: "var(--color-primary)" }} />
 
         <SectionTitle>Order Fulfillment</SectionTitle>
         <Typography paragraph>
           Orders are processed as quickly as possible. Once an order is placed:
         </Typography>
         <StyledList>
-          {/* UPDATE timelines & options */}
           <StyledListItem>Orders are typically ready within <strong>2–3 business days</strong>.</StyledListItem>
           <StyledListItem>You'll receive a confirmation email when your order is ready.</StyledListItem>
           <StyledListItem><strong>Shipping or delivery availability</strong> may vary depending on product or location.</StyledListItem>
@@ -109,7 +106,6 @@ const FulfillmentPolicy = () => {
 
         <SectionTitle>Return & Refund Policy</SectionTitle>
         <Typography paragraph>
-          {/* UPDATE product type if needed */}
           Due to the nature of our products and services, <strong>returns are not accepted</strong>. If you experience any issues, we’ll work with you to find a solution.
         </Typography>
 
@@ -117,7 +113,6 @@ const FulfillmentPolicy = () => {
         <StyledList>
           <StyledListItem>We offer refunds or replacements for <strong>defective, missing, or incorrect items</strong>.</StyledListItem>
           <StyledListItem>Please contact us within <strong>24 hours</strong> of receiving your order.</StyledListItem>
-          {/* UPDATE contact */}
           <StyledListItem>Email <strong>[your@email.com]</strong> and include your order number and photo(s) if applicable.</StyledListItem>
         </StyledList>
 
@@ -134,7 +129,6 @@ const FulfillmentPolicy = () => {
 
         <SectionTitle>Accepted Payment Methods</SectionTitle>
         <Typography paragraph>
-          {/* UPDATE accepted methods */}
           We accept <strong>Visa, Mastercard, American Express, Discover, and PayPal</strong>.
         </Typography>
 
@@ -142,18 +136,18 @@ const FulfillmentPolicy = () => {
         <Typography paragraph>If you have any questions, please reach out:</Typography>
         <StyledList>
           <StyledListItem>
-            {/* UPDATE */}
             <strong>Email:</strong>{" "}
-            <Link href="mailto:your@email.com" sx={{ color: "#5d8842", fontWeight: "bold" }}>
+            <Link
+              href="mailto:your@email.com"
+              sx={{ color: "var(--color-primary)", fontWeight: "bold" }}
+            >
               your@email.com
             </Link>
           </StyledListItem>
           <StyledListItem>
-            {/* UPDATE */}
             <strong>Phone:</strong> (000) 000-0000
           </StyledListItem>
           <StyledListItem>
-            {/* UPDATE */}
             <strong>Business Address:</strong> 1234 Example St, City, State, ZIP
           </StyledListItem>
         </StyledList>

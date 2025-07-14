@@ -16,14 +16,14 @@ const PageContainer = styled(Box)(() => ({
   minHeight: "100vh",
   width: "100vw",
   overflowX: "hidden",
-  backgroundColor: "#fff",
+  backgroundColor: "var(--color-surface)",
 }));
 
 const ContentWrapper = styled(Container)(({ theme }) => ({
   flexGrow: 1,
   paddingTop: "80px",
   paddingBottom: "50px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   maxWidth: "800px",
   textAlign: "left",
 
@@ -38,7 +38,7 @@ const ContentWrapper = styled(Container)(({ theme }) => ({
 const SectionTitle = styled(Typography)(({ theme }) => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "#5d8842",
+  color: "var(--color-primary)",
   marginBottom: "15px",
 
   [theme.breakpoints.down("sm")]: {
@@ -58,7 +58,7 @@ const StyledListItem = styled("li")(({ theme }) => ({
   fontSize: "1rem",
   lineHeight: 1.6,
   marginBottom: "10px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   wordWrap: "break-word",
 
   [theme.breakpoints.down("sm")]: {
@@ -96,7 +96,7 @@ const SitemapPage = () => {
                     variant="h6"
                     sx={{
                     fontWeight: "bold",
-                    color: "#5d8842",
+                    color: "var(--color-primary)",
                     mb: 1,
                     fontSize: { xs: "1.1rem", sm: "1.25rem" },
                     }}
@@ -109,7 +109,7 @@ const SitemapPage = () => {
                         <Link
                         href={page.path}
                         sx={{
-                            color: "#5d8842",
+                            color: "var(--color-primary)",
                             fontWeight: "bold",
                             textDecoration: "none",
                             fontSize: "inherit",
@@ -128,7 +128,7 @@ const SitemapPage = () => {
                 variant="h6"
                 sx={{
                     fontWeight: "bold",
-                    color: "#5d8842",
+                    color: "var(--color-primary)",
                     mb: 1,
                     fontSize: { xs: "1.1rem", sm: "1.25rem" },
                 }}
@@ -143,7 +143,7 @@ const SitemapPage = () => {
                         target={page.external ? "_blank" : "_self"}
                         rel={page.external ? "noopener noreferrer" : undefined}
                         sx={{
-                        color: "#5d8842",
+                        color: "var(--color-primary)",
                         fontWeight: "bold",
                         textDecoration: "none",
                         fontSize: "inherit",

@@ -12,9 +12,9 @@ import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
 
 // Components
-import CookiePopup from "../../../components/pages/landing/cookiePopup/index.jsx";
-// import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 import AddedToCartSnackBar from "./AddedToCartSnackBar.jsx";
+// import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
 
 // MUI Imports
 import {
@@ -23,8 +23,6 @@ import {
 } from "@mui/material";
 import { ShoppingCart, Cancel, FilterList } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
-
-import "../../../App.css";
 
 const PageContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -45,7 +43,7 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   marginTop: theme.spacing(8),
   paddingBottom: theme.spacing(2),
-  borderBottom: "2px solid #5d8842",
+  borderBottom: "2px solid var(--color-primary)",
 }));
 
 const ProductsGrid = styled(Box)(({ theme }) => ({
@@ -77,6 +75,7 @@ const ProductsPage = () => {
     const [loadingFilteredProducts, setLoadingFilteredProducts] = useState(false);
     const [filterType, setFilterType] = useState("");
     const [drawerOpen, setDrawerOpen] = useState(false);
+
     const API_URL = import.meta.env.VITE_API_URL;
     const key = import.meta.env.VITE_CLIENT_KEY;
     const hasMounted = useRef(false);
@@ -113,11 +112,11 @@ const ProductsPage = () => {
     };
 
     const resolveField = (field, product, selectedVariant) => {
-    if (typeof product[field] === 'object' && selectedVariant && product[field]?.[selectedVariant]) {
-        return product[field][selectedVariant];
-    }
+    if (typeof product[field] === 'object' && selectedVariant && product[field]?.[selectedVariant]) return product[field][selectedVariant];
     return product[field];
     };
+
+   
 
     const handleAddToCart = (product) => {
         const selectedVariant = selectedVariants[product.id] || product.usingVariant?.values?.[0];
@@ -175,10 +174,10 @@ const ProductsPage = () => {
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                         <Box
                             sx={{
-                                backgroundColor: '#fffde7',
-                                borderTop: '1px solid #fdd835',
+                                backgroundColor: 'var(--color-surface-alt)',
+                                borderTop: '1px solid var(--color-primary)',
                                 width: '100%',
-                                borderBottom: '1px solid #fdd835',
+                                borderBottom: '1px solid var(--color-primary)',
                                 color: '#795548',
                                 padding: '10px 16px',
                                 textAlign: 'center',
@@ -192,10 +191,10 @@ const ProductsPage = () => {
                         </Box>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px'}}>
-                        <Typography variant="h5" sx={{ fontWeight: "bold", color: "#5d8842" }}>Our Products</Typography>
+                        <Typography variant="h5" sx={{ fontWeight: "bold", color: "var(--color-primary)" }}>Our Products</Typography>
                         <Badge badgeContent={filterType ? 1 : 0} color="error">
                             <IconButton onClick={() => setDrawerOpen(true)}>
-                                <FilterList sx={{ color: "#5d8842" }} />
+                                <FilterList sx={{ color: "var(--color-primary)" }} />
                             </IconButton>
                         </Badge>
                     </div>
@@ -204,18 +203,18 @@ const ProductsPage = () => {
                 <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <Box sx={{ width: 250, padding: 2 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography variant="h6" sx={{ color: '#5d8842', fontWeight: 'bold' }}>Types</Typography>
-                    {filterType && <IconButton onClick={() => handleSetFilterType('')}><Cancel sx={{ color: '#5d8842' }} /></IconButton>}
+                    <Typography variant="h6" sx={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Types</Typography>
+                    {filterType && <IconButton onClick={() => handleSetFilterType('')}><Cancel sx={{ color: 'var(--color-primary)' }} /></IconButton>}
                     </Box>
                     <RadioGroup value={filterType} onChange={(e) => handleSetFilterType(e.target.value)}>
                     {types.map(type => (
-                        <FormControlLabel key={type.value} value={type.value} control={<Radio sx={{ color: '#5d8842', '&.Mui-checked': { color: '#5d8842' } }} />} label={type.label} />
+                        <FormControlLabel key={type.value} value={type.value} control={<Radio sx={{ color: 'var(--color-primary)', '&.Mui-checked': { color: 'var(--color-primary)' } }} />} label={type.label} />
                     ))}
                     </RadioGroup>
                 </Box>
                 </Drawer>
 
-                {loadingFilteredProducts ? <CircularProgress sx={{ color: "#5d8842" }} /> : (
+                {loadingFilteredProducts ? <CircularProgress sx={{ color: "var(--color-primary)" }} /> : (
                 <ProductsGrid>
                     {products.map(product => (
                     <ProductCard key={product.id} onClick={() => navigate(`/product/${product.id}`)}>
@@ -239,20 +238,16 @@ const ProductsPage = () => {
                                             px: 1.5,
                                             borderRadius: "12px",
                                             textTransform: "none",
-                                            backgroundColor: isSelected ? "#5d8842" : "transparent",
-                                            color: isSelected ? "#fff" : "#5d8842",
+                                            backgroundColor: isSelected ? "var(--color-primary)" : "transparent",
+                                            color: isSelected ? "#fff" : "var(--color-primary)",
                                             fontWeight: isSelected ? 600 : 500,
-                                            border: isSelected ? "none" : "1px solid #5d8842",
+                                            border: isSelected ? "none" : "1px solid var(--color-primary)",
                                             outline: "none",
                                             boxShadow: "none",
                                             WebkitTapHighlightColor: "transparent",
-                                            '&:hover': {
-                                            backgroundColor: isSelected ? "#4a7336" : "#e0f2e0",
-                                            border: isSelected ? "none" : "1px solid #365b99",
-                                            },
                                             '&:focus': {
-                                            outline: "none",
-                                            boxShadow: "none",
+                                                outline: "none",
+                                                boxShadow: "none",
                                             }
                                         }}
                                     >
@@ -263,13 +258,18 @@ const ProductsPage = () => {
                             </Box>
                         )}
                         <Typography variant="h6" sx={{ fontWeight: "bold", ml: 1 }}>{resolveField("name", product, selectedVariants[product.id])}</Typography>
-                        <Typography variant="body2" sx={{ ml: 1 }} color="textSecondary">{truncate(resolveField("description", product, selectedVariants[product.id]))}</Typography>
-                        <Typography variant="h6" sx={{ color: "#5d8842", fontWeight: "bold", ml: 1 }}>${resolveField("price", product, selectedVariants[product.id])}</Typography>
-                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                        <Typography variant="body2" sx={{ ml: 1, color: "var(--color-text-secondary)" }}>{truncate(resolveField("description", product, selectedVariants[product.id]))}</Typography>
+                        <Typography variant="h6" sx={{ color: "var(--color-primary)", fontWeight: "bold", ml: 1 }}>${resolveField("price", product, selectedVariants[product.id])}</Typography>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
                             <Button
                                 variant="contained"
                                 fullWidth
-                                sx={{ mt: 1, width: '90%', backgroundColor: "#5d8842", '&:hover': { backgroundColor: "#4a7336" } }}
+                                sx={{ mt: 1, width: '90%', backgroundColor: "var(--color-primary)", '&:hover': { backgroundColor: "var(--color-primary-hover)" } }}
                                 onClick={(e) => { e.stopPropagation(); handleAddToCart(product); }}
                                 startIcon={<ShoppingCart />}
                             >Add to Cart</Button>

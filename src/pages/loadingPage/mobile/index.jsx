@@ -32,9 +32,10 @@ const LoadingPage = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#f8f1e5',
+          backgroundColor: 'var(--color-surface-alt)',
           padding: 2,
-          textAlign: 'center'
+          textAlign: 'center',
+          transition: 'var(--transition-base)'
         }}
       >
         <img
@@ -53,12 +54,13 @@ const LoadingPage = () => {
           variant="h6"
           sx={{
             fontWeight: '600',
-            color: '#8B4513',
+            color: 'var(--color-text-primary)',
             textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)',
             overflow: 'hidden',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
             maxWidth: '90%',
+            transition: 'var(--transition-base)'
           }}
         >
           {saying}

@@ -1,11 +1,20 @@
 import { useState, useEffect, useContext } from 'react';
 import { AppBar, Toolbar, IconButton, Badge, Slide, Box } from '@mui/material';
 import { Menu, ShoppingCart } from '@mui/icons-material';
+import { styled } from "@mui/material/styles";
 import NavigationContext from '../../../../context/navigation';
 import CartContext from '../../../../context/cartContext';
 import formatStringFns from '../../../../utils/formatStringFns';
 import TransitionDialog from './transitionDialog';
 import CartDialog from './cartDialog';
+
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  backgroundColor: "var(--color-primary)",
+  boxShadow: "var(--shadow-medium)",
+  zIndex: theme.zIndex.drawer + 1,
+  width: '100%',
+  height: '60px'
+}));
 
 const MobileHeader = () => {
     const navigation = useContext(NavigationContext);
@@ -60,7 +69,7 @@ const MobileHeader = () => {
     return (
         <>
             <Slide appear={true} direction="down" in={showMenu}>
-                <AppBar className="headerBG primaryColor" position="fixed" sx={{ width: '100%', height: '60px' }} elevation={0}>
+                <StyledAppBar  position="fixed" elevation={0}>
                     <Toolbar
                         sx={{
                             display: 'flex',
@@ -73,7 +82,7 @@ const MobileHeader = () => {
                             edge="start"
                             color="inherit"
                             onClick={() => setOpenMenu(true)}
-                            sx={{ color: '#e8f5e9' }}
+                            sx={{ color: 'var(--color-surface)' }}
                         >
                             <Menu />
                         </IconButton>
@@ -91,13 +100,13 @@ const MobileHeader = () => {
                         >
                             <img src="/siteAssets/placeHolder.png" alt="DK Logo" style={{ width: '40px', height: 'auto' }} />
                         </Box>
-                        <IconButton onClick={() => setOpenCartMenu(true)} sx={{ color: '#e8f5e9' }}>
+                        <IconButton onClick={() => setOpenCartMenu(true)} sx={{ color: 'var(--color-surface)' }}>
                             <Badge badgeContent={cartCount} color="error">
                                 <ShoppingCart />
                             </Badge>
                         </IconButton>
                     </Toolbar>
-                </AppBar>
+                </StyledAppBar>
             </Slide>
             <TransitionDialog pages={pages} open={openMenu} closeMenu={() => setOpenMenu(false)} />
             <CartDialog open={openCartMenu} onClose={() => setOpenCartMenu(false)} />

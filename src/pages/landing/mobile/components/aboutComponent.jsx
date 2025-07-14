@@ -20,7 +20,7 @@ const SectionWrapper = styled(Box)(() => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "#e3ebdf",
+  backgroundColor: "var(--color-surface-alt)",
   padding: "5vh 5vw",
   gap: "20px",
 }));
@@ -64,13 +64,13 @@ const TextContainer = styled(Box)(() => ({
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   marginBottom: "2vh",
 }));
 
 const SectionSubtitle = styled(Typography)(() => ({
   fontSize: "1rem",
-  color: "#5c5c5c",
+  color: "var(--color-text-secondary)",
   lineHeight: "1.6",
   textAlign: 'start',
 }));

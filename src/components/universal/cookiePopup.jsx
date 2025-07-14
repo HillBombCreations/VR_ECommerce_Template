@@ -52,7 +52,7 @@ class CookiePopup extends Component {
                                         </Typography>
                                     </Box>
                                     <Stack gap={2} direction={{ xs: 'row-reverse', sm: 'row' }} sx={{ flexShrink: 0, alignSelf: { xs: 'flex-end', sm: 'center' } }}>
-                                        <Button disableElevation className='primaryBackground' size="small" onClick={closeBanner} variant="contained">
+                                        <Button disableElevation sx={{ background: 'var(--color-primary)'}} size="small" onClick={closeBanner} variant="contained">
                                             Accept
                                         </Button>
                                     </Stack>

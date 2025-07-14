@@ -1,6 +1,5 @@
 :root {
   line-height: 1.5;
-
   color-scheme: light dark;
   background-color: black;
   font-synthesis: none;
@@ -9,6 +8,16 @@
   -moz-osx-font-smoothing: grayscale;
   font-family: Poppins,sans-serif;
   color: black;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f9fafb;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #6b7280;
+  --color-text-inverse: #ffffff;
+  --shadow-medium: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  --radius-base: 8px;
+  --transition-base: all 0.3s ease;
 }
 
 body {

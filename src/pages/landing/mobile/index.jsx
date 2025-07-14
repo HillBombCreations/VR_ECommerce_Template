@@ -10,7 +10,7 @@ import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
 
 // Components
-import CookiePopup from "../../../components/pages/landing/cookiePopup/index.jsx";
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 import SliderComponent from "./components/slider.jsx";
 import CardComponent from "./components/cardComponent.jsx";
 import ContactComponent from "./components/contactComponent.jsx";
@@ -32,7 +32,7 @@ const PageContainer = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   gap: theme.spacing(6),
   overflowY: "auto",
-  background: "#fff",
+  background: "var(--color-surface)",
   scrollBehavior: "smooth",
   boxSizing: "border-box",
   width: "100vw",
@@ -44,8 +44,8 @@ const LandingSection = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  background: "#fff",
-  color: "#3c4748",
+  background: "var(--color-surface)",
+  color: 'var(--color-text-primary)',
   flexDirection: "column",
   gap: "5vw",
   textAlign: "center",
@@ -65,14 +65,14 @@ const LandingTitle = styled(Typography)(() => ({
   fontSize: "2.5rem",
   fontWeight: "bold",
   textTransform: "uppercase",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   marginBottom: "16px",
 }));
 
 const LandingSubtitle = styled(Typography)(() => ({
   fontSize: "1rem",
   lineHeight: 1.5,
-  color: "#5c5c5c",
+  color: "var(--color-text-secondary)",
   marginBottom: "24px",
   maxWidth: "90vw",
 }));
@@ -80,7 +80,7 @@ const LandingSubtitle = styled(Typography)(() => ({
 const LandingLogo = styled("img")(() => ({
   maxWidth: "300px",
   height: "auto",
-  filter: "drop-shadow(0px 4px 10px rgba(208, 173, 123, 0.5))",
+  filter: "drop-shadow(var(--shadow-medium))",
 }));
 
 const LandingWrapper = styled(Box)(() => ({
@@ -92,35 +92,27 @@ const LandingWrapper = styled(Box)(() => ({
 }));
 
 const LandingButton = styled(Button)(({ theme }) => ({
-  fontSize: "1rem",
-  fontWeight: "bold",
-  textTransform: "uppercase",
-  color: "#ffffff",
-  background: "linear-gradient(135deg, #5d8842 0%, #3c5f2c 100%)",
-  padding: theme.spacing(1.5, 4),
-  borderRadius: "50px",
-  boxShadow: "0px 4px 15px rgba(93, 136, 66, 0.3)",
-  transition: "all 0.4s ease-in-out",
-  position: "relative",
-  overflow: "hidden",
-  "&::before": {
-    content: '""',
-    position: "absolute",
-    top: 0,
-    left: "-100%",
-    width: "300%",
-    height: "100%",
-    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
-    transition: "all 0.4s ease-in-out",
-  },
-  "&:hover::before": {
-    left: "100%",
-  },
-  "&:hover": {
-    background: "linear-gradient(135deg, #3c5f2c 0%, #5d8842 100%)",
-    boxShadow: "0px 8px 25px rgba(93, 136, 66, 0.6)",
-    transform: "translateY(-3px)",
-  },
+    fontSize: "1rem",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    color: 'var(--color-text-inverse)',
+    background: 'var(--color-primary)',
+    padding: theme.spacing(1.5, 4),
+    borderRadius: 'var(--radius-base)',
+    boxShadow: 'var(--shadow-medium)',
+    transition: 'var(--transition-base)',
+    position: "relative",
+    overflow: "hidden",
+    "&::before": {
+        content: '""',
+        position: "absolute",
+        top: 0,
+        left: "-100%",
+        width: "300%",
+        height: "100%",
+        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
+        transition: "all 0.4s ease-in-out",
+    }
 }));
 
 const LandingPage = () => {

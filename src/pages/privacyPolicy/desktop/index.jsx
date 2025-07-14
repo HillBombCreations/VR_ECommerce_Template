@@ -3,31 +3,32 @@ import { Component } from "react";
 import Cookies from "js-cookie";
 
 // Wrappers
-import Header from "../../../components/wrappers/header/index.jsx";
-import Footer from "../../../components/wrappers/footer/index.jsx";
-import CookiePopup from "../../../components/pages/landing/cookiePopup/index.jsx";
+import Header from "../../../components/wrappers/header";
+import Footer from "../../../components/wrappers/footer";
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 
 // MUI Imports
 import { Box, Typography, Container, Divider, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-// Styled Components
+// Styled Components using CSS Variables
 const PageContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
   minHeight: "100vh",
   width: "100vw",
   overflowX: "hidden",
-  backgroundColor: "#fff",
+  backgroundColor: "var(--color-surface)",
 }));
 
 const ContentWrapper = styled(Container)(({ theme }) => ({
   flexGrow: 1,
   paddingTop: "80px",
   paddingBottom: "50px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   maxWidth: "800px",
   textAlign: "left",
+  transition: "var(--transition-base)",
 
   [theme.breakpoints.down("sm")]: {
     paddingTop: "60px",
@@ -40,13 +41,13 @@ const ContentWrapper = styled(Container)(({ theme }) => ({
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "#5d8842",
+  color: "var(--color-primary)",
   marginBottom: "15px",
 }));
 
 const SectionSubtitle = styled(Typography)(() => ({
   fontSize: "1.2rem",
-  color: "#3c4748",
+  color: "var(--color-text-secondary)",
   marginBottom: "15px",
 }));
 
@@ -59,7 +60,7 @@ const StyledListItem = styled("li")(() => ({
   fontSize: "1rem",
   lineHeight: "1.5",
   marginBottom: "10px",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
 }));
 
 export default class PrivacyPolicy extends Component {
@@ -82,16 +83,14 @@ export default class PrivacyPolicy extends Component {
         <ContentWrapper>
           <SectionTitle>Privacy Policy</SectionTitle>
           <SectionSubtitle>
-            {/* UPDATE this date */}
             <strong>Effective Date:</strong> MM/DD/YYYY
           </SectionSubtitle>
 
           <Typography>
-            {/* UPDATE company name */}
             At <strong>[Your Company Name]</strong>, we respect your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data when you visit our website or interact with our services.
           </Typography>
 
-          <Divider sx={{ my: 3, backgroundColor: "#5d8842" }} />
+          <Divider sx={{ my: 3, backgroundColor: "var(--color-primary)" }} />
 
           <SectionTitle>1. Information We Collect</SectionTitle>
           <Typography>
@@ -122,9 +121,7 @@ export default class PrivacyPolicy extends Component {
           </StyledList>
 
           <SectionTitle>3. How We Share Your Information</SectionTitle>
-          <Typography>
-            Your information is never sold. It may be shared with:
-          </Typography>
+          <Typography>Your information is never sold. It may be shared with:</Typography>
           <StyledList>
             <StyledListItem>
               <strong>Service Providers:</strong> Including payment processors, email platforms, hosting services, and delivery partners.
@@ -175,21 +172,27 @@ export default class PrivacyPolicy extends Component {
           <Typography>If you have any questions, please contact us:</Typography>
           <StyledList>
             <StyledListItem>
-              {/* UPDATE */}
               <strong>Email:</strong>{" "}
-              <Link href="mailto:email@example.com" sx={{ color: "#5d8842", fontWeight: "bold" }}>
+              <Link
+                href="mailto:email@example.com"
+                sx={{ color: "var(--color-primary)", fontWeight: "bold" }}
+              >
                 email@example.com
               </Link>
             </StyledListItem>
-            {/* UPDATE */}
-            <StyledListItem><strong>Phone:</strong> (000) 000-0000</StyledListItem>
-            {/* UPDATE */}
-            <StyledListItem><strong>Business Address:</strong> 1234 Example St, City, State ZIP</StyledListItem>
+            <StyledListItem>
+              <strong>Phone:</strong> (000) 000-0000
+            </StyledListItem>
+            <StyledListItem>
+              <strong>Business Address:</strong> 1234 Example St, City, State ZIP
+            </StyledListItem>
           </StyledList>
         </ContentWrapper>
 
         <Footer />
-        {!this.state.acceptedCookieBool ? <CookiePopup acceptCookies={acceptCookies} /> : null}
+        {!this.state.acceptedCookieBool ? (
+          <CookiePopup acceptCookies={acceptCookies} />
+        ) : null}
       </PageContainer>
     );
   }

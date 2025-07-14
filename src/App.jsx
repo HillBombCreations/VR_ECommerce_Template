@@ -64,6 +64,14 @@ class App extends Component {
 			const { url } = xmlToJSON(data);
 			this.context.setInitialLoadingData(url, componentDictionary);
 		});
+
+		// fetch('/api/theme')
+		// .then((res) => res.json())
+		// .then((data) => {
+		// 	const root = document.documentElement;
+		// 	if (data.primaryColor) root.style.setProperty('--primary-color', data.primaryColor);
+		// 	if (data.secondaryColor) root.style.setProperty('--secondary-color', data.secondaryColor);
+		// });
 	}
 
 	render() {

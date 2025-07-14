@@ -32,7 +32,7 @@ const SectionWrapper = styled(Box)(() => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "#e3ebdf",
+  backgroundColor: "var(--color-surface-alt)",
   paddingTop: "5vh",
   paddingBottom: '5vh',
   gap: "5vh",
@@ -47,8 +47,8 @@ const CardContainer = styled(Box)(() => ({
 }));
 
 const ProductCard = styled(Box)(({ animation }) => ({
-  backgroundColor: "#fff",
-  borderRadius: "20px",
+  backgroundColor: "var(--color-surface)",
+  borderRadius: "var(--radius-base)",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -57,7 +57,7 @@ const ProductCard = styled(Box)(({ animation }) => ({
   height: '70vh',
   paddingLeft: "4%",
   paddingRight: "4%",
-  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+  boxShadow: "var(--shadow-medium)",
   animation: animation ? `${animation} 0.5s ease-in-out` : "none",
   textAlign: "center"
 }));
@@ -74,21 +74,21 @@ const ProductImage = styled("img")(() => ({
 const ProductTitle = styled(Typography)(() => ({
   fontSize: "1.3rem",
   fontWeight: "bold",
-  color: "#333",
+  color: "var(--color-text-primary)",
   marginBottom: "1vh",
 }));
 
 const ProductDescription = styled(Typography)(() => ({
   fontSize: "0.8rem",
-  color: "#666",
+  color: "var(--color-text-secondary)",
   lineHeight: "1.6"
 }));
 
 const ProductButton = styled(Button)(() => ({
   fontSize: "1rem",
   fontWeight: "bold",
-  color: "#fff",
-  background: "#5d8842",
+  color: "var(--color-text-inverse)",
+  background: "var(--color-primary)",
   width: '80%',
   padding: "1vh 2vw",
   borderRadius: "50px",
@@ -97,7 +97,7 @@ const ProductButton = styled(Button)(() => ({
   alignItems: "center",
   marginTop: '5vh',
   "&:hover": {
-    background: "#497235",
+    background: "var(--color-primary-hover)",
     transform: "translateY(-3px)",
   },
 }));
@@ -109,15 +109,15 @@ const NavButtonsContainer = styled(Box)(() => ({
 }));
 
 const NavButton = styled(IconButton)(() => ({
-  background: "rgba(93, 136, 66, 0.9)",
-  color: "#fff",
+  background: "var(--color-primary)",
+  color: "var(--color-text-inverse)",
   borderRadius: "50%",
   textAlign: "center",
-  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+  boxShadow: "var(--shadow-medium)",
   transition: "background 0.3s ease, transform 0.2s ease",
 
   "&:hover": {
-    background: "#497235",
+    background: "var(--color-primary-hover)",
     transform: "scale(1.1)",
   },
 }));

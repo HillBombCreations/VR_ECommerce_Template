@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 // Wrappers
 import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
-import CookiePopup from "../../../components/pages/landing/cookiePopup/index.jsx";
+import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 
 // MUI Imports
 import { Box, Typography, Container, Divider, Link } from "@mui/material";
@@ -18,14 +18,14 @@ const PageContainer = styled(Box)(() => ({
   minHeight: "100vh",
   width: "100vw",
   overflowX: "hidden",
-  backgroundColor: "#fff",
+  backgroundColor: "var(--color-surface)",
 }));
 
 const ContentWrapper = styled(Container)(({ theme }) => ({
   flexGrow: 1,
   paddingTop: "80px",
   paddingBottom: "50px",
-  color: "#3c4748",
+  color: "var(--color-text-secondary)",
   maxWidth: "800px",
   textAlign: "left",
 
@@ -40,13 +40,13 @@ const ContentWrapper = styled(Container)(({ theme }) => ({
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "#5d8842",
+  color: "var(--color-primary-hover)",
   marginBottom: "15px",
 }));
 
 const SectionSubtitle = styled(Typography)(() => ({
   fontSize: "1.2rem",
-  color: "#3c4748",
+  color: "var(--color-text-secondary)",
   marginBottom: "15px",
 }));
 
@@ -59,7 +59,7 @@ const StyledListItem = styled("li")(() => ({
   fontSize: "1rem",
   lineHeight: "1.5",
   marginBottom: "10px",
-  color: "#3c4748",
+  color: "var(--color-text-secondary)",
 }));
 
 export default class PrivacyPolicy extends Component {
@@ -91,7 +91,7 @@ export default class PrivacyPolicy extends Component {
             At <strong>[Your Company Name]</strong>, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and protect your information when you visit our website or use our services.
           </Typography>
 
-          <Divider sx={{ my: 3, backgroundColor: "#5d8842" }} />
+          <Divider sx={{ my: 3, backgroundColor: "var(--color-primary-hover)" }} />
 
           <SectionTitle>1. Information We Collect</SectionTitle>
           <Typography>
@@ -177,7 +177,7 @@ export default class PrivacyPolicy extends Component {
             <StyledListItem>
               {/* UPDATE */}
               <strong>Email:</strong>{" "}
-              <Link href="mailto:email@example.com" sx={{ color: "#5d8842", fontWeight: "bold" }}>
+              <Link href="mailto:email@example.com" sx={{ color: "var(--color-primary-hover)", fontWeight: "bold" }}>
                 email@example.com
               </Link>
             </StyledListItem>

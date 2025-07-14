@@ -8,15 +8,15 @@ export default function ErrorLoadingProducts() {
 
   return (
     <Box
-      sx={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'var(--color-surface-alt)'
-      }}
+        sx={{
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'var(--color-surface-alt)'
+        }}
     >
       <ErrorOutlineIcon sx={{ fontSize: 60, color: 'var(--color-primary)' }} />
       <Typography variant="h6" sx={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>
@@ -32,13 +32,10 @@ export default function ErrorLoadingProducts() {
         variant="contained"
         sx={{
           mt: 2,
-          backgroundColor: 'var(--color-primary)',
+          backgroundColor: 'var(--color-text-primary)',
           color: 'var(--color-surface)',
           borderRadius: '25px',
           padding: '6px 18px',
-          '&:hover': {
-            backgroundColor: 'var(--color-primary-hover)',
-          },
         }}
       >
         Back to Home

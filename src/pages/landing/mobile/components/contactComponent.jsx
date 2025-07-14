@@ -13,7 +13,7 @@ const SectionWrapper = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "#fff",
+  backgroundColor: "var(--color-surface-alt)",
   padding: "5vh 5vw",
   gap: "4vh",
 
@@ -50,13 +50,13 @@ const TextContainer = styled(Box)(() => ({
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "#3c4748",
+  color: "var(--color-text-primary)",
   marginBottom: "2vh",
 }));
 
 const SectionSubtitle = styled(Typography)(() => ({
   fontSize: "1rem",
-  color: "#5c5c5c",
+  color: "var(--color-text-secondary)",
   lineHeight: "1.6",
 }));
 
@@ -72,31 +72,31 @@ const FormContainer = styled(Box)(() => ({
 const StyledTextField = styled(TextField)(() => ({
   width: "100%",
   "& .MuiInputBase-input": {
-    color: "#333",
+    color: "var(--color-text-primary)",
   },
   "& .MuiOutlinedInput-root": {
-    backgroundColor: "#fff",
-    "& fieldset": { borderColor: "#5d8842" },
-    "&:hover fieldset": { borderColor: "#497235" },
-    "&.Mui-focused fieldset": { borderColor: "#5d8842" },
+    backgroundColor: "var(--color-surface)",
+    "& fieldset": { borderColor: "var(--color-primary)" },
+    "&:hover fieldset": { borderColor: "var(--color-primary-hover)" },
+    "&.Mui-focused fieldset": { borderColor: "var(--color-primary)" },
   },
-  "& .MuiInputLabel-root": { color: "#5d8842" },
-  "& .MuiInputLabel-root.Mui-focused": { color: "#5d8842" },
+  "& .MuiInputLabel-root": { color: "var(--color-primary)" },
+  "& .MuiInputLabel-root.Mui-focused": { color: "var(--color-primary)" },
 }));
 
 const SubmitButton = styled(Button)(() => ({
   width: "100%",
   fontSize: "1rem",
   fontWeight: "bold",
-  color: "#fff",
-  background: "#5d8842",
+  color: "var(--color-text-inverse)",
+  background: "var(--color-primary)",
   padding: "1.5vh 4vw",
   borderRadius: "50px",
-  boxShadow: "0px 4px 10px rgba(93, 136, 66, 0.4)",
-  transition: "all 0.3s ease-in-out",
+  boxShadow: "var(--shadow-medium)",
+  transition: "var(--transition-base)",
   "&:hover": {
-    background: "#497235",
-    boxShadow: "0px 6px 20px rgba(93, 136, 66, 0.6)",
+    background: "var(--color-primary-hover)",
+    boxShadow: "var(--shadow-medium)",
     transform: "translateY(-3px)",
   },
 }));
@@ -190,7 +190,7 @@ const ContactSection = ({ contactSection }) => {
                     </Alert>
                 </Snackbar>
                 <Box sx={{ width: "100%", textAlign: 'start' }}>
-                    <Typography component="label" htmlFor="fullName" sx={{ fontWeight: "bold", display: "block", marginBottom: "4px", color: "#3c4748" }}>
+                    <Typography component="label" htmlFor="fullName" sx={{ fontWeight: "bold", display: "block", marginBottom: "4px", color: "var(--color-text-primary)" }}>
                         Full Name
                     </Typography>
                     <StyledTextField
@@ -205,7 +205,7 @@ const ContactSection = ({ contactSection }) => {
                     />
                 </Box>
                 <Box sx={{ width: "100%", textAlign: 'start' }}>
-                    <Typography component="label" htmlFor="fullName" sx={{ fontWeight: "bold", display: "block", marginBottom: "4px", color: "#3c4748" }}>
+                    <Typography component="label" htmlFor="fullName" sx={{ fontWeight: "bold", display: "block", marginBottom: "4px", color: "var(--color-text-primary)" }}>
                         Email Address
                     </Typography>
                     <StyledTextField
@@ -221,7 +221,7 @@ const ContactSection = ({ contactSection }) => {
                     />
                 </Box>
                 <Box sx={{ width: "100%", textAlign: 'start' }}>
-                    <Typography component="label" htmlFor="fullName" sx={{ fontWeight: "bold", display: "block", marginBottom: "4px", color: "#3c4748" }}>
+                    <Typography component="label" htmlFor="fullName" sx={{ fontWeight: "bold", display: "block", marginBottom: "4px", color: "var(--color-text-primary)" }}>
                         Message
                     </Typography>
                     <StyledTextField
@@ -244,7 +244,7 @@ const ContactSection = ({ contactSection }) => {
                     {
                     loadingContact 
                     ?
-                    <CircularProgress size={20} sx={{ color: "#fff" }} />
+                    <CircularProgress size={20} sx={{ color: "var(--color-text-inverse)" }} />
                     :
                     <>
                         {contactSection.buttonLabel}

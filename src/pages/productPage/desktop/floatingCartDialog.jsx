@@ -7,54 +7,57 @@ import axios from "axios";
 import CartContext from "../../../context/cartContext";
 
 const StyledDialog = styled(Dialog)({
-    "& .MuiPaper-root": {
-        position: "absolute",
-        top: "10px",
-        right: "10px",
-        width: "20vw",
-        borderRadius: "12px",
-        padding: "16px",
-        backgroundColor: "#fff",
-        boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
-        overflow: "hidden",
-    },
+  "& .MuiPaper-root": {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    width: "20vw",
+    borderRadius: "var(--radius-base)",
+    padding: "16px",
+    backgroundColor: "var(--color-surface)",
+    boxShadow: "var(--shadow-medium)",
+    overflow: "hidden",
+    transition: "var(--transition-base)",
+  },
 });
 
 const HeaderContainer = styled(Box)({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: "12px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  marginBottom: "12px",
 });
 
 const ProductInfoContainer = styled(Box)({
-    display: "flex",
-    alignItems: "center",
-    gap: "12px",
-    marginBottom: "20px",
+  display: "flex",
+  alignItems: "center",
+  gap: "12px",
+  marginBottom: "20px",
 });
 
 const ViewBagButton = styled(Button)({
-    width: "100%",
-    backgroundColor: "#f5f5f5",
-    color: "#333",
-    marginBottom: "10px",
-    fontWeight: "bold",
-    borderRadius: "25px",
-    "&:hover": {
-        backgroundColor: "#e0e0e0",
-    },
+  width: "100%",
+  backgroundColor: "var(--color-surface-alt)",
+  color: "var(--color-text-primary)",
+  marginBottom: "10px",
+  fontWeight: "bold",
+  borderRadius: "25px",
+  transition: "var(--transition-base)",
+  "&:hover": {
+    backgroundColor: "var(--color-surface)",
+  },
 });
 
 const CheckoutButton = styled(Button)({
-    width: "100%",
-    backgroundColor: "#000",
-    color: "#fff",
-    fontWeight: "bold",
-    borderRadius: "25px",
-    "&:hover": {
-        backgroundColor: "#333",
-    },
+  width: "100%",
+  backgroundColor: "var(--color-text-primary)",
+  color: "var(--color-text-inverse)",
+  fontWeight: "bold",
+  borderRadius: "25px",
+  transition: "var(--transition-base)",
+  "&:hover": {
+    backgroundColor: "rgba(31, 41, 55, 0.8)",
+  },
 });
 
 const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, variant }) => {
@@ -142,7 +145,7 @@ const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, varia
                         <Typography fontWeight="bold">
                             {getSafeFieldValue("name")}
                         </Typography>
-                        <Typography fontSize="0.875rem" color="textSecondary">
+                        <Typography fontSize="0.875rem" sx={{ color: 'var(--color-text-secondary)'}}>
                             {quantity} × ${Number(getSafeFieldValue("price")).toFixed(2)}
                         </Typography>
                         </Box>

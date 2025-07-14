@@ -1,12 +1,26 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState, forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import { styled } from "@mui/material/styles";
 import { Dialog, Paper, Slide, IconButton, Divider, Box, Typography, Link } from '@mui/material';
 import { Close, Home } from '@mui/icons-material';
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="right" ref={ref} {...props} />;
 });
+
+const StyledPaper = styled(Paper)(() => ({
+    backgroundColor: "var(--color-surface)",
+    boxShadow: "var(--shadow-medium)",
+    borderRadius: "var(--radius-base)",
+    position: 'fixed',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+}));
 
 function TransitionDialog({ open, pages, closeMenu }) {
     const [drawerOpen, setDrawerOpen] = useState(open);
@@ -32,10 +46,10 @@ function TransitionDialog({ open, pages, closeMenu }) {
             hideBackdrop
             disableScrollLock
         >
-            <Paper
+            <StyledPaper
                 sx={{
                     position: 'fixed',
-                    backgroundColor: '#fff',
+                    backgroundColor: 'var(--color-text-inverse)',
                     left: 0,
                     top: 0,
                     width: '100%',
@@ -44,21 +58,19 @@ function TransitionDialog({ open, pages, closeMenu }) {
                     flexDirection: 'column',
                 }}
             >
-                {/* Close Button */}
                 <Box 
                     sx={{ 
                         display: 'flex', 
                         justifyContent: 'space-between', 
                         padding: 2, 
-                        backgroundColor: '#fff' 
+                        backgroundColor: 'var(--color-text-inverse)' 
                     }}
                 >
                     <IconButton 
                         aria-label="close" 
                         onClick={backToHome} 
                         sx={{
-                            color: '#5d8842',
-                            '&:hover': { color: '#d0ad7b' },
+                            color: 'var(--color-primary)'
                         }}
                     >
                         <Home sx={{ fontSize: 28 }} />
@@ -67,15 +79,12 @@ function TransitionDialog({ open, pages, closeMenu }) {
                         aria-label="close" 
                         onClick={handleClose} 
                         sx={{
-                            color: '#5d8842',
-                            '&:hover': { color: '#d0ad7b' },
+                            color: 'var(--color-primary)'
                         }}
                     >
                         <Close sx={{ fontSize: 28 }} />
                     </IconButton>
                 </Box>
-
-                {/* Navigation Links */}
                 <Box sx={{ flex: 1, overflowY: 'auto', padding: 2, height: '85vh' }}>
                     {pages.map((section, index) => (
                         <Box
@@ -92,7 +101,7 @@ function TransitionDialog({ open, pages, closeMenu }) {
                                 sx={{
                                     fontWeight: 700,
                                     fontSize: '16px',
-                                    color: '#5d8842',
+                                    color: 'var(--color-primary)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.8px',
                                     display: 'inline-block',
@@ -100,7 +109,7 @@ function TransitionDialog({ open, pages, closeMenu }) {
                             >
                                 {section.name}
                             </Typography>
-                            <Divider sx={{ marginBottom: 2, marginTop: 1, backgroundColor: '#5d8842' }} />
+                            <Divider sx={{ marginBottom: 2, marginTop: 1, backgroundColor: 'var(--color-primary)' }} />
                             {section.subSections.map((subPage, subIndex) => (
                                 <Box
                                     key={`subPage-${subIndex}`}
@@ -110,14 +119,10 @@ function TransitionDialog({ open, pages, closeMenu }) {
                                         paddingY: 1.5,
                                         paddingX: 2,
                                         marginBottom: 1,
-                                        backgroundColor: '#5d8842',
+                                        backgroundColor: 'var(--color-primary)',
                                         borderRadius: '8px',
-                                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+                                        boxShadow: 'var(--shadow-medium)',
                                         transition: 'all 0.3s ease',
-                                        '&:hover': {
-                                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                                            transform: 'translateY(-2px)',
-                                        },
                                     }}
                                 >
                                     <Link
@@ -125,25 +130,19 @@ function TransitionDialog({ open, pages, closeMenu }) {
                                         underline="none"
                                         sx={{
                                             fontSize: '14px',
-                                            color: '#fff',
+                                            color: 'var(--color-text-inverse)',
                                             fontWeight: 500,
                                             flexGrow: 1,
                                             textDecoration: 'none',
-                                            '&:hover': {
-                                                color: 'rgba(0,0,0,0.5)',
-                                            },
                                         }}
                                     >
                                         {subPage.name}
                                     </Link>
                                     <Box
                                         sx={{
-                                            color: '#fff',
+                                            color: 'var(--color-text-inverse)',
                                             fontSize: '14px',
                                             transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                color: 'rgba(0,0,0,0.5)',
-                                            },
                                         }}
                                     >
                                         →
@@ -153,7 +152,7 @@ function TransitionDialog({ open, pages, closeMenu }) {
                         </Box>
                     ))}
                 </Box>
-            </Paper>
+            </StyledPaper>
         </Dialog>
     );
 }

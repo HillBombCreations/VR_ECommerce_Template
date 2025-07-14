@@ -7,12 +7,23 @@ import {
 import axios from "axios";
 import { Close, Remove, Add, Delete } from '@mui/icons-material';
 import CartContext from '../../../../context/cartContext';
+import PropTypes from 'prop-types'
+import { styled } from '@mui/material/styles';
+
+const StyledPaper = styled(Paper)(() => ({
+  height: '100%',
+  width: '35vw',
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: 'var(--color-surface)',
+  boxShadow: 'var(--shadow-medium)',
+  borderRadius: 'var(--radius-base)',
+}));
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="left" ref={ref} {...props} />;
 });
 
-// eslint-disable-next-line react/prop-types
 const CartDialog = ({ open, onClose }) => {
     const { cartItems, setCartItems } = useContext(CartContext);
     const [loadingCheckout, setLoadingCheckout] = useState(false);
@@ -23,11 +34,10 @@ const CartDialog = ({ open, onClose }) => {
     const handleUpdateCart = (productId, type) => {
         let tempCartItems = { ...cartItems };
         if (type === 'add') {
-            tempCartItems[productId].quantity = tempCartItems[productId].quantity + 1;
+            tempCartItems[productId].quantity += 1;
         } else {
-            tempCartItems[productId].quantity = tempCartItems[productId].quantity - 1;
+            tempCartItems[productId].quantity -= 1;
         }
-        
         setCartItems(tempCartItems);
     };
 
@@ -41,16 +51,16 @@ const CartDialog = ({ open, onClose }) => {
         setLoadingCheckout(true);
         const products = Object.values(cartItems).map((item) => ({
             price: typeof item.priceID === 'object' && item.variant
-              ? item.priceID[item.variant]
-              : item.priceID,
+                ? item.priceID[item.variant]
+                : item.priceID,
             quantity: item.quantity,
         }));
-        
+
         const { data } = await axios.post(
             `${API_URL}/tenant/createCheckoutSession`,
             {
-                products: products,
-                stripeKey: stripeKey,
+                products,
+                stripeKey,
                 requiresShipping: false
             },
             {
@@ -62,13 +72,12 @@ const CartDialog = ({ open, onClose }) => {
         );
         if (data && !(data.status && data.status === 400)) window.location.replace(data);
         setLoadingCheckout(false);
-    }
+    };
 
     const resolvePrice = (item) => {
-        if (typeof item.price === 'object' && item.variant) {
-          return item.price[item.variant];
-        }
-        return item.price;
+        return typeof item.price === 'object' && item.variant
+            ? item.price[item.variant]
+            : item.price;
     };
 
     const subtotal = useMemo(() => {
@@ -83,16 +92,31 @@ const CartDialog = ({ open, onClose }) => {
             TransitionComponent={Transition}
             sx={{ width: '35vw', display: 'flex', marginLeft: 'auto' }}
         >
-            <Paper sx={{ height: '100%', width: '35vw', display: 'flex', flexDirection: 'column' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#5d8842', padding: '16px' }}>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#f3efd2' }}>Your Cart</Typography>
-                    <IconButton sx={{ color: '#f3efd2' }} onClick={onClose}>
+            <StyledPaper>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    backgroundColor: 'var(--color-primary)',
+                    padding: '16px'
+                }}>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'var(--color-text-inverse)' }}>
+                        Your Cart
+                    </Typography>
+                    <IconButton sx={{ color: 'var(--color-text-inverse)' }} onClick={onClose}>
                         <Close />
                     </IconButton>
                 </Box>
                 <Box sx={{ flexGrow: 1, overflowY: 'auto', padding: '16px' }}>
                     {Object.keys(cartItems).length === 0 ? (
-                        <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '50px', color: 'rgba(0,0,0,0.6)' }}>
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                textAlign: 'center',
+                                marginTop: '50px',
+                                color: 'var(--color-text-secondary)'
+                            }}
+                        >
                             Your cart is empty. Start shopping!
                         </Typography>
                     ) : (
@@ -111,13 +135,13 @@ const CartDialog = ({ open, onClose }) => {
                                     }}
                                 >
                                     <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
-                                        <Box sx={{ display: 'flex', flexDirection: 'column', width: '20%', alignItems: 'center'}}>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', width: '20%', alignItems: 'center' }}>
                                             <img src={value?.imageSrc || '/siteAssets/placeHolder.png'} alt={value.name} style={{ width: '100%', height: 'auto', borderRadius: 8 }} />
                                         </Box>
                                         <Box sx={{ display: 'flex', flexDirection: 'column', width: '50%', alignItems: 'start', marginLeft: '20px' }}>
                                             <Box>
                                                 <Typography sx={{ fontSize: "1.5rem" }}>{value.name}</Typography>
-                                                <Typography variant="h6" color="textSecondary">
+                                                <Typography variant="h6" sx={{ color: 'var(--color-text-secondary)' }}>
                                                     ${resolvePrice(value)} each
                                                 </Typography>
                                             </Box>
@@ -126,39 +150,59 @@ const CartDialog = ({ open, onClose }) => {
                                             <Box sx={{
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                border: '2px solid #FFC107',
+                                                border: '2px solid var(--color-primary-hover)',
                                                 borderRadius: '20px',
                                                 padding: '4px 12px',
                                                 gap: 1
                                             }}>
-                                                <IconButton 
-                                                    sx={{ color: '#5d8842' }}
-                                                    onClick={() => value.quantity > 1 ? handleUpdateCart(key, 'remove') : removeFromCart(key)}
+                                                <IconButton
+                                                    sx={{ color: 'var(--color-primary)' }}
+                                                    onClick={() =>
+                                                        value.quantity > 1
+                                                            ? handleUpdateCart(key, 'remove')
+                                                            : removeFromCart(key)
+                                                    }
                                                 >
                                                     {value.quantity > 1 ? <Remove /> : <Delete />}
                                                 </IconButton>
                                                 <Typography sx={{ fontSize: '1rem', fontWeight: 'bold' }}>{value.quantity}</Typography>
-                                                <IconButton sx={{ color: '#5d8842' }} onClick={() => handleUpdateCart(key, 'add')}>
+                                                <IconButton
+                                                    sx={{ color: 'var(--color-primary)' }}
+                                                    onClick={() => handleUpdateCart(key, 'add')}
+                                                >
                                                     <Add />
                                                 </IconButton>
                                             </Box>
                                         </Box>
                                     </Box>
-                                    <Box sx={{ display: 'flex', marginTop: '10px', flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        
-                                    </Box>
-                                    <Divider sx={{ color: '#ddd' }} />
+                                    <Box sx={{
+                                        display: 'flex',
+                                        marginTop: '10px',
+                                        flexDirection: 'row',
+                                        width: '100%',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }} />
+                                    <Divider sx={{ color: 'var(--color-surface-alt)' }} />
                                 </Box>
                             </div>
                         ))
                     )}
                 </Box>
                 {Object.keys(cartItems).length > 0 && (
-                    <Box sx={{ padding: '16px', borderTop: '1px solid #ddd', display: 'flex', flexDirection: 'row', background: '#fff', textAlign: 'center', justifyContent: 'space-between' }}>
+                    <Box sx={{
+                        padding: '16px',
+                        borderTop: '1px solid var(--color-surface-alt)',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        background: 'var(--color-surface)',
+                        textAlign: 'center',
+                        justifyContent: 'space-between'
+                    }}>
                         <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
                             Subtotal:
                         </Typography>
-                        <Typography variant="h5" sx={{ fontWeight: 'bold', color: "#5d8842" }}>
+                        <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'var(--color-primary)' }}>
                             ${subtotal.toFixed(2)}
                         </Typography>
                     </Box>
@@ -167,33 +211,36 @@ const CartDialog = ({ open, onClose }) => {
                     display: 'flex',
                     justifyContent: 'center',
                     padding: '16px',
-                    borderTop: '1px solid #ddd',
-                    background: '#fff'
+                    borderTop: '1px solid var(--color-surface-alt)',
+                    background: 'var(--color-surface)'
                 }}>
                     <Button
                         variant="contained"
                         sx={{
                             width: '100%',
-                            backgroundColor: "#5d8842",
-                            color: "white",
+                            backgroundColor: 'var(--color-primary)',
+                            color: 'var(--color-text-inverse)',
                             padding: '14px',
                             fontSize: "1rem",
-                            '&:hover': { backgroundColor: "#4a7336" },
+                            '&:hover': { backgroundColor: 'var(--color-primary-hover)' },
                         }}
                         disabled={Object.keys(cartItems).length === 0 || loadingCheckout}
                         onClick={handleCheckout}
                     >
                         {
-                            loadingCheckout ?
-                            <CircularProgress size={20} sx={{ color: "#5d8842" }} />
-                            :
-                            'Proceed to Checkout'
+                            loadingCheckout
+                                ? <CircularProgress size={20} sx={{ color: 'var(--color-primary)' }} />
+                                : 'Proceed to Checkout'
                         }
                     </Button>
                 </Box>
-            </Paper>
+            </StyledPaper>
         </Dialog>
     );
 };
 
+CartDialog.propTypes = {
+    open: PropTypes.bool.isRequired,
+    onClose: PropTypes.func
+}
 export default CartDialog;

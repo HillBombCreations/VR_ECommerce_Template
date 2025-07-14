@@ -1,3 +1,4 @@
+<!-- UPDATE from placeholder to your domain name -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url><loc>https://www.placeholder/index.html</loc><component>landing</component><path>/</path></url>
 	<url><loc>https://www.placeholder</loc><component>landing</component><path>/</path></url>

@@ -38,14 +38,15 @@ export default function ShippingBanner() {
             size="small"
             onClick={handleDismissBanner}
             sx={{
-              backgroundColor: 'rgba(93, 136, 66, 0.9)',
-              color: '#fff',
+              backgroundColor: 'var(--color-primary)',
+              color: 'var(--color-text-inverse)',
               textTransform: 'none',
               fontWeight: 500,
               marginRight: 2,
-              borderRadius: '6px',
+              borderRadius: 'var(--radius-base)',
+              transition: 'var(--transition-base)',
               '&:hover': {
-                backgroundColor: '#2f4f87',
+                backgroundColor: 'var(--color-primary-hover)',
               },
             }}
           >
@@ -53,8 +54,8 @@ export default function ShippingBanner() {
           </Button>
         }
         sx={{
-          backgroundColor: '#fefefe',
-          color: '#2e2e2e',
+          backgroundColor: 'var(--color-surface)',
+          color: 'var(--color-text-primary)',
           borderBottom: '1px solid #e0e0e0',
           boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
           py: 1.5,

@@ -82,15 +82,15 @@ const CartDialog = ({ open, onClose }) => {
             sx={{ width: '100vw', display: 'flex', marginLeft: 'auto' }}
         >
             <Paper sx={{ height: '100%', width: '100vw', display: 'flex', overflowY: 'auto', flexDirection: 'column' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#5d8842', padding: '16px' }}>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#f3efd2' }}>Your Cart</Typography>
-                    <IconButton sx={{ color: '#f3efd2' }} onClick={onClose}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--color-primary)', padding: '16px' }}>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'var(--color-text-inverse)' }}>Your Cart</Typography>
+                    <IconButton sx={{ color: 'var(--color-text-inverse)' }} onClick={onClose}>
                         <Close />
                     </IconButton>
                 </Box>
                 <Box sx={{ flexGrow: 1, overflowY: 'auto', width: '90%', padding: '16px' }}>
                     {Object.keys(cartItems).length === 0 ? (
-                        <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '50px', color: 'rgba(0,0,0,0.6)' }}>
+                        <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '50px', color: 'var(--color-text-secondary)' }}>
                             Your cart is empty. Start shopping!
                         </Typography>
                     ) : (
@@ -114,42 +114,42 @@ const CartDialog = ({ open, onClose }) => {
                                         </Box>
                                         <Box sx={{ display: 'flex', flexDirection: 'column', width: '70%', marginLeft: '10vw' }}>
                                             <Typography sx={{ fontSize: "1.5rem" }}>{value.name}</Typography>
-                                            <Typography variant="h6" color="textSecondary">${resolvePrice(value)} each</Typography>
+                                            <Typography variant="h6" sx={{ color: 'var(--color-text-secondary)' }}>${resolvePrice(value)} each</Typography>
                                         </Box>
                                     </Box>
                                     <Box sx={{ display: 'flex', marginTop: '20px', flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
                                          <Box sx={{
                                             display: 'flex',
                                             alignItems: 'center',
-                                            border: '2px solid #FFC107',
+                                            border: '2px solid var(--color-primary-hover)',
                                             borderRadius: '20px',
                                             padding: '4px 12px',
                                             gap: 1
                                         }}>
                                             <IconButton 
-                                                sx={{ color: '#5d8842' }}
+                                                sx={{ color: 'var(--color-primary)' }}
                                                 onClick={() => value.quantity > 1 ? handleUpdateCart(key, 'remove') : removeFromCart(key)}
                                             >
                                                 {value.quantity > 1 ? <Remove /> : <Delete />}
                                             </IconButton>
                                             <Typography sx={{ fontSize: '1rem', fontWeight: 'bold' }}>{value.quantity}</Typography>
-                                            <IconButton sx={{ color: '#5d8842' }} onClick={() => handleUpdateCart(key, 'add')}>
+                                            <IconButton sx={{ color: 'var(--color-primary)' }} onClick={() => handleUpdateCart(key, 'add')}>
                                                 <Add />
                                             </IconButton>
                                         </Box>
                                     </Box>
                                 </Box>
-                                <Divider sx={{ color: '#ddd' }} />
+                                <Divider sx={{ color: 'var(--color-surface-alt)' }} />
                             </div>
                         ))
                     )}
                 </Box>
                 {Object.keys(cartItems).length > 0 && (
-                    <Box sx={{ padding: '16px', borderTop: '1px solid #ddd', display: 'flex', justifyContent: 'space-between', background: '#fff' }}>
+                    <Box sx={{ padding: '16px', borderTop: '1px solid var(--color-surface-alt)', display: 'flex', justifyContent: 'space-between', background: 'var(--color-surface)' }}>
                         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
                             Subtotal:
                         </Typography>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', color: "#5d8842" }}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold', color: "var(--color-primary)" }}>
                             ${subtotal.toFixed(2)}
                         </Typography>
                     </Box>
@@ -158,25 +158,25 @@ const CartDialog = ({ open, onClose }) => {
                     display: 'flex',
                     justifyContent: 'center',
                     padding: '16px',
-                    borderTop: '1px solid #ddd',
-                    background: '#fff'
+                    borderTop: '1px solid var(--color-surface-alt)',
+                    background: 'var(--color-surface)'
                 }}>
                     <Button
                         variant="contained"
                         sx={{
                             width: '90%',
-                            backgroundColor: "#5d8842",
+                            backgroundColor: "var(--color-primary)",
                             color: "white",
                             padding: '14px',
                             fontSize: "1rem",
-                            '&:hover': { backgroundColor: "#4a7336" },
+                            '&:hover': { backgroundColor: "var(--color-primary-hover)" },
                         }}
                         disabled={Object.keys(cartItems).length === 0}
                         onClick={handleCheckout}
                     >
                         {
                             loadingCheckout ?
-                            <CircularProgress size={20} sx={{ color: "#5d8842" }} />
+                            <CircularProgress size={20} sx={{ color: "var(--color-primary)" }} />
                             :
                             'Proceed to Checkout'
                         }

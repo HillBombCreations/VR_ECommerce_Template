@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const AUTO_HIDE_DURATION = 2500;
 
-export default function AddedToCartSnackBar({ itemAdded, setAddedItemToCart, setItemAdded }) {
+export default function AddedToCartSnackBar({ itemAdded, setItemAdded }) {
     const [open, setOpen] = useState(false);
     const [count, setCount] = useState(0);
     const { cartItems } = useContext(CartContext);
@@ -19,7 +19,6 @@ export default function AddedToCartSnackBar({ itemAdded, setAddedItemToCart, set
 
             timerRef.current = setTimeout(() => {
                 setOpen(false);
-                setAddedItemToCart(false);
                 setItemAdded(false);
                 setCount(0);
             }, AUTO_HIDE_DURATION);
@@ -29,18 +28,18 @@ export default function AddedToCartSnackBar({ itemAdded, setAddedItemToCart, set
     return (
         <Snackbar
             open={open}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
             <Alert
                 severity="success"
                 icon={false}
                 sx={{
-                    backgroundColor: '#333',
-                    color: '#fff',
+                    backgroundColor: 'var(--color-text-primary)',
+                    color: 'var(--color-text-inverse)',
                     fontWeight: 'bold',
                     padding: '12px 24px',
                     borderRadius: '10px',
-                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+                    boxShadow: '0px 4px 12px var(--shadow-medium)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
@@ -54,6 +53,5 @@ export default function AddedToCartSnackBar({ itemAdded, setAddedItemToCart, set
 
 AddedToCartSnackBar.propTypes = {
     itemAdded: PropTypes.bool.isRequired,
-    setItemAdded: PropTypes.func.isRequired,
-    setAddedItemToCart: PropTypes.func,
+    setItemAdded: PropTypes.func,
 };
