@@ -112,7 +112,7 @@ const LandingButton = styled(Button)(({ theme }) => ({
         left: '100%',
     },
     '&:hover': {
-        background: 'var(--color-primary-hover)',
+        background: 'var(--color-secondary)',
         boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.15)',
         transform: 'translateY(-3px)',
     },

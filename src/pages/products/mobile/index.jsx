@@ -269,7 +269,7 @@ const ProductsPage = () => {
                             <Button
                                 variant="contained"
                                 fullWidth
-                                sx={{ mt: 1, width: '90%', backgroundColor: "var(--color-primary)", '&:hover': { backgroundColor: "var(--color-primary-hover)" } }}
+                                sx={{ mt: 1, width: '90%', backgroundColor: "var(--color-primary)", '&:hover': { backgroundColor: "var(--color-secondary)" } }}
                                 onClick={(e) => { e.stopPropagation(); handleAddToCart(product); }}
                                 startIcon={<ShoppingCart />}
                             >Add to Cart</Button>

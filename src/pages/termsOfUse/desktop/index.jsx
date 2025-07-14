@@ -39,7 +39,7 @@ const ContentWrapper = styled(Container)(({ theme }) => ({
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "var(--color-primary-hover)",
+  color: "var(--color-secondary)",
   marginBottom: "15px",
 }));
 
@@ -78,7 +78,7 @@ export default class TermsOfUse extends Component {
             <strong>Effective Date:</strong> [MM/DD/YYYY]
           </Typography>
 
-          <Divider sx={{ my: 3, backgroundColor: "var(--color-primary-hover)" }} />
+          <Divider sx={{ my: 3, backgroundColor: "var(--color-secondary)" }} />
 
           <SectionTitle>1. Acceptance of Terms</SectionTitle>
           <Typography>
@@ -153,7 +153,7 @@ export default class TermsOfUse extends Component {
               <strong>Email:</strong>{" "}
               <Link
                 href="mailto:support@example.com"
-                sx={{ color: "var(--color-primary-hover)", fontWeight: "bold" }}
+                sx={{ color: "var(--color-secondary)", fontWeight: "bold" }}
               >
                 support@example.com
               </Link>

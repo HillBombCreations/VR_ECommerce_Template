@@ -121,7 +121,7 @@ const CartDialog = ({ open, onClose }) => {
                                          <Box sx={{
                                             display: 'flex',
                                             alignItems: 'center',
-                                            border: '2px solid var(--color-primary-hover)',
+                                            border: '2px solid var(--color-secondary)',
                                             borderRadius: '20px',
                                             padding: '4px 12px',
                                             gap: 1
@@ -169,7 +169,7 @@ const CartDialog = ({ open, onClose }) => {
                             color: "white",
                             padding: '14px',
                             fontSize: "1rem",
-                            '&:hover': { backgroundColor: "var(--color-primary-hover)" },
+                            '&:hover': { backgroundColor: "var(--color-secondary)" },
                         }}
                         disabled={Object.keys(cartItems).length === 0}
                         onClick={handleCheckout}

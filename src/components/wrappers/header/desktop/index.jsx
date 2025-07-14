@@ -102,11 +102,11 @@ const Header = () => {
                     <Tabs
                         value={currentTab ? currentTab.name : false}
                         TabIndicatorProps={{
-                            style: { backgroundColor: 'var(--color-primary-hover)' },
+                            style: { backgroundColor: 'var(--color-secondary)' },
                         }}
                         sx={{
                             '& .MuiTab-root:hover': {
-                            borderBottom: '2px solid var(--color-primary-hover)',
+                            borderBottom: '2px solid var(--color-secondary)',
                             color: 'var(--color-text-inverse)',
                             backgroundColor: 'transparent'
                             },
@@ -134,7 +134,7 @@ const Header = () => {
                                 textTransform: 'none',
                                 backgroundColor: 'transparent',
                                 '&:hover': {
-                                borderBottom: '2px solid var(--color-primary-hover)',
+                                borderBottom: '2px solid var(--color-secondary)',
                                 color: 'var(--color-text-inverse)',
                                 backgroundColor: 'transparent',
                                 },

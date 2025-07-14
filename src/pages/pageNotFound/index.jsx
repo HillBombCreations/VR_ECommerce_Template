@@ -52,7 +52,7 @@ const StyledButton = styled(Button)(() => ({
   textDecoration: 'none',
   transition: 'var(--transition-base)',
   '&:hover': {
-    background: 'var(--color-primary-hover)',
+    background: 'var(--color-secondary)',
     transform: 'translateY(-3px)',
   },
 }));

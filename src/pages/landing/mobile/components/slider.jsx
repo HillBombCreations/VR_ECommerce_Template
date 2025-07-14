@@ -97,7 +97,7 @@ const ProductButton = styled(Button)(() => ({
   alignItems: "center",
   marginTop: '5vh',
   "&:hover": {
-    background: "var(--color-primary-hover)",
+    background: "var(--color-secondary)",
     transform: "translateY(-3px)",
   },
 }));
@@ -117,7 +117,7 @@ const NavButton = styled(IconButton)(() => ({
   transition: "background 0.3s ease, transform 0.2s ease",
 
   "&:hover": {
-    background: "var(--color-primary-hover)",
+    background: "var(--color-secondary)",
     transform: "scale(1.1)",
   },
 }));

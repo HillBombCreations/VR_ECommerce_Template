@@ -333,8 +333,8 @@ const ProductPage = () => {
                                     fontSize: "1.2rem",
                                     '&:hover': {
                                         backgroundColor: "var(--color-light-hover)",
-                                        borderColor: "var(--color-primary-hover)",
-                                        color: "var(--color-primary-hover)",
+                                        borderColor: "var(--color-secondary)",
+                                        color: "var(--color-secondary)",
                                     },
                                     }}
                                     onClick={handleCheckout}

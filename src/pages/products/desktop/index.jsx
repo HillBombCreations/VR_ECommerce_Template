@@ -467,13 +467,13 @@ const ProductsPage = () => {
                                         ? "var(--color-text-inverse)"
                                         : "var(--color-primary)",
                                         border: isSelected
-                                        ? "2px solid var(--color-primary-hover)"
+                                        ? "2px solid var(--color-secondary)"
                                         : "1px solid var(--color-primary)",
                                         fontWeight: isSelected ? 600 : 500,
                                         transition: "var(--transition-base)",
                                         "&:hover": {
                                         backgroundColor: isSelected
-                                            ? "var(--color-primary-hover)"
+                                            ? "var(--color-secondary)"
                                             : "#e0f2e0",
                                         },
                                     }}
@@ -534,7 +534,7 @@ const ProductsPage = () => {
                                 backgroundColor: "var(--color-primary)",
                                 color: "var(--color-text-inverse)",
                                 "&:hover": {
-                                backgroundColor: "var(--color-primary-hover)",
+                                backgroundColor: "var(--color-secondary)",
                                 },
                             }}
                             startIcon={<ShoppingCart />}

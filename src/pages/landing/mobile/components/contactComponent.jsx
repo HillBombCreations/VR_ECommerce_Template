@@ -77,7 +77,7 @@ const StyledTextField = styled(TextField)(() => ({
   "& .MuiOutlinedInput-root": {
     backgroundColor: "var(--color-surface)",
     "& fieldset": { borderColor: "var(--color-primary)" },
-    "&:hover fieldset": { borderColor: "var(--color-primary-hover)" },
+    "&:hover fieldset": { borderColor: "var(--color-secondary)" },
     "&.Mui-focused fieldset": { borderColor: "var(--color-primary)" },
   },
   "& .MuiInputLabel-root": { color: "var(--color-primary)" },
@@ -95,7 +95,7 @@ const SubmitButton = styled(Button)(() => ({
   boxShadow: "var(--shadow-medium)",
   transition: "var(--transition-base)",
   "&:hover": {
-    background: "var(--color-primary-hover)",
+    background: "var(--color-secondary)",
     boxShadow: "var(--shadow-medium)",
     transform: "translateY(-3px)",
   },

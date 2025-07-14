@@ -37,7 +37,7 @@ export default function ErrorLoadingProducts() {
           borderRadius: '25px',
           padding: '6px 18px',
           '&:hover': {
-            backgroundColor: 'var(--color-primary-hover)',
+            backgroundColor: 'var(--color-secondary)',
           },
         }}
       >

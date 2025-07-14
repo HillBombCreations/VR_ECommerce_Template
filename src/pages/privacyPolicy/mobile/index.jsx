@@ -40,7 +40,7 @@ const ContentWrapper = styled(Container)(({ theme }) => ({
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "var(--color-primary-hover)",
+  color: "var(--color-secondary)",
   marginBottom: "15px",
 }));
 
@@ -91,7 +91,7 @@ export default class PrivacyPolicy extends Component {
             At <strong>[Your Company Name]</strong>, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and protect your information when you visit our website or use our services.
           </Typography>
 
-          <Divider sx={{ my: 3, backgroundColor: "var(--color-primary-hover)" }} />
+          <Divider sx={{ my: 3, backgroundColor: "var(--color-secondary)" }} />
 
           <SectionTitle>1. Information We Collect</SectionTitle>
           <Typography>
@@ -177,7 +177,7 @@ export default class PrivacyPolicy extends Component {
             <StyledListItem>
               {/* UPDATE */}
               <strong>Email:</strong>{" "}
-              <Link href="mailto:email@example.com" sx={{ color: "var(--color-primary-hover)", fontWeight: "bold" }}>
+              <Link href="mailto:email@example.com" sx={{ color: "var(--color-secondary)", fontWeight: "bold" }}>
                 email@example.com
               </Link>
             </StyledListItem>

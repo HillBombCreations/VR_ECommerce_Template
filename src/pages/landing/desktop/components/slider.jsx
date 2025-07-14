@@ -146,7 +146,7 @@ const ProductButton = styled(Button)(() => ({
     transition: "transform 0.3s ease, opacity 0.3s ease",
   },
   "&:hover": {
-    background: "var(--color-primary-hover)",
+    background: "var(--color-secondary)",
     transform: "translateY(-3px)",
   },
   "&:hover .arrow": {
@@ -163,7 +163,7 @@ const NavButton = styled(IconButton)(() => ({
   boxShadow: "var(--shadow-medium)",
   transition: "background 0.3s ease, transform 0.2s ease",
   "&:hover": {
-    background: "var(--color-primary-hover)",
+    background: "var(--color-secondary)",
     transform: "scale(1.1)",
   },
 }));

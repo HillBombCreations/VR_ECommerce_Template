@@ -38,7 +38,7 @@ const ContentWrapper = styled(Container)(({ theme }) => ({
 const SectionTitle = styled(Typography)(() => ({
   fontSize: "2rem",
   fontWeight: "bold",
-  color: "var(--color-primary-hover)",
+  color: "var(--color-secondary)",
   marginBottom: "15px",
 }));
 
@@ -56,12 +56,12 @@ const StyledListItem = styled("li")(() => ({
 
 const StyledGroupTitle = styled(Typography)(() => ({
   fontWeight: "bold",
-  color: "var(--color-primary-hover)",
+  color: "var(--color-secondary)",
   marginBottom: "8px",
 }));
 
 const StyledLink = styled(Link)(() => ({
-  color: "var(--color-primary-hover)",
+  color: "var(--color-secondary)",
   fontWeight: "bold",
   textDecoration: "none",
   transition: "var(--transition-base)",

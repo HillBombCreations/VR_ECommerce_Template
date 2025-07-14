@@ -46,7 +46,7 @@ export default function ShippingBanner() {
               borderRadius: 'var(--radius-base)',
               transition: 'var(--transition-base)',
               '&:hover': {
-                backgroundColor: 'var(--color-primary-hover)',
+                backgroundColor: 'var(--color-secondary)',
               },
             }}
           >

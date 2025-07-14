@@ -20,7 +20,7 @@ const NavLink = styled('a', {
   shouldForwardProp: (prop) => prop !== 'noBorder',
 })(({ noBorder }) => ({
   display: 'block',
-  borderBottom: noBorder ? 'none' : '1px solid var(--color-primary-hover)',
+  borderBottom: noBorder ? 'none' : '1px solid var(--color-secondary)',
   padding: '15px 20px',
   width: '200px',
   textDecoration: 'none',
