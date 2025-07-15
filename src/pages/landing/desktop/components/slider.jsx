@@ -3,6 +3,7 @@ import { Box, Typography, Button, IconButton } from "@mui/material";
 import { styled, keyframes } from "@mui/material/styles";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import PropTypes from "prop-types";
+import { useNavigate } from 'react-router-dom';
 
 // Keyframe Animations
 const slideInRight = keyframes`
@@ -172,6 +173,8 @@ const ProductCarousel = ({ exploreProducts, exploreProductSection }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationType, setAnimationType] = useState(slideInRight);
 
+  const navigate = useNavigate();
+
   const nextCard = () => {
     setAnimationType(slideOutLeft);
     setTimeout(() => {
@@ -209,7 +212,12 @@ const ProductCarousel = ({ exploreProducts, exploreProductSection }) => {
               <ProductDescription>
                 {exploreProducts[currentIndex].description}
               </ProductDescription>
-              <ProductButton href={exploreProducts[currentIndex].link}>
+              <ProductButton
+                onClick={() => {
+                  const productType = exploreProducts[currentIndex].productType;
+                  navigate(`/products?filter=${encodeURIComponent(productType)}`);
+                }}
+              >
                 {exploreProducts[currentIndex].buttonLabel}
               </ProductButton>
             </ProductContent>

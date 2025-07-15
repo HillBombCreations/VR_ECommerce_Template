@@ -5,14 +5,14 @@
   overflow-x: hidden;
 }
 :root {
-  --color-primary: #3b82f6;
+  /* --color-primary: #3b82f6;
   --color-secondary: 	#2563eb;
   --color-hover: #b9d2fa;
   --color-surface: #ffffff;
   --color-surface-alt: #f9fafb;
   --color-text-primary: #1f2937;
   --color-text-secondary: #6b7280;
-  --color-text-inverse: #ffffff;      
+  --color-text-inverse: #ffffff; */
   --color-success: #5d8842;
   --color-error: #ff6f61;
   --shadow-medium: 0px 4px 10px rgba(0, 0, 0, 0.1);

@@ -181,12 +181,13 @@ const LandingPage = () => {
         }).then((fetchedExploreProducts) => {
             const formattedExplorerProducts = fetchedExploreProducts.data.map((obj) => {
                 return {
-                    id: obj.objectValue.productId,
+                    id: obj.objectValue._id,
                     image: obj.objectValue.image,
                     title: obj.objectValue.title,
                     description: obj.objectValue.description,
                     link: obj.objectValue.link,
                     buttonLabel: obj.objectValue.buttonLabel,
+                    productType: obj.objectValue['product-type']
                 }
             });
             setExploreProductData(formattedExplorerProducts);
@@ -201,7 +202,7 @@ const LandingPage = () => {
         }).then((fetchedCardSectionData) => {
             const formattedCardSection = fetchedCardSectionData.data.map((obj) => {
                 return {
-                    id: obj.objectValue.productId,
+                    id: obj.objectValue._id,
                     image: obj.objectValue.image,
                     title: obj.objectValue.title,
                     description: obj.objectValue.description,
@@ -218,6 +219,7 @@ const LandingPage = () => {
 
     const handleSiteData = async () => {
         try {
+            await getSiteDataCall();
             if (!lastUpdatedAt) await getSiteDataCall();
             else {
                 const { data } = await axios.get(`${API_URL}/tenant/checkLastUpdateAt`, {
@@ -275,7 +277,7 @@ const LandingPage = () => {
                                     <LandingButton onClick={() => navigate('/products')} variant="contained">{topSection.buttonLabel}</LandingButton>
                                 </LandingContent>
                                 {/* UPDATE */}
-                                <LandingLogo src={topSection.image.currentFile.source} alt="Comapny Name Logo" />
+                                <LandingLogo src={topSection?.image?.currentFile?.source ? topSection.image.currentFile.source : '/siteAssets/placeHolder.png'} alt="Comapny Name Logo" />
                             </LandingWrapper>
                         </LandingSection>
                         <SliderComponent exploreProductSection={exploreProductSection} exploreProducts={exploreProductData}/>

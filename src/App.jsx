@@ -52,9 +52,40 @@ const componentDictionary = {
 	pageNotFound: PageNotFound,
 };
 
+const API_URL = import.meta.env.VITE_API_URL;
+const key = import.meta.env.VITE_CLIENT_KEY;
+const siteColorsId = import.meta.env.VITE_SITE_COLORS_ID;
+
 const getSitemap = async () => {
 	return await axios.get(sitemap, { 'Content-Type': 'text/xml; charset=utf-8' });
 }
+
+const getSiteColorsCall = async () => {
+	try {
+		
+		const { data } = await axios.get(`${API_URL}/tenant/collectionObjects`, {
+            params: { collectionId: siteColorsId },
+            headers: {
+                Authorization: key,
+                "Content-Type": "application/json",
+            },
+        });
+
+		const colorData = data[0].objectValue;
+		const root = document.documentElement;
+		if (colorData.primary) root.style.setProperty('--color-primary', colorData.primary);
+		if (colorData.secondary) root.style.setProperty('--color-secondary', colorData.secondary);
+		if (colorData.hover) root.style.setProperty('--color-hover', colorData.hover);
+		if (colorData.surface) root.style.setProperty('--color-surface', colorData.surface);
+		if (colorData['surface-alt']) root.style.setProperty('--color-surface-alt', colorData['surface-alt']);
+		if (colorData['text-primary']) root.style.setProperty('--color-text-primary', colorData['text-primary']);
+		if (colorData['text-secondary']) root.style.setProperty('--color-text-secondary', colorData['text-secondary']);
+		if (colorData['text-inverse']) root.style.setProperty('--color-text-inverse', colorData['text-inverse']);
+		
+	} catch (err) {
+		console.error(err);
+	}
+};
 
 class App extends Component {
 	static contextType = NavigationContext;
@@ -65,13 +96,7 @@ class App extends Component {
 			this.context.setInitialLoadingData(url, componentDictionary);
 		});
 
-		// fetch('/api/theme')
-		// .then((res) => res.json())
-		// .then((data) => {
-		// 	const root = document.documentElement;
-		// 	if (data.primaryColor) root.style.setProperty('--primary-color', data.primaryColor);
-		// 	if (data.secondaryColor) root.style.setProperty('--secondary-color', data.secondaryColor);
-		// });
+		getSiteColorsCall().catch(console.error);
 	}
 
 	render() {

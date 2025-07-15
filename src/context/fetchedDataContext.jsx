@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const FetchedDataContext = createContext({
     contactSection: {},
@@ -116,4 +117,8 @@ export const FetchedDataProvider = ({ children }) => {
             {children}
         </FetchedDataContext.Provider>
     );
+};
+
+FetchedDataProvider.propTypes = {
+  children: PropTypes.any,
 };

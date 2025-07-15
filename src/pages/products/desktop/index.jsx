@@ -121,13 +121,8 @@ const ProductsPage = () => {
     const [products, setLocalProducts] = useState([]);
     const [loadingFilteredProducts, setLoadingFilteredProducts] = useState(false);
     const [filterType, setFilterType] = useState("");
+    const [filters, setFilters] = useState([]);
     // const [searchQuery, setSearchQuery] = useState("");
-
-    // UPDATE dynamically set types
-    const types = [
-        { label: 'Hummus', value: "hummus" },
-        { label: 'Bread', value: "bread" }
-    ];
 
     const API_URL = import.meta.env.VITE_API_URL;
     const key = import.meta.env.VITE_CLIENT_KEY;
@@ -138,8 +133,9 @@ const ProductsPage = () => {
         Cookies.set('acceptedcookie', 1);
     };
 
-    const getProductsCall = async (groupBy = {}) => {
+    const getProductsCall = async (groupBy = {}, caller = '', filterVal = '') => {
         try {
+            if (caller === 'onMounted') groupBy = {};
             const { data } = await axios.get(`${API_URL}/tenant/integrationObjects`, {
                 params: { type: "stripe", groupBy },
                 headers: {
@@ -147,21 +143,54 @@ const ProductsPage = () => {
                     "Content-Type": "application/json",
                 },
             });
-            const mappedProducts = data.map((obj) => {
+
+            const filterSet = new Set();
+            const mappedProducts = data.reduce((acc, obj) => {
+                const filterType = obj.objectValue['filter-type'];
+                if (filterType) {
+                    filterSet.add(filterType);
+                }
+
+                if (filterVal && filterType !== filterVal) {
+                    return acc;
+                }
+
                 const defaultVariant = obj.usingVariant?.values?.[0] || null;
-                return {
+
+                acc.push({
                     ...obj.objectValue,
                     id: obj.id,
                     usingVariant: obj.usingVariant,
                     selectedVariant: defaultVariant,
-                };
-            });
+                });
+
+                return acc;
+            }, []);
+            // const mappedProducts = data.map((obj) => {
+            //     const defaultVariant = obj.usingVariant?.values?.[0] || null;
+            //     if (obj.objectValue['filter-type']) filterSet.add(obj.objectValue['filter-type']);
+            //     if (filterVal && obj.objectValue['filter-type'] !== filterVal) {
+            //         return false;
+            //     } else {
+            //         return {
+            //             ...obj.objectValue,
+            //             id: obj.id,
+            //             usingVariant: obj.usingVariant,
+            //             selectedVariant: defaultVariant,
+            //         };
+            //     }
+            // });
             
             const variantDefaults = {};
+            
             mappedProducts.forEach((p) => {
-            if (p.usingVariant?.values?.length)
-                variantDefaults[p.id] = p.usingVariant.values[0];
-            });
+                if (p.usingVariant?.values?.length)
+                    variantDefaults[p.id] = p.usingVariant.values[0];
+                })
+            ;
+
+            const allFilters = Array.from(filterSet);
+            if (!filters?.length || allFilters?.length > filters?.length) setFilters(allFilters);
             setSelectedVariants(variantDefaults);
             setLocalProducts(mappedProducts);
             setProducts(mappedProducts);
@@ -172,11 +201,11 @@ const ProductsPage = () => {
         }
     };
 
-    const handleSetFilterType = async (value) => {
+    const handleSetFilterType = async (value, caller='') => {
         setFilterType(value);
         setLoadingFilteredProducts(true);
         if (value) {
-            await getProductsCall({ key: 'food type', value });
+            await getProductsCall({ key: 'filter-type', value }, caller, value);
         } else {
             await getProductsCall();
         }
@@ -226,9 +255,8 @@ const ProductsPage = () => {
             hasMounted.current = true;
             const searchParams = new URLSearchParams(location.search);
             const filter = searchParams.get("filter");
-
             if (filter) {
-                handleSetFilterType(filter);
+                handleSetFilterType(filter, 'onMounted');
             } else getProductsCall();
         }
     }, []);
@@ -352,23 +380,28 @@ const ProductsPage = () => {
                     value={filterType}
                     onChange={(e) => handleSetFilterType(e.target.value)}
                     >
-                    {types.map((type) => (
-                        <FormControlLabel
-                        key={type.value}
-                        value={type.value}
-                        control={
-                            <Radio
-                            sx={{
-                                color: "var(--color-primary)",
-                                "&.Mui-checked": {
-                                color: "var(--color-primary)",
-                                },
-                            }}
+                    {
+                        filters?.length ?
+                        filters.map((type) => (
+                            <FormControlLabel
+                            key={type}
+                            value={type}
+                            control={
+                                <Radio
+                                sx={{
+                                    color: "var(--color-primary)",
+                                    "&.Mui-checked": {
+                                    color: "var(--color-primary)",
+                                    },
+                                }}
+                                />
+                            }
+                            label={type}
                             />
-                        }
-                        label={type.label}
-                        />
-                    ))}
+                        ))
+                        :
+                        null
+                    }
                     </RadioGroup>
                 </Sidebar>
                 {loadingFilteredProducts ? (

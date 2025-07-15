@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Typography, Paper } from "@mui/material";
 import { styled, keyframes } from "@mui/material/styles";
-import { Verified, Restaurant, Handshake } from "@mui/icons-material";
+import { LightbulbOutlined, AdsClickOutlined, Handshake } from "@mui/icons-material";
 import PropTypes from 'prop-types';
 
 // Animations
@@ -126,9 +126,9 @@ const BodyText = styled(Typography)(() => ({
 }));
 
 const iconDict = {
-  verified: <Verified />,
-  restaurant: <Restaurant />,
-  handshake: <Handshake />
+  lightBulb: <LightbulbOutlined />,
+  target: <AdsClickOutlined />,
+  heart: <Handshake />
 };
 
 const CardComponent = ({ qualityData }) => {
@@ -139,11 +139,11 @@ const CardComponent = ({ qualityData }) => {
       <ContentWrapper>
         <CardContainer>
           <CardList>
-            {qualityData.map((card) => {
+            {qualityData.map((card, cardIdx) => {
               const isSelected = selectedCard.id === card.id;
               return (
                 <StyledPaper
-                  key={card.id}
+                  key={`productCard_${cardIdx}`}
                   onClick={() => setSelectedCard(card)}
                   className={isSelected ? "selected" : ""}
                 >
@@ -162,7 +162,7 @@ const CardComponent = ({ qualityData }) => {
           </CardList>
         </CardContainer>
 
-        <ImageContainer key={selectedCard.id}>
+        <ImageContainer key={`${selectedCard._id}`}>
           <ImagePreview
             src={selectedCard.image.currentFile.source}
             alt={selectedCard.title}
