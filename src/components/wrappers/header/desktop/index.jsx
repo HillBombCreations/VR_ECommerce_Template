@@ -4,10 +4,11 @@ import { ShoppingCart, ExpandMore, ExpandLess } from '@mui/icons-material';
 import { ClickAwayListener } from '@mui/base';
 import { styled } from "@mui/material/styles";
 import NavigationContext from '../../../../context/navigation';
-import CartContext from '../../../../context/cartContext'; 
+import CartContext from '../../../../context/cartContext';
 import formatStringFns from '../../../../utils/formatStringFns';
 import TransitionDialog from './transitionDialog';
 import CartDialog from './cartDialog';
+import FetchedDataContext from '../../../../context/fetchedDataContext';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "var(--color-primary)",
@@ -17,12 +18,12 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 
 const Header = () => {
   const navigation = useContext(NavigationContext);
+  const { siteLogo } = useContext(FetchedDataContext)
   const { cartItems, openCartMenu, setOpenCartMenu } = useContext(CartContext);
   const [pages, setPages] = useState([]);
   const [currentTab, setCurrentTab] = useState(false);
   const [open, setOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-
   useEffect(() => {
     const { capitalize } = formatStringFns();
     const mappedSections = navigation.xmlToJSON.map((section) => ({
@@ -80,7 +81,7 @@ const Header = () => {
                     href='/'
                 >
                     <img
-                    src='/siteAssets/placeHolder.png'
+                    src={siteLogo}
                     alt='Logo'
                     style={{ width: '50px', height: 'auto' }}
                     />

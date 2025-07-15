@@ -54,7 +54,7 @@ const componentDictionary = {
 
 const API_URL = import.meta.env.VITE_API_URL;
 const key = import.meta.env.VITE_CLIENT_KEY;
-const siteColorsId = import.meta.env.VITE_SITE_COLORS_ID;
+const siteColorsId = import.meta.env.VITE_SITE_DETAILS_ID;
 
 const getSitemap = async () => {
 	return await axios.get(sitemap, { 'Content-Type': 'text/xml; charset=utf-8' });

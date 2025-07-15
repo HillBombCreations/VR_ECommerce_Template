@@ -22,6 +22,9 @@ const FetchedDataContext = createContext({
 
     lastUpdatedAt: null,
     setLastUpdatedAt: () => {},
+
+    siteLogo: null,
+    setSiteLogo: () => {},
 });
 
 export default FetchedDataContext;
@@ -63,6 +66,12 @@ export const FetchedDataProvider = ({ children }) => {
         return [];
     });
 
+    const [siteLogo, setSiteLogo] = useState(() => {
+        const savedSiteLogo = localStorage.getItem('siteLogo');
+        if (savedSiteLogo) return JSON.parse(savedSiteLogo);
+        return {};
+    });
+
     const [lastUpdatedAt, setLastUpdatedAt] = useState(() => {
         const savedLastUpdatedAt = localStorage.getItem('lastUpdatedAt');
         if (savedLastUpdatedAt) return JSON.parse(savedLastUpdatedAt);
@@ -99,6 +108,11 @@ export const FetchedDataProvider = ({ children }) => {
         else localStorage.removeItem('cardSectionData');
     }, [cardSectionData]);
 
+     useEffect(() => {
+        if (siteLogo) localStorage.setItem('siteLogo', JSON.stringify(siteLogo));
+        else localStorage.removeItem('siteLogo');
+    }, [siteLogo]);
+
     useEffect(() => {
         if (lastUpdatedAt) localStorage.setItem('lastUpdatedAt', JSON.stringify(lastUpdatedAt));
         else localStorage.removeItem('lastUpdatedAt');
@@ -112,7 +126,8 @@ export const FetchedDataProvider = ({ children }) => {
             topSection, setTopSection,
             exploreProductData, setExploreProductData,
             cardSectionData, setCardSectionData,
-            lastUpdatedAt, setLastUpdatedAt
+            lastUpdatedAt, setLastUpdatedAt,
+            siteLogo, setSiteLogo
         }}>
             {children}
         </FetchedDataContext.Provider>

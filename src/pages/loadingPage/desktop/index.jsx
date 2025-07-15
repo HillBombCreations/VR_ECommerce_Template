@@ -19,6 +19,7 @@ const LoadingPage = () => {
   useEffect(() => {
     const randomSaying = sayings[Math.floor(Math.random() * sayings.length)];
     setSaying(randomSaying);
+    
   }, []);
 
   return (

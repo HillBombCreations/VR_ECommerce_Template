@@ -134,7 +134,8 @@ const LandingPage = () => {
         setTopSection,
         setContactSection,
         setAboutSection,
-        setExploreProductSection
+        setExploreProductSection,
+        setSiteLogo
     } = useContext(FetchedDataContext);
     const [acceptedCookieBool, setAcceptedCookieBool] = useState(Cookies.get('acceptedcookie'));
     const [loadingContent, setLoadingContent] = useState(true);
@@ -145,6 +146,7 @@ const LandingPage = () => {
     const landingSectionId = import.meta.env.VITE_LANDING_SECTION_ID;
     const exploreProductsId = import.meta.env.VITE_EXPLORE_PRODUCTS_ID;
     const cardSectionDataId = import.meta.env.VITE_CARD_SECTION_ID;
+    const siteColorsId = import.meta.env.VITE_SITE_DETAILS_ID;
 
     const getSiteDataCall = async () => {
         const landingSectionPromise = axios.get(`${API_URL}/tenant/collectionObjects`, {
@@ -211,10 +213,22 @@ const LandingPage = () => {
             });
             setCardSectionData(formattedCardSection);
         });
+
+        const siteDataPromise = axios.get(`${API_URL}/tenant/collectionObjects`, {
+            params: { collectionId: siteColorsId },
+            headers: {
+                Authorization: key,
+                "Content-Type": "application/json",
+            },
+        }).then((fetchedSiteData) => {
+            console.log('SITEDATA', fetchedSiteData);
+            const siteData = fetchedSiteData.data[0].objectValue;
+            setSiteLogo(siteData?.logo?.currentFile?.source ? siteData.logo.currentFile.source : '/siteAssets/placeHolder.png');
+        });
         
         setLastUpdatedAt(new Date());
 
-        await Promise.all([landingSectionPromise, exploreProductsPromise, cardSectionPromise]);
+        await Promise.all([landingSectionPromise, exploreProductsPromise, cardSectionPromise, siteDataPromise]);
     }
 
     const handleSiteData = async () => {
