@@ -80,6 +80,7 @@ const LandingSubtitle = styled(Typography)(() => ({
 const LandingLogo = styled("img")(() => ({
   maxWidth: "300px",
   height: "auto",
+  marginBottom: '5vh',
   filter: "drop-shadow(var(--shadow-medium))",
 }));
 
@@ -177,12 +178,13 @@ const LandingPage = () => {
         }).then((fetchedExploreProducts) => {
             const formattedExplorerProducts = fetchedExploreProducts.data.map((obj) => {
                 return {
-                    id: obj.objectValue.productId,
+                    id: obj.objectValue._id,
                     image: obj.objectValue.image,
                     title: obj.objectValue.title,
                     description: obj.objectValue.description,
                     link: obj.objectValue.link,
                     buttonLabel: obj.objectValue.buttonLabel,
+                    productType: obj.objectValue['product-type']
                 }
             });
             setExploreProductData(formattedExplorerProducts);
@@ -197,7 +199,7 @@ const LandingPage = () => {
         }).then((fetchedCardSectionData) => {
             const formattedCardSection = fetchedCardSectionData.data.map((obj) => {
                 return {
-                    id: obj.objectValue.productId,
+                    id: obj.objectValue._id,
                     image: obj.objectValue.image,
                     title: obj.objectValue.title,
                     description: obj.objectValue.description,
@@ -264,14 +266,14 @@ const LandingPage = () => {
                 <PageContainer>
                 <LandingSection>
                     <LandingWrapper>
-                    <LandingContent>
-                        <LandingTitle>{topSection.title}</LandingTitle>
-                        <LandingSubtitle>
-                            {topSection.subtitle}
-                        </LandingSubtitle>
-                        <LandingButton variant="contained" onClick={() => navigate('/products')}>Explore Products</LandingButton>
-                    </LandingContent>
-                    <LandingLogo src={topSection.image.currentFile.source} alt="Comapny Logo" />
+                        <LandingLogo src={topSection.image.currentFile.source} alt="Comapny Logo" />
+                        <LandingContent>
+                            <LandingTitle>{topSection.title}</LandingTitle>
+                            <LandingSubtitle>
+                                {topSection.subtitle}
+                            </LandingSubtitle>
+                            <LandingButton variant="contained" onClick={() => navigate('/products')}>Explore Products</LandingButton>
+                        </LandingContent>               
                     </LandingWrapper>
                 </LandingSection>
                 <SliderComponent exploreProducts={exploreProductData}/>

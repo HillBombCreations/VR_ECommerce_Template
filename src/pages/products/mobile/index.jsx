@@ -6,7 +6,8 @@ import Cookies from "js-cookie";
 import LoadingPage from "../../loadingPage/index.jsx";
 import ProductsContext from "../../../context/productsContext.jsx";
 import CartContext from "../../../context/cartContext.jsx";
-
+import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
+import ErrorLoadingProducts from "./errorLoadingProducts.jsx";
 // Wrappers
 import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
@@ -65,50 +66,76 @@ const ProductCard = styled(Card)(() => ({
 const ProductsPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { siteLogo } = useContext(FetchedDataContext);
     const { cartItems, setCartItems } = useContext(CartContext);
     const { setProducts } = useContext(ProductsContext);
     const [products, setLocalProducts] = useState([]);
     const [selectedVariants, setSelectedVariants] = useState({});
+    const [errorLoadingProducts, setErrrorLoadingProducts] = useState(false);
     const [acceptedCookieBool, setAcceptedCookieBool] = useState(Cookies.get("acceptedcookie"));
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [itemAdded, setItemAdded] = useState(false);
     const [loadingFilteredProducts, setLoadingFilteredProducts] = useState(false);
     const [filterType, setFilterType] = useState("");
+    const [filters, setFilters] = useState([]);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const API_URL = import.meta.env.VITE_API_URL;
     const key = import.meta.env.VITE_CLIENT_KEY;
     const hasMounted = useRef(false);
 
-    const types = [
-        { label: 'Hummus', value: "hummus" },
-        { label: 'Bread', value: "bread" }
-    ];
+    const getProductsCall = async (groupBy = {}, caller = '', filterVal = '') => {
+        try {
+            if (caller === 'onMounted') groupBy = {};
+            const { data } = await axios.get(`${API_URL}/tenant/integrationObjects`, {
+                params: { type: "stripe", groupBy },
+                headers: {
+                    Authorization: key,
+                    "Content-Type": "application/json",
+                },
+            });
 
-    const getProductsCall = async (groupBy = {}) => {
-        const { data } = await axios.get(`${API_URL}/tenant/integrationObjects`, {
-            params: { type: "stripe", groupBy },
-            headers: { Authorization: key, "Content-Type": "application/json" },
-        });
+            const filterSet = new Set();
+            const mappedProducts = data.reduce((acc, obj) => {
+                const filterType = obj.objectValue['filter-type'];
+                if (filterType) {
+                    filterSet.add(filterType);
+                }
 
-        const mapped = data.map((obj) => {
-            const defaultVariant = obj.usingVariant?.values?.[0] || null;
-            return {
-            ...obj.objectValue,
-            id: obj.id,
-            usingVariant: obj.usingVariant,
-            selectedVariant: defaultVariant,
-            };
-        });
+                if (filterVal && filterType !== filterVal) {
+                    return acc;
+                }
 
-        const variantDefaults = {};
-        mapped.forEach(p => {
-            if (p.usingVariant?.values?.length) variantDefaults[p.id] = p.usingVariant.values[0];
-        });
-        setSelectedVariants(variantDefaults);
-        setLocalProducts(mapped);
-        setProducts(mapped);
-        setLoadingProducts(false);
+                const defaultVariant = obj.usingVariant?.values?.[0] || null;
+
+                acc.push({
+                    ...obj.objectValue,
+                    id: obj.id,
+                    usingVariant: obj.usingVariant,
+                    selectedVariant: defaultVariant,
+                });
+
+                return acc;
+            }, []);
+            
+            const variantDefaults = {};
+            
+            mappedProducts.forEach((p) => {
+                if (p.usingVariant?.values?.length)
+                    variantDefaults[p.id] = p.usingVariant.values[0];
+                })
+            ;
+
+            const allFilters = Array.from(filterSet);
+            if (!filters?.length || allFilters?.length > filters?.length) setFilters(allFilters);
+            setSelectedVariants(variantDefaults);
+            setLocalProducts(mappedProducts);
+            setProducts(mappedProducts);
+        } catch (err) {
+            setErrrorLoadingProducts(true);
+        } finally {
+            setLoadingProducts(false);
+        }
     };
 
     const resolveField = (field, product, selectedVariant) => {
@@ -133,7 +160,7 @@ const ProductsPage = () => {
                     : resolveField("name", product),
                 price: resolveField("price", product, selectedVariant),
                 priceID: resolveField("default_price", product, selectedVariant),
-                imageSrc: resolveField("productImage", product, selectedVariant)?.currentFile?.source || '/siteAssets/placeHolder.png',
+                imageSrc: resolveField("productImage", product, selectedVariant)?.currentFile?.source || siteLogo,
                 variant: selectedVariant
             };
         }
@@ -142,21 +169,25 @@ const ProductsPage = () => {
         setCartItems(tempCartItems);
     };
 
-    const handleSetFilterType = async (value) => {
+    const handleSetFilterType = async (value, caller='') => {
         setFilterType(value);
         setLoadingFilteredProducts(true);
-        if (value) await getProductsCall({ key: 'food type', value });
-        else await getProductsCall();
+        if (value) {
+            await getProductsCall({ key: 'filter-type', value }, caller, value);
+        } else {
+            await getProductsCall();
+        }
         setLoadingFilteredProducts(false);
-        setDrawerOpen(false);
     };
 
     useEffect(() => {
         if (!hasMounted.current) {
             hasMounted.current = true;
-            const filter = new URLSearchParams(location.search).get("filter");
-            if (filter) handleSetFilterType(filter);
-            else getProductsCall();
+            const searchParams = new URLSearchParams(location.search);
+            const filter = searchParams.get("filter");
+            if (filter) {
+                handleSetFilterType(filter, 'onMounted');
+            } else getProductsCall();
         }
     }, []);
 
@@ -165,7 +196,7 @@ const ProductsPage = () => {
     return (
     <>
         <AddedToCartSnackBar itemAdded={itemAdded} setItemAdded={setItemAdded} />
-        {loadingProducts ? <LoadingPage /> : (
+        {loadingProducts ? <LoadingPage /> : errorLoadingProducts ? (<ErrorLoadingProducts />) : (
         <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh", width: "100vw" }}>
             {/* <NoShippingBanner /> */}
             <Header />
@@ -201,24 +232,43 @@ const ProductsPage = () => {
                 </HeaderContainer>
 
                 <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-                <Box sx={{ width: 250, padding: 2 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography variant="h6" sx={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Types</Typography>
-                    {filterType && <IconButton onClick={() => handleSetFilterType('')}><Cancel sx={{ color: 'var(--color-primary)' }} /></IconButton>}
+                    <Box sx={{ width: 250, padding: 2 }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Typography variant="h6" sx={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Types</Typography>
+                        {filterType && <IconButton onClick={() => handleSetFilterType('')}><Cancel sx={{ color: 'var(--color-primary)' }} /></IconButton>}
+                        </Box>
+                        <RadioGroup value={filterType} onChange={(e) => handleSetFilterType(e.target.value)}>
+                        {
+                            filters?.length ?
+                            filters.map((type) => (
+                                <FormControlLabel
+                                key={type}
+                                value={type}
+                                control={
+                                    <Radio
+                                    sx={{
+                                        color: "var(--color-primary)",
+                                        "&.Mui-checked": {
+                                        color: "var(--color-primary)",
+                                        },
+                                    }}
+                                    />
+                                }
+                                label={type}
+                                />
+                            ))
+                            :
+                            null
+                        }
+                        </RadioGroup>
                     </Box>
-                    <RadioGroup value={filterType} onChange={(e) => handleSetFilterType(e.target.value)}>
-                    {types.map(type => (
-                        <FormControlLabel key={type.value} value={type.value} control={<Radio sx={{ color: 'var(--color-primary)', '&.Mui-checked': { color: 'var(--color-primary)' } }} />} label={type.label} />
-                    ))}
-                    </RadioGroup>
-                </Box>
                 </Drawer>
 
                 {loadingFilteredProducts ? <CircularProgress sx={{ color: "var(--color-primary)" }} /> : (
                 <ProductsGrid>
                     {products.map(product => (
                     <ProductCard key={product.id} onClick={() => navigate(`/product/${product.id}`)}>
-                        <CardMedia component="img" sx={{ maxHeight: 180, objectFit: "contain" }} image={resolveField("productImage", product, selectedVariants[product.id])?.currentFile?.source || '/siteAssets/placeHolder.png'} alt={resolveField("name", product, selectedVariants[product.id])} />
+                        <CardMedia component="img" sx={{ maxHeight: 180, objectFit: "contain" }} image={resolveField("productImage", product, selectedVariants[product.id])?.currentFile?.source || siteLogo} alt={resolveField("name", product, selectedVariants[product.id])} />
                         <CardContent sx={{ width: '100%' }}>
                         {Array.isArray(product.usingVariant?.values) && (
                             <Box sx={{ display: 'flex', flexWrap: 'wrap', ml: 1, gap: 1, mb: 1 }}>

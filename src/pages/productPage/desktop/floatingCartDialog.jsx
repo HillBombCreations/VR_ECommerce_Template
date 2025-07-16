@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import PropTypes from 'prop-types';
 import axios from "axios";
 import CartContext from "../../../context/cartContext";
+import FetchedDataContext from "../../../context/fetchedDataContext";
 
 const StyledDialog = styled(Dialog)({
   "& .MuiPaper-root": {
@@ -61,6 +62,7 @@ const CheckoutButton = styled(Button)({
 });
 
 const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, variant }) => {
+    const { siteLogo } = useContext(FetchedDataContext)
     const { cartItems, setOpenCartMenu } = useContext(CartContext);
     const API_URL = import.meta.env.VITE_API_URL;
     const key = import.meta.env.VITE_CLIENT_KEY;
@@ -137,7 +139,7 @@ const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, varia
                     <ProductInfoContainer>
                         <CardMedia
                         component="img"
-                        src={getSafeFieldValue("productImage")?.currentFile?.source || '/siteAssets/placeHolder.png'}
+                        src={getSafeFieldValue("productImage")?.currentFile?.source || siteLogo}
                         alt={getSafeFieldValue("name")}
                         sx={{ width: 60, height: 60, borderRadius: "8px" }}
                         />

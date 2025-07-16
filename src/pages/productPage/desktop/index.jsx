@@ -8,6 +8,7 @@ import ProductsContext from "../../../context/productsContext.jsx";
 import CartContext from "../../../context/cartContext.jsx";
 import axios from 'axios';
 import FloatingCartDialog from './floatingCartDialog.jsx';
+import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
 // import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
 
 
@@ -85,6 +86,7 @@ const ButtonGroup = styled(Box)(({ theme }) => ({
 
 const ProductPage = () => {
     const navigate = useNavigate();
+    const { siteLogo } = useContext(FetchedDataContext)
     const { cartItems, setCartItems } = useContext(CartContext);
     const API_URL = import.meta.env.VITE_API_URL;
     const key = import.meta.env.VITE_CLIENT_KEY;
@@ -127,7 +129,7 @@ const ProductPage = () => {
             : getSafeFieldValue("name"),
             price: getSafeFieldValue("price"),
             priceID: product.default_price,
-            imageSrc: getSafeFieldValue("productImage")?.currentFile?.source || '/siteAssets/placeHolder.png',
+            imageSrc: getSafeFieldValue("productImage")?.currentFile?.source || siteLogo,
             variant,
           };
         }
@@ -236,7 +238,7 @@ const ProductPage = () => {
                     <ProductContainer>
                         <ProductImageWrapper>
                             <img
-                                src={getSafeFieldValue("productImage")?.currentFile?.source || '/siteAssets/placeHolder.png'}
+                                src={getSafeFieldValue("productImage")?.currentFile?.source || siteLogo}
                                 alt={getSafeFieldValue("name")}
                                 style={{
                                 maxWidth: "100%",

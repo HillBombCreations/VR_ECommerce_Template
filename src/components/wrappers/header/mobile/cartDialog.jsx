@@ -6,6 +6,7 @@ import {
 import axios from "axios";
 import { Close, Remove, Add, Delete } from '@mui/icons-material';
 import CartContext from '../../../../context/cartContext';
+import FetchedDataContext from '../../../../context/fetchedDataContext';
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="left" ref={ref} {...props} />;
@@ -13,6 +14,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 // eslint-disable-next-line react/prop-types
 const CartDialog = ({ open, onClose }) => {
+    const { siteLogo } = useContext(FetchedDataContext)
     const { cartItems, setCartItems } = useContext(CartContext);
     const [loadingCheckout, setLoadingCheckout] = useState(false);
     const API_URL = import.meta.env.VITE_API_URL;
@@ -110,7 +112,7 @@ const CartDialog = ({ open, onClose }) => {
                                 >
                                     <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
                                         <Box sx={{ display: 'flex', flexDirection: 'column', width: '30%' }}>
-                                            <img src={value?.imageSrc || '/siteAssets/placeHolder.png'} alt={value.name} style={{ width: '100%', height: 'auto', borderRadius: 8 }} />
+                                            <img src={value?.imageSrc || siteLogo} alt={value.name} style={{ width: '100%', height: 'auto', borderRadius: 8 }} />
                                         </Box>
                                         <Box sx={{ display: 'flex', flexDirection: 'column', width: '70%', marginLeft: '10vw' }}>
                                             <Typography sx={{ fontSize: "1.5rem" }}>{value.name}</Typography>

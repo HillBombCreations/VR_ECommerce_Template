@@ -3,6 +3,7 @@ import { Box, Typography, Button, IconButton } from "@mui/material";
 import { styled, keyframes } from "@mui/material/styles";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 // Keyframe Animations
 const slideInRight = keyframes`
@@ -96,10 +97,6 @@ const ProductButton = styled(Button)(() => ({
   display: "flex",
   alignItems: "center",
   marginTop: '5vh',
-  "&:hover": {
-    background: "var(--color-secondary)",
-    transform: "translateY(-3px)",
-  },
 }));
 
 const NavButtonsContainer = styled(Box)(() => ({
@@ -114,18 +111,14 @@ const NavButton = styled(IconButton)(() => ({
   borderRadius: "50%",
   textAlign: "center",
   boxShadow: "var(--shadow-medium)",
-  transition: "background 0.3s ease, transform 0.2s ease",
-
-  "&:hover": {
-    background: "var(--color-secondary)",
-    transform: "scale(1.1)",
-  },
+  transition: "background 0.3s ease, transform 0.2s ease"
 }));
 
 const ProductCarousel = ({ exploreProducts }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [animationType, setAnimationType] = useState(slideInRight);
-
+    const navigate = useNavigate();
+    
     const nextCard = () => {
         setAnimationType(slideOutLeft);
         setTimeout(() => {
@@ -149,7 +142,12 @@ const ProductCarousel = ({ exploreProducts }) => {
                     <ProductImage src={exploreProducts[currentIndex].image.currentFile.source} alt={exploreProducts[currentIndex].title} />
                     <ProductTitle>{exploreProducts[currentIndex].title}</ProductTitle>
                     <ProductDescription>{exploreProducts[currentIndex].description}</ProductDescription>
-                    <ProductButton href={exploreProducts[currentIndex].link}>{exploreProducts[currentIndex].buttonLabel}</ProductButton>
+                    <ProductButton
+                      onClick={() => {
+                        const productType = exploreProducts[currentIndex].productType;
+                        navigate(`/products?filter=${encodeURIComponent(productType)}`);
+                      }}
+                    >{exploreProducts[currentIndex].buttonLabel}</ProductButton>
                 </ProductCard>
             </CardContainer>
             <NavButtonsContainer>

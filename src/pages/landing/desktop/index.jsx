@@ -128,6 +128,7 @@ const LandingPage = () => {
         cardSectionData,
         exploreProductData,
         lastUpdatedAt,
+        siteLogo,
         setLastUpdatedAt,
         setExploreProductData,
         setCardSectionData,
@@ -221,7 +222,6 @@ const LandingPage = () => {
                 "Content-Type": "application/json",
             },
         }).then((fetchedSiteData) => {
-            console.log('SITEDATA', fetchedSiteData);
             const siteData = fetchedSiteData.data[0].objectValue;
             setSiteLogo(siteData?.logo?.currentFile?.source ? siteData.logo.currentFile.source : '/siteAssets/placeHolder.png');
         });
@@ -291,7 +291,7 @@ const LandingPage = () => {
                                     <LandingButton onClick={() => navigate('/products')} variant="contained">{topSection.buttonLabel}</LandingButton>
                                 </LandingContent>
                                 {/* UPDATE */}
-                                <LandingLogo src={topSection?.image?.currentFile?.source ? topSection.image.currentFile.source : '/siteAssets/placeHolder.png'} alt="Comapny Name Logo" />
+                                <LandingLogo src={topSection?.image?.currentFile?.source ? topSection.image.currentFile.source : siteLogo} alt="Comapny Name Logo" />
                             </LandingWrapper>
                         </LandingSection>
                         <SliderComponent exploreProductSection={exploreProductSection} exploreProducts={exploreProductData}/>

@@ -5,7 +5,7 @@ import NavigationContext from '../../../../context/navigation';
 import FetchedDataContext from '../../../../context/fetchedDataContext';
 
 const Footer = () => {
-    const { siteLogo } = useContext(FetchedDataContext)
+    const { siteLogo } = useContext(FetchedDataContext);
     const { capitalize } = formatStringFns();
     const navigation = useContext(NavigationContext);
     return (
@@ -209,7 +209,7 @@ const Footer = () => {
                     justifyContent: 'center',
                     mt: 2,
                     gap: 1,
-                    cursor: 'pointer' // show pointer on hover
+                    cursor: 'pointer'
                     }}
                 >
                     <img

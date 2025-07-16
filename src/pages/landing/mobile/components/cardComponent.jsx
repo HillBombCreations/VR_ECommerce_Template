@@ -1,6 +1,6 @@
 import { Box, Typography, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Verified, Restaurant, Handshake } from "@mui/icons-material";
+import { LightbulbOutlined, AdsClickOutlined, Handshake } from "@mui/icons-material";
 import PropTypes from 'prop-types';
 
 const SectionWrapper = styled(Box)(() => ({
@@ -76,9 +76,9 @@ const BodyText = styled(Typography)(() => ({
 }));
 
 const iconDict = {
-    verified: <Verified />,
-    restaurant: <Restaurant />,
-    handshake: <Handshake />
+  lightBulb: <LightbulbOutlined />,
+  target: <AdsClickOutlined />,
+  heart: <Handshake />
 };
 
 // Component

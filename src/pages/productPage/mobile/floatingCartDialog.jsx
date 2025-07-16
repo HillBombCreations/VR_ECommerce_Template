@@ -9,6 +9,7 @@ import { styled, useTheme } from "@mui/material/styles";
 import axios from "axios";
 import CartContext from "../../../context/cartContext";
 import PropTypes from 'prop-types';
+import FetchedDataContext from "../../../context/fetchedDataContext";
 
 const HeaderContainer = styled(Box)({
     display: "flex",
@@ -49,6 +50,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, variant }) => {
     const { cartItems, setOpenCartMenu } = useContext(CartContext);
+    const { siteLogo } = useContext(FetchedDataContext)
     const API_URL = import.meta.env.VITE_API_URL;
     const key = import.meta.env.VITE_CLIENT_KEY;
     const stripeKey = import.meta.env.VITE_STRIPE_KEY;
@@ -153,7 +155,7 @@ const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, varia
                     <ProductInfoContainer>
                         <CardMedia
                             component="img"
-                            src={getSafeFieldValue("productImage")?.currentFile?.source || '/siteAssets/placeHolder.png'}
+                            src={getSafeFieldValue("productImage")?.currentFile?.source || siteLogo}
                             alt={getSafeFieldValue("name")}
                             sx={{
                                 width: isMobile ? 80 : 60,

@@ -6,6 +6,7 @@ import LoadingPage from "../../loadingPage/index.jsx";
 import ProductsContext from "../../../context/productsContext.jsx";
 import CartContext from "../../../context/cartContext.jsx";
 import FloatingCartDialog from "./floatingCartDialog.jsx";
+import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
 import axios from 'axios';
 
 // Wrappers
@@ -77,6 +78,7 @@ const ProductPage = () => {
     const key = import.meta.env.VITE_CLIENT_KEY;
     const stripeKey = import.meta.env.VITE_STRIPE_KEY;
     const { cartItems, setCartItems } = useContext(CartContext);
+    const { siteLogo } = useContext(FetchedDataContext)
     const { products } = useContext(ProductsContext);
     const [loadingProduct, setLoadingProduct] = useState(true);
     const [loadingCheckout, setLoadingCheckout] = useState(false);
@@ -208,7 +210,7 @@ const ProductPage = () => {
                             <Typography variant="h5" sx={{ fontWeight: "bold" }}>{getSafeFieldValue("name")}</Typography>
                             <ProductImage
                                 component="img"
-                                src={getSafeFieldValue("productImage")?.currentFile?.source || '/siteAssets/placeHolder.png'}
+                                src={getSafeFieldValue("productImage")?.currentFile?.source || siteLogo}
                                 alt={getSafeFieldValue("name")}
                             />
                             <ProductDetails>

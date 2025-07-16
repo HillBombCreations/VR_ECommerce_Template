@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import LoadingPage from "../../loadingPage/index.jsx";
 import ProductsContext from "../../../context/productsContext.jsx";
 import ErrorLoadingProducts from "./errorLoadingProducts.jsx";
+import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
 // Wrappers
 import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
@@ -111,6 +112,7 @@ const ProductCard = styled(Card)(({ theme }) => ({
 const ProductsPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { siteLogo } = useContext(FetchedDataContext)
     const { cartItems, setCartItems } = useContext(CartContext);
     const { setProducts } = useContext(ProductsContext);
     const [selectedVariants, setSelectedVariants] = useState({});
@@ -166,20 +168,6 @@ const ProductsPage = () => {
 
                 return acc;
             }, []);
-            // const mappedProducts = data.map((obj) => {
-            //     const defaultVariant = obj.usingVariant?.values?.[0] || null;
-            //     if (obj.objectValue['filter-type']) filterSet.add(obj.objectValue['filter-type']);
-            //     if (filterVal && obj.objectValue['filter-type'] !== filterVal) {
-            //         return false;
-            //     } else {
-            //         return {
-            //             ...obj.objectValue,
-            //             id: obj.id,
-            //             usingVariant: obj.usingVariant,
-            //             selectedVariant: defaultVariant,
-            //         };
-            //     }
-            // });
             
             const variantDefaults = {};
             
@@ -241,7 +229,7 @@ const ProductsPage = () => {
                     : resolveField("name", product),
                 price: resolveField("price", product, selectedVariant),
                 priceID: resolveField("default_price", product, selectedVariant),
-                imageSrc: resolveField("productImage", product, selectedVariant)?.currentFile?.source || '/siteAssets/placeHolder.png',
+                imageSrc: resolveField("productImage", product, selectedVariant)?.currentFile?.source || siteLogo,
                 variant: selectedVariant
             };
         }
@@ -438,7 +426,7 @@ const ProductsPage = () => {
                             <img
                             src={
                                 getSafeFieldValue(product, "productImage")?.currentFile
-                                ?.source || "/siteAssets/placeHolder.png"
+                                ?.source || siteLogo
                             }
                             alt={getSafeFieldValue(product, "name")}
                             style={{

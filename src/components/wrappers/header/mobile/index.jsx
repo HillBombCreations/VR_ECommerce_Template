@@ -7,6 +7,7 @@ import CartContext from '../../../../context/cartContext';
 import formatStringFns from '../../../../utils/formatStringFns';
 import TransitionDialog from './transitionDialog';
 import CartDialog from './cartDialog';
+import FetchedDataContext from '../../../../context/fetchedDataContext';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "var(--color-primary)",
@@ -18,6 +19,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 
 const MobileHeader = () => {
     const navigation = useContext(NavigationContext);
+    const { siteLogo } = useContext(FetchedDataContext)
     const { cartItems, openCartMenu, setOpenCartMenu } = useContext(CartContext);
     const [pages, setPages] = useState([]);
     const [openMenu, setOpenMenu] = useState(false);
@@ -98,7 +100,7 @@ const MobileHeader = () => {
                                 overflow: 'hidden',
                             }}
                         >
-                            <img src="/siteAssets/placeHolder.png" alt="DK Logo" style={{ width: '40px', height: 'auto' }} />
+                            <img src={siteLogo} alt="DK Logo" style={{ width: '40px', height: 'auto' }} />
                         </Box>
                         <IconButton onClick={() => setOpenCartMenu(true)} sx={{ color: 'var(--color-surface)' }}>
                             <Badge badgeContent={cartCount} color="error">
