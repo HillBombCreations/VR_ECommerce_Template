@@ -139,7 +139,7 @@ const ProductCarousel = ({ exploreProducts }) => {
         <SectionWrapper>
             <CardContainer>
                 <ProductCard animation={animationType}>
-                    <ProductImage src={exploreProducts[currentIndex].image.currentFile.source} alt={exploreProducts[currentIndex].title} />
+                    <ProductImage src={exploreProducts[currentIndex].imageSource} alt={exploreProducts[currentIndex].title} />
                     <ProductTitle>{exploreProducts[currentIndex].title}</ProductTitle>
                     <ProductDescription>{exploreProducts[currentIndex].description}</ProductDescription>
                     <ProductButton

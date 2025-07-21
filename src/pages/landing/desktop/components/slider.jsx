@@ -102,7 +102,7 @@ const ProductImageContainer = styled(Box)(() => ({
 const ProductImage = styled("img")(() => ({
   width: "100%",
   height: "250px",
-  objectFit: "cover",
+  objectFit: "contain",
   borderRadius: "var(--radius-base)",
   display: "block",
 }));
@@ -203,7 +203,7 @@ const ProductCarousel = ({ exploreProducts, exploreProductSection }) => {
           <ProductCard animation={animationType}>
             <ProductImageContainer>
               <ProductImage
-                src={exploreProducts[currentIndex].image.currentFile.source}
+                src={exploreProducts[currentIndex].imageSource}
                 alt={exploreProducts[currentIndex].title}
               />
             </ProductImageContainer>

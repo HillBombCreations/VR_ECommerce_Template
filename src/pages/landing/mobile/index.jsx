@@ -139,9 +139,9 @@ const LandingPage = () => {
     const hasMountedRef = useRef();
     const API_URL = import.meta.env.VITE_API_URL;
     const key = import.meta.env.VITE_CLIENT_KEY;
-    const landingSectionId = import.meta.env.VITE_LANDING_SECTION_ID;
-    const exploreProductsId = import.meta.env.VITE_EXPLORE_PRODUCTS_ID;
-    const cardSectionDataId = import.meta.env.VITE_CARD_SECTION_ID;
+    const landingSectionId = import.meta.env.VITE_HERO_SECTIONS_ID;
+    const exploreProductsId = import.meta.env.VITE_PRODUCT_SHOWCASE_ID;
+    const cardSectionDataId = import.meta.env.VITE_OUR_OFFERINGS_ID;
 
     const getSiteDataCall = async () => {
         const landingSectionPromise = axios.get(`${API_URL}/tenant/collectionObjects`, {
@@ -179,7 +179,7 @@ const LandingPage = () => {
             const formattedExplorerProducts = fetchedExploreProducts.data.map((obj) => {
                 return {
                     id: obj.objectValue._id,
-                    image: obj.objectValue.image,
+                    imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
                     title: obj.objectValue.title,
                     description: obj.objectValue.description,
                     link: obj.objectValue.link,
@@ -200,7 +200,7 @@ const LandingPage = () => {
             const formattedCardSection = fetchedCardSectionData.data.map((obj) => {
                 return {
                     id: obj.objectValue._id,
-                    image: obj.objectValue.image,
+                    imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
                     title: obj.objectValue.title,
                     description: obj.objectValue.description,
                     icon: obj.objectValue.icon,

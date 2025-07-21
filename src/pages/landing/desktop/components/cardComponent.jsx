@@ -99,7 +99,7 @@ const ImagePreview = styled("img")(() => ({
   width: "70%",
   height: "auto",
   maxHeight: "500px",
-  objectFit: "cover",
+  objectFit: "contain",
   borderRadius: "var(--radius-base)",
 }));
 
@@ -164,7 +164,7 @@ const CardComponent = ({ qualityData }) => {
 
         <ImageContainer key={`${selectedCard._id}`}>
           <ImagePreview
-            src={selectedCard.image.currentFile.source}
+            src={selectedCard.imageSource}
             alt={selectedCard.title}
           />
         </ImageContainer>

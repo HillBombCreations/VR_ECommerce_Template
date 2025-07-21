@@ -31,6 +31,7 @@ const ImageContainer = styled(Box)(() => ({
   justifyContent: "center",
   width: "50%",
   minHeight: "50vh",
+  objectFit: "contain",
 }));
 
 const ProfileImage = styled("img")(() => ({
@@ -68,7 +69,7 @@ const AboutSection = ({ aboutSection }) => {
       <ContentWrapper>
         <ImageContainer>
           <ProfileImage
-            src={aboutSection.image.currentFile.source}
+            src={aboutSection.image?.currentFile?.source ? aboutSection.image.currentFile.source : '/siteAssets/placeHolder.png' }
             alt="Owner Photo"
           />
         </ImageContainer>
