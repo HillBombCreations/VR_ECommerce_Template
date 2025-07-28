@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Component } from "react";
+import { useContext, useState } from "react";
+import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
 import Cookies from "js-cookie";
 
 // Wrappers
@@ -61,18 +62,13 @@ const StyledListItem = styled("li")(() => ({
   color: "var(--color-text-primary)",
 }));
 
-export default class FulfillmentPolicy extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      acceptedCookieBool: Cookies.get("acceptedcookie"),
-    };
-  }
+const FulfillmentPolicy = () => {
+    const [acceptedCookieBool, setAcceptedCookieBool] = useState(Cookies.get("acceptedcookie"));
+    const { businessInfo } = useContext(FetchedDataContext);
 
-  render() {
     const acceptCookies = () => {
-      this.setState({ acceptedCookieBool: 1 });
-      Cookies.set("acceptedcookie", 1);
+        setAcceptedCookieBool(1);
+        Cookies.set("acceptedcookie", 1);
     };
 
     return (
@@ -81,12 +77,12 @@ export default class FulfillmentPolicy extends Component {
         <ContentWrapper>
           <SectionTitle>Fulfillment and Refund Policy</SectionTitle>
           <SectionSubtitle>
-            <strong>Effective Date:</strong> MM/DD/YYYY <br />
-            <strong>Last Updated:</strong> MM/DD/YYYY
+            <strong>Effective Date:</strong> 07/28/2025<br />
+            <strong>Last Updated:</strong> 07/28/2025
           </SectionSubtitle>
 
           <Typography>
-            At <strong>[Your Company Name]</strong>, we take pride in delivering
+            At <strong>{businessInfo?.name ? businessInfo.name : 'Comapany Name'}</strong>, we take pride in delivering
             quality products and services. Each order is carefully processed to
             ensure a smooth experience for our customers.
           </Typography>
@@ -135,7 +131,7 @@ export default class FulfillmentPolicy extends Component {
               Contact us within <strong>24 hours of receiving your order</strong>.
             </StyledListItem>
             <StyledListItem>
-              Email <strong>[your@email.com]</strong> with your order number and
+              Email <strong>{businessInfo.contactInfo.email}</strong> with your order number and
               photos if applicable.
             </StyledListItem>
           </StyledList>
@@ -168,28 +164,37 @@ export default class FulfillmentPolicy extends Component {
           <Typography>For questions or concerns, please contact us:</Typography>
           <StyledList>
             <StyledListItem>
-              <strong>Email:</strong>{" "}
-              <Link
-                href="mailto:your@email.com"
-                sx={{ color: "var(--color-primary)", fontWeight: "bold" }}
-              >
-                your@email.com
-              </Link>
+                <strong>Email:</strong>{" "}
+                <Link
+                href={`mailto:${businessInfo.contactInfo.email}`}
+                sx={{ color: "var(--color-secondary)", fontWeight: "bold" }}
+                >
+                {businessInfo.contactInfo.email}
+                </Link>
             </StyledListItem>
-            <StyledListItem>
-              <strong>Phone:</strong> (000) 000-0000
-            </StyledListItem>
-            <StyledListItem>
-              <strong>Business Address:</strong> 1234 Example Rd, Your City, ST 12345
-            </StyledListItem>
-          </StyledList>
+            {
+                businessInfo?.contactInfo?.phoneNumber && (
+                    <StyledListItem>
+                        <strong>Phone:</strong> {businessInfo.contactInfo.phoneNumber}
+                    </StyledListItem>
+                )
+            }
+            {
+                businessInfo?.address?.street1 && (
+                    <StyledListItem>
+                        <strong>Business Address:</strong> {`${businessInfo.address.street1} ${businessInfo?.address?.street2 ? businessInfo?.address?.street2 : ''}, ${businessInfo.address.city}, ${businessInfo.address.state} ${businessInfo.address.zip}`}
+                    </StyledListItem>
+                )
+            }
+        </StyledList>
         </ContentWrapper>
 
         <Footer />
-        {!this.state.acceptedCookieBool && (
+        {!acceptedCookieBool && (
           <CookiePopup acceptCookies={acceptCookies} />
         )}
       </PageContainer>
     );
-  }
 }
+
+export default FulfillmentPolicy;

@@ -3,6 +3,7 @@ import { Box, Typography, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { CheckCircleOutline } from '@mui/icons-material';
 import CartContext from '../../../context/cartContext.jsx';
+import FetchedDataContext from '../../../context/fetchedDataContext.jsx';
 
 // Wrappers
 import Header from "../../../components/wrappers/header/index.jsx";
@@ -52,9 +53,9 @@ const ActionButton = styled(Button)(({ theme }) => ({
 
 export default function CheckoutSuccessDesktop() {
   const { setOpenCartMenu, setCartItems, cartItems } = useContext(CartContext);
-  const API_URL = import.meta.env.VITE_API_URL;
+  const { businessInfo } = useContext(FetchedDataContext);
+  const API_URL = 'https://client.vivreal.io';
   const key = import.meta.env.VITE_CLIENT_KEY;
-  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL;
   const hasMountedRef = useRef();
 
   const linkProducts = () => {
@@ -92,7 +93,7 @@ export default function CheckoutSuccessDesktop() {
       `;
 
       const htmlInfo = {
-        title: "Company Name - Order Placed",
+        title: `${businessInfo.name} - Order Placed`,
         subtitle: `Someone has placed an order,`,
         whiteBoxText: `
           <div>
@@ -109,7 +110,7 @@ export default function CheckoutSuccessDesktop() {
       axios.post(
         `${API_URL}/tenant/sendOrderPlacedEmail`,
         {
-          to: contactEmail,
+          to: businessInfo.contactInfo.email,
           htmlInfo
         },
         {
@@ -135,7 +136,7 @@ export default function CheckoutSuccessDesktop() {
             Thank You!
           </Typography>
           <Typography variant="body1" sx={{ fontSize: '1rem', color: 'var(--color-text-secondary)' }}>
-            We appreciate your choice to shop with Company Name!
+            We appreciate your choice to shop with {businessInfo.name}!
           </Typography>
         </MessageContainer>
 

@@ -87,8 +87,7 @@ const SitemapPage = () => {
         <ContentWrapper>
             <SectionTitle>Sitemap</SectionTitle>
             <Typography sx={{ mb: 3, fontSize: { xs: "1rem", sm: "1.1rem" } }}>
-                {/* UPDATE */}
-                Explore all accessible pages on Your Sites Name:
+                Explore all accessible pages:
             </Typography>
             {xmlToJSON.map((group, gIdx) => (
                 <Box key={`group_${gIdx}`} sx={{ marginBottom: 4 }}>

@@ -9,7 +9,7 @@ import CartContext from "../../../context/cartContext.jsx";
 import axios from 'axios';
 import FloatingCartDialog from './floatingCartDialog.jsx';
 import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
-// import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
+import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
 
 
 // Wrappers
@@ -86,9 +86,9 @@ const ButtonGroup = styled(Box)(({ theme }) => ({
 
 const ProductPage = () => {
     const navigate = useNavigate();
-    const { siteLogo } = useContext(FetchedDataContext)
+    const { siteLogo, businessInfo } = useContext(FetchedDataContext)
     const { cartItems, setCartItems } = useContext(CartContext);
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = 'https://client.vivreal.io';
     const key = import.meta.env.VITE_CLIENT_KEY;
     const stripeKey = import.meta.env.VITE_STRIPE_KEY;
 
@@ -192,7 +192,10 @@ const ProductPage = () => {
                 variant={selectedVariant}
                 cartCount={Object.keys(cartItems).reduce((total, key) => total + cartItems[key].quantity, 0)}
             />
-            {/* <NoShippingBanner /> */}
+            {
+                !businessInfo?.shipping && (<NoShippingBanner />)
+
+            }
             <Header />
             <PageContainer>
                 <IconButton

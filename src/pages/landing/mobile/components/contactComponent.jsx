@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useContext } from "react";
+import FetchedDataContext from "../../../../context/fetchedDataContext";
 import { Box, Typography, TextField, Button, Alert, Snackbar, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
@@ -102,14 +103,14 @@ const SubmitButton = styled(Button)(() => ({
 }));
 
 const ContactSection = ({ contactSection }) => {
+  const { businessInfo } = useContext(FetchedDataContext);
   const [formState, setFormState] = useState({ fullName: "", email: "", message: "" });
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
   const [alertOpen, setAlertOpen] = useState(false);
   const [loadingContact, setLoadingContact] = useState(false);
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = 'https://client.vivreal.io';
   const key = import.meta.env.VITE_CLIENT_KEY;
-  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -120,9 +121,8 @@ const ContactSection = ({ contactSection }) => {
     const { fullName, email, message } = formState;
     try {
       setLoadingContact(true);
-      // UPDATE
       const htmlInfo = {
-          title: "Company Name Reachout",
+          title: `${businessInfo.name} Reachout`,
           subtitle: `Someone has contacted you,`,
           whiteBoxText: `Name: ${fullName}, Email: ${email} <br><br> ${message}`,
           signature: 'Thanks for choosing Vivreal.',
@@ -133,7 +133,7 @@ const ContactSection = ({ contactSection }) => {
       {
           name: fullName,
           message,
-          to: contactEmail,
+          to: businessInfo.contactInfo.emai,
           htmlInfo
       },
       {
@@ -144,8 +144,7 @@ const ContactSection = ({ contactSection }) => {
       });
       
       if (response.status === 201) {
-          // Company Nmae
-          setAlertMessage("Successfully contacted Company Name! We will get back to you soon.");
+          setAlertMessage(`Successfully contacted ${businessInfo.name}! We will get back to you soon.`);
           setAlertSeverity("success");
           setFormState({ fullName: "", email: "", message: "" });
       } else {

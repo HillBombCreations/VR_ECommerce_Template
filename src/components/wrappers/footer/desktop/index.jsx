@@ -5,7 +5,7 @@ import NavigationContext from '../../../../context/navigation';
 import FetchedDataContext from '../../../../context/fetchedDataContext';
 
 const Footer = () => {
-    const { siteLogo } = useContext(FetchedDataContext);
+    const { siteLogo, businessInfo } = useContext(FetchedDataContext);
     const { capitalize } = formatStringFns();
     const navigation = useContext(NavigationContext);
     return (
@@ -42,12 +42,12 @@ const Footer = () => {
                     <a href='/' style={{ display: 'flex', overflow: 'hidden', alignItems: 'center' }}>
                         <img
                             src={siteLogo}
-                            alt="Company Name Icon Logo"
+                            alt={`${businessInfo?.name ? businessInfo.name : 'Comapany Name'} Logo`}
                             style={{ width: '60px', height: 'auto', marginBottom: '12px' }}
                         />
                     </a>
                     <Link
-                        href="mailto:placeholder@email.com"
+                        href={`"mailto:${businessInfo.contactInfo.email}`}
                         underline="none"
                         sx={{
                             fontSize: "10px",
@@ -55,7 +55,7 @@ const Footer = () => {
                             '&:hover': { color: 'var(--color-text-secondary)' }
                         }}
                     >
-                        placeholder@email.com
+                        {businessInfo.contactInfo.email}
                     </Link>
                 </Grid>
 
@@ -127,7 +127,7 @@ const Footer = () => {
                         sx={{ color: 'var(--color-text-secondary)' }}
                         fontSize={10}
                     >
-                        © {`${new Date().getFullYear()} Company Name`}. All rights reserved.
+                        © {`${new Date().getFullYear()} ${businessInfo?.name ? businessInfo.name : 'Comapany Name'}`}. All rights reserved.
                     </Typography>
                 </Box>
 

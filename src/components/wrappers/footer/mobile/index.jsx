@@ -6,7 +6,7 @@ import FetchedDataContext from '../../../../context/fetchedDataContext';
 
 const Footer = () => {
 	const navigation = useContext(NavigationContext);
-    const { siteLogo } = useContext(FetchedDataContext);
+    const { siteLogo, businessInfo } = useContext(FetchedDataContext);
     const { capitalize } = formatStringFns();
 
     return (
@@ -30,7 +30,7 @@ const Footer = () => {
                 <a href='/' style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                     <img
                         src={siteLogo}
-                        alt="Company Name Logo"
+                        alt={`${businessInfo?.name ? businessInfo.name : 'Comapany Name'} Logo`}
                         style={{ width: '70px', height: 'auto' }}
                     />
                     <Typography 
@@ -43,8 +43,7 @@ const Footer = () => {
                             fontSize: { xs: '1.2rem', md: '1.5rem' }
                         }}
                     >
-                        {/* UPDATE */}
-                        {'Company Name'}
+                        {businessInfo?.name ? businessInfo.name : 'Comapany Name'}
                     </Typography>
                 </a>
             </Box>
@@ -102,9 +101,8 @@ const Footer = () => {
             <Divider sx={{ marginBottom: 2 }} />
             <Box sx={{ marginBottom: 2, fontSize: '8pt' }}>
                 <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
-                    {/* UPDATE */}
-                    <Link href="mailto:placeholder@email.com" underline="none" sx={{ color: 'var(--color-text-secondary)', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
-                        placeholder@email.com
+                    <Link href={`mailto:${businessInfo.contactInfo.email}`} underline="none" sx={{ color: 'var(--color-text-secondary)', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                        {businessInfo.contactInfo.email}
                     </Link>
                 </Box>
             </Box>
@@ -132,8 +130,7 @@ const Footer = () => {
 
             <Divider sx={{ marginBottom: 2 }} />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                {/* UPDATE */}
-                <Typography sx={{ color: 'var(--color-text-secondary)' }} fontSize={11}>© {`${new Date().getFullYear()} Company Name`}</Typography>
+                <Typography sx={{ color: 'var(--color-text-secondary)' }} fontSize={11}>© {`${new Date().getFullYear()} ${businessInfo?.name ? businessInfo.name : 'Comapany Name'}`}</Typography>
                 <Typography sx={{ color: 'var(--color-text-secondary)' }} fontSize={11}>United States</Typography>
             </Box>
             <a

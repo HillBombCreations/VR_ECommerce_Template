@@ -1,9 +1,10 @@
 // node imports
-import { Component } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { Routes, Route } from 'react-router-dom';
 // import ReactGA from 'react-ga4';
 import axios from 'axios';
-
+import { Helmet } from 'react-helmet-async';
+import LoadingPage from './pages/loadingPage/desktop/index.jsx';
 // pages
 import Landing from './pages/landing';
 import PrivacyPolicy from './pages/privacyPolicy';
@@ -18,7 +19,7 @@ import PageNotFound from './pages/pageNotFound';
 
 // context
 import NavigationContext from './context/navigation';
-import { FetchedDataProvider } from './context/fetchedDataContext.jsx';
+import FetchedDataContext from './context/fetchedDataContext.jsx';
 import { CartProvider } from './context/cartContext.jsx';
 import { ProductsProvider } from './context/productsContext.jsx';
 
@@ -52,73 +53,173 @@ const componentDictionary = {
 	pageNotFound: PageNotFound,
 };
 
-const API_URL = import.meta.env.VITE_API_URL;
 const key = import.meta.env.VITE_CLIENT_KEY;
-const siteColorsId = import.meta.env.VITE_SITE_DETAILS_ID;
+const siteId = import.meta.env.VITE_SITE_DETAILS_ID;
 
-const getSitemap = async () => {
-	return await axios.get(sitemap, { 'Content-Type': 'text/xml; charset=utf-8' });
-}
+const  App = () => {
+	const { setInitialLoadingData, routes } = useContext(NavigationContext);
+	const {
+		businessInfo,
+        setBusinessInfo,
+        setLastUpdatedAt,
+        setExploreProductData,
+        setCardSectionData,
+        setTopSection,
+        setContactSection,
+        setAboutSection,
+        setExploreProductSection,
+        setSiteLogo,
+    } = useContext(FetchedDataContext);
 
-const getSiteColorsCall = async () => {
-	try {
-		
-		const { data } = await axios.get(`${API_URL}/tenant/collectionObjects`, {
-            params: { collectionId: siteColorsId },
-            headers: {
-                Authorization: key,
-                "Content-Type": "application/json",
-            },
-        });
+	const [loading, setLoading] = useState(false);
+	const hasMountedRef = useRef();
 
-		const colorData = data[0].objectValue;
-		const root = document.documentElement;
-		if (colorData.primary) root.style.setProperty('--color-primary', colorData.primary);
-		if (colorData.secondary) root.style.setProperty('--color-secondary', colorData.secondary);
-		if (colorData.hover) root.style.setProperty('--color-hover', colorData.hover);
-		if (colorData.surface) root.style.setProperty('--color-surface', colorData.surface);
-		if (colorData['surface-alt']) root.style.setProperty('--color-surface-alt', colorData['surface-alt']);
-		if (colorData['text-primary']) root.style.setProperty('--color-text-primary', colorData['text-primary']);
-		if (colorData['text-secondary']) root.style.setProperty('--color-text-secondary', colorData['text-secondary']);
-		if (colorData['text-inverse']) root.style.setProperty('--color-text-inverse', colorData['text-inverse']);
-		
-	} catch (err) {
-		console.error(err);
-	}
-};
+	const getSitemap = async () => {
+		return await axios.get(sitemap, { 'Content-Type': 'text/xml; charset=utf-8' });
+	};
 
-class App extends Component {
-	static contextType = NavigationContext;
-	
-	componentDidMount() {
-		getSitemap().then(({ data }) => {
+	const updateFavicon = (iconUrl, sizes = null, type = 'image/png') => {
+        const existingLink = document.querySelector(`link[rel="icon"][sizes="${sizes}"]`) || document.querySelector(`link[rel="icon"]:not([sizes])`);
+        if (existingLink) existingLink.href = iconUrl;
+        else {
+            const link = document.createElement('link');
+            link.rel = 'icon';
+            link.type = type;
+            link.href = iconUrl;
+            if (sizes) link.sizes = sizes;
+            document.head.appendChild(link);
+        }
+    };
+
+	const getSiteDataCall = async () => {
+		try {
+			const { data } = await axios.get('https://client.vivreal.io/tenant/siteDetails', {
+				params: { siteId: siteId },
+				headers: {
+					Authorization: key,
+					"Content-Type": "application/json",
+				},
+			});
+
+			const siteData = data.siteDetails.values;
+			const root = document.documentElement;
+			const faviconUrl = siteData?.logo?.currentFile?.source || '/siteAssets/placeHolder.png';
+
+			setBusinessInfo(data.businessInfo);
+			setSiteLogo(faviconUrl);
+			updateFavicon(faviconUrl, '16x16', 'image/png');
+			updateFavicon(faviconUrl, '32x32', 'image/png');
+			// updateFavicon('/path/to/favicon.ico', null, 'image/x-icon');
+
+			const formattedExplorerProducts = data.collectionObjs['Product Showcase'].map((obj) => {
+                return {
+                    id: obj.objectValue._id,
+                    imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
+                    title: obj.objectValue.title,
+                    description: obj.objectValue.description,
+                    link: obj.objectValue.link,
+                    buttonLabel: obj.objectValue.buttonLabel,
+                    productType: obj.objectValue['product-type']
+                }
+            });
+
+			const formattedCardSection = data.collectionObjs['Our Offerings'].map((obj) => {
+                return {
+                    id: obj.objectValue._id,
+                    imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
+                    title: obj.objectValue.title,
+                    description: obj.objectValue.description,
+                    icon: obj.objectValue.icon,
+                }
+            });
+
+			data.collectionObjs['Hero Sections'].map((obj) => {
+                switch (obj.objectValue.sectionName) {
+                    case 'aboutSection':
+                        setAboutSection(obj.objectValue);
+                        break;
+                    case 'topSection':
+                        setTopSection(obj.objectValue);
+                        break;
+                    case 'exploreProducts':
+                        setExploreProductSection(obj.objectValue);
+                        break;
+                    case 'contactSection':
+                        setContactSection(obj.objectValue);
+                        break;
+                }
+            });
+
+           
+
+			if (siteData.primary) root.style.setProperty('--color-primary', siteData.primary);
+			if (siteData.secondary) root.style.setProperty('--color-secondary', siteData.secondary);
+			if (siteData.hover) root.style.setProperty('--color-hover', siteData.hover);
+			if (siteData.surface) root.style.setProperty('--color-surface', siteData.surface);
+			if (siteData['surface-alt']) root.style.setProperty('--color-surface-alt', siteData['surface-alt']);
+			if (siteData['text-primary']) root.style.setProperty('--color-text-primary', siteData['text-primary']);
+			if (siteData['text-secondary']) root.style.setProperty('--color-text-secondary', siteData['text-secondary']);
+			if (siteData['text-inverse']) root.style.setProperty('--color-text-inverse', siteData['text-inverse']);
+			
+			setCardSectionData(formattedCardSection);
+			setExploreProductData(formattedExplorerProducts);
+			setLastUpdatedAt(new Date());
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const asyncHandler = async () => {
+		setLoading(true);
+		const siteMapPromise = getSitemap().then(({ data }) => {
 			const { url } = xmlToJSON(data);
-			this.context.setInitialLoadingData(url, componentDictionary);
+			setInitialLoadingData(url, componentDictionary);
 		});
+		const siteDataPromise = getSiteDataCall().catch(console.error);
 
-		getSiteColorsCall().catch(console.error);
+		await Promise.all([siteDataPromise, siteMapPromise]);
+		setLoading(false);
 	}
 
-	render() {
-		return (
-			<div className='app-styleguide app'>
+	useEffect(() => {
+		if (!hasMountedRef.current) {
+			hasMountedRef.current = true;
+			asyncHandler();
+		}
+	}, [])
+
+	return (
+		<div className='app-styleguide app'>
+			<Helmet>
+				<title>{businessInfo.name || 'Company Name'}</title>
+				<meta
+					name="description"
+					content={`${businessInfo.name || 'Our Store'} is your trusted source for thoughtfully curated products.`}
+				/>
+			</Helmet>
+			{ 
+				loading ?
+				<LoadingPage />
+				:
+				<>
 				{
-					this.context.routes.length ?
-					<FetchedDataProvider>
-						<CartProvider>
-							<ProductsProvider>
-								<Routes>
-									{this.context.routes}
-									<Route path='*' element={<PageNotFound />} />
-								</Routes>
-							</ProductsProvider>
-						</CartProvider>
-					</FetchedDataProvider>
+					routes.length ?
+					<CartProvider>
+						<ProductsProvider>
+							<Routes>
+								{routes}
+								<Route path='*' element={<PageNotFound />} />
+							</Routes>
+						</ProductsProvider>
+					</CartProvider>
 					: <CircularProgress />
 				}
-			</div>
-		);
-	}
+				</>
+			}
+			
+			
+		</div>
+	);
 }
 
 export default App

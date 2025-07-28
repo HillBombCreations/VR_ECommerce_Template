@@ -1,9 +1,7 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
-import axios from 'axios';
-import LoadingPage from '../../loadingPage/desktop/index.jsx';
 
 // Wrappers
 import Header from '../../../components/wrappers/header/index.jsx';
@@ -16,7 +14,7 @@ import CardComponent from './components/cardComponent.jsx';
 import ContactComponent from './components/contactComponent.jsx';
 import AboutComponent from './components/aboutComponent.jsx';
 import FetchedDataContext from '../../../context/fetchedDataContext.jsx';
-// import NoShippingBanner from '../../../components/universal/noShippingBanner/index.jsx';
+import NoShippingBanner from '../../../components/universal/noShippingBanner/index.jsx';
 
 // MUI Imports
 import { Box, Typography, Button } from '@mui/material';
@@ -126,184 +124,51 @@ const LandingPage = () => {
         aboutSection,
         exploreProductSection,
         cardSectionData,
+        businessInfo,
         exploreProductData,
-        lastUpdatedAt,
         siteLogo,
-        setLastUpdatedAt,
-        setExploreProductData,
-        setCardSectionData,
-        setTopSection,
-        setContactSection,
-        setAboutSection,
-        setExploreProductSection,
-        setSiteLogo
     } = useContext(FetchedDataContext);
     const [acceptedCookieBool, setAcceptedCookieBool] = useState(Cookies.get('acceptedcookie'));
-    const [loadingContent, setLoadingContent] = useState(true);
-    const hasMountedRef = useRef();
-
-    const API_URL = import.meta.env.VITE_API_URL;
-    const key = import.meta.env.VITE_CLIENT_KEY;
-    const landingSectionId = import.meta.env.VITE_HERO_SECTIONS_ID;
-    const exploreProductsId = import.meta.env.VITE_PRODUCT_SHOWCASE_ID;
-    const cardSectionDataId = import.meta.env.VITE_OUR_OFFERINGS_ID;
-    const siteColorsId = import.meta.env.VITE_SITE_DETAILS_ID;
-
-    const getSiteDataCall = async () => {
-        const landingSectionPromise = axios.get(`${API_URL}/tenant/collectionObjects`, {
-            params: { collectionId: landingSectionId },
-            headers: {
-                Authorization: key,
-                "Content-Type": "application/json",
-            },
-        }).then((fetchedLandingSection) => {
-            fetchedLandingSection.data.map((obj) => {
-                switch (obj.objectValue.sectionName) {
-                    case 'aboutSection':
-                        setAboutSection(obj.objectValue);
-                        break;
-                    case 'topSection':
-                        setTopSection(obj.objectValue);
-                        break;
-                    case 'exploreProducts':
-                        setExploreProductSection(obj.objectValue);
-                        break;
-                    case 'contactSection':
-                        setContactSection(obj.objectValue);
-                        break;
-                }
-            });
-        });
-
-        const exploreProductsPromise = axios.get(`${API_URL}/tenant/collectionObjects`, {
-            params: { collectionId: exploreProductsId },
-            headers: {
-                Authorization: key,
-                "Content-Type": "application/json",
-            },
-        }).then((fetchedExploreProducts) => {
-            const formattedExplorerProducts = fetchedExploreProducts.data.map((obj) => {
-                return {
-                    id: obj.objectValue._id,
-                    imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
-                    title: obj.objectValue.title,
-                    description: obj.objectValue.description,
-                    link: obj.objectValue.link,
-                    buttonLabel: obj.objectValue.buttonLabel,
-                    productType: obj.objectValue['product-type']
-                }
-            });
-            setExploreProductData(formattedExplorerProducts);
-        });
-
-        const cardSectionPromise = axios.get(`${API_URL}/tenant/collectionObjects`, {
-            params: { collectionId: cardSectionDataId },
-            headers: {
-                Authorization: key,
-                "Content-Type": "application/json",
-            },
-        }).then((fetchedCardSectionData) => {
-            const formattedCardSection = fetchedCardSectionData.data.map((obj) => {
-                return {
-                    id: obj.objectValue._id,
-                    imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
-                    title: obj.objectValue.title,
-                    description: obj.objectValue.description,
-                    icon: obj.objectValue.icon,
-                }
-            });
-            setCardSectionData(formattedCardSection);
-        });
-
-        const siteDataPromise = axios.get(`${API_URL}/tenant/collectionObjects`, {
-            params: { collectionId: siteColorsId },
-            headers: {
-                Authorization: key,
-                "Content-Type": "application/json",
-            },
-        }).then((fetchedSiteData) => {
-            const siteData = fetchedSiteData.data[0].objectValue;
-            setSiteLogo(siteData?.logo?.currentFile?.source ? siteData.logo.currentFile.source : '/siteAssets/placeHolder.png');
-        });
-        
-        setLastUpdatedAt(new Date());
-
-        await Promise.all([landingSectionPromise, exploreProductsPromise, cardSectionPromise, siteDataPromise]);
-    }
-
-    const handleSiteData = async () => {
-        try {
-            await getSiteDataCall();
-            if (!lastUpdatedAt) await getSiteDataCall();
-            else {
-                const { data } = await axios.get(`${API_URL}/tenant/checkLastUpdateAt`, {
-                    params: { lastUpdatedAt: lastUpdatedAt },
-                    headers: {
-                        Authorization: key,
-                        "Content-Type": "application/json",
-                    },
-                });
-
-                if (data === 'update') await getSiteDataCall();
-            }
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setLoadingContent(false);
-        }
-    };
 
     const acceptCookies = () => {
         setAcceptedCookieBool(1);
         Cookies.set('acceptedcookie', 1);
     };
-
-    useEffect(() => {
-        if (!hasMountedRef.current) {
-            hasMountedRef.current = true;
-            handleSiteData();
-        }
-    }, []);
     return (
-        <>
-            {loadingContent ? (
-                <LoadingPage />
-            ) : (
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        minHeight: '100vh',
-                        width: '100vw',
-                        overflowX: 'hidden',
-                    }}
-                >
-                   {/* <NoShippingBanner /> */}
-                    <Header />
-                    <PageContainer>
-                        <LandingSection>
-                            <LandingWrapper>
-                                <LandingContent>
-                                    <LandingTitle>{topSection.title}</LandingTitle>
-                                    <LandingSubtitle>
-                                        {topSection.subtitle}
-                                    </LandingSubtitle>
-                                    <LandingButton onClick={() => navigate('/products')} variant="contained">{topSection.buttonLabel}</LandingButton>
-                                </LandingContent>
-                                {/* UPDATE */}
-                                <LandingLogo src={topSection?.image?.currentFile?.source ? topSection.image.currentFile.source : siteLogo} alt="Comapny Name Logo" />
-                            </LandingWrapper>
-                        </LandingSection>
-                        <SliderComponent exploreProductSection={exploreProductSection} exploreProducts={exploreProductData}/>
-                        <CardComponent qualityData={cardSectionData} />
-                        <AboutComponent aboutSection={aboutSection} />
-                        <ContactComponent contactSection={contactSection} />
-                    </PageContainer>
-                    <Footer />
-                    {!acceptedCookieBool && <CookiePopup acceptCookies={acceptCookies} />}
-                </div>
-            )}
-        </>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '100vh',
+                width: '100vw',
+                overflowX: 'hidden',
+            }}
+        >
+            {
+                !businessInfo?.shipping && (<NoShippingBanner />)
+            }
+            <Header />
+            <PageContainer>
+                <LandingSection>
+                    <LandingWrapper>
+                        <LandingContent>
+                            <LandingTitle>{topSection.title}</LandingTitle>
+                            <LandingSubtitle>
+                                {topSection.subtitle}
+                            </LandingSubtitle>
+                            <LandingButton onClick={() => navigate('/products')} variant="contained">{topSection.buttonLabel}</LandingButton>
+                        </LandingContent>
+                        <LandingLogo src={topSection?.image?.currentFile?.source ? topSection.image.currentFile.source : siteLogo} alt={`${businessInfo.name} Logo`} />
+                    </LandingWrapper>
+                </LandingSection>
+                <SliderComponent exploreProductSection={exploreProductSection} exploreProducts={exploreProductData}/>
+                <CardComponent qualityData={cardSectionData} />
+                <AboutComponent aboutSection={aboutSection} />
+                <ContactComponent contactSection={contactSection} />
+            </PageContainer>
+            <Footer />
+            {!acceptedCookieBool && <CookiePopup acceptCookies={acceptCookies} />}
+        </div>
     );
 };
 

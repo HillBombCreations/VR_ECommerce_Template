@@ -1,7 +1,8 @@
 // MUI Imports
 import { Box, Typography, TextField, Button, Alert, Snackbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import FetchedDataContext from '../../../../context/fetchedDataContext';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -131,11 +132,11 @@ const MobileContactComponent = ({ page }) => {
         email: '',
         message: '',
     });
+    const { businessInfo } = useContext(FetchedDataContext);
     const [alertMessage, setAlertMessage] = useState('');
     const [alertSeverity, setAlertSeverity] = useState('success');
     const [alertOpen, setAlertOpen] = useState(false);
-    const API_URL = import.meta.env.VITE_API_URL;
-    const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL;
+    const API_URL = 'https://client.vivreal.io';
     const KEY = import.meta.env.VITE_CLIENT_KEY;
 
     const handleInputChange = (e) => {
@@ -149,9 +150,8 @@ const MobileContactComponent = ({ page }) => {
     const sendMessage = async () => {
         const { fullName, email, message } = formState;
         try {
-            // UPDATE
             const htmlInfo = {
-                title: "Company Name Reachout",
+                title: `${businessInfo.name} Reachout`,
                 subtitle: `Someone has contacted you,`,
                 whiteBoxText: `Name: ${fullName}, Email: ${email} <br><br> ${message}`,
                 signature: 'Thanks for choosing Vivreal.',
@@ -162,7 +162,7 @@ const MobileContactComponent = ({ page }) => {
             {
                 name: fullName,
                 message,
-                to: CONTACT_EMAIL,
+                to: businessInfo.contactInfo.email,
                 htmlInfo
             },
             {

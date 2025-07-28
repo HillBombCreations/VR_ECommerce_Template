@@ -23,6 +23,9 @@ const FetchedDataContext = createContext({
     lastUpdatedAt: null,
     setLastUpdatedAt: () => {},
 
+    businessInfo: {},
+    setBusinessInfo: () => {},
+
     siteLogo: null,
     setSiteLogo: () => {},
 });
@@ -33,6 +36,12 @@ export const FetchedDataProvider = ({ children }) => {
     const [contactSection, setContactSection] = useState(() => {
         const savedContactSection = localStorage.getItem('contactSection');
         if (savedContactSection) return JSON.parse(savedContactSection);
+        return {};
+    });
+
+    const [businessInfo, setBusinessInfo] = useState(() => {
+        const savedBusinessInfo = localStorage.getItem('businessInfo');
+        if (savedBusinessInfo) return JSON.parse(savedBusinessInfo);
         return {};
     });
 
@@ -118,6 +127,11 @@ export const FetchedDataProvider = ({ children }) => {
         else localStorage.removeItem('lastUpdatedAt');
     }, [lastUpdatedAt]);
 
+    useEffect(() => {
+        if (businessInfo) localStorage.setItem('businessInfo', JSON.stringify(businessInfo));
+        else localStorage.removeItem('businessInfo');
+    }, [businessInfo]);
+
     return (
         <FetchedDataContext.Provider value={{
             contactSection, setContactSection,
@@ -127,7 +141,8 @@ export const FetchedDataProvider = ({ children }) => {
             exploreProductData, setExploreProductData,
             cardSectionData, setCardSectionData,
             lastUpdatedAt, setLastUpdatedAt,
-            siteLogo, setSiteLogo
+            siteLogo, setSiteLogo,
+            businessInfo, setBusinessInfo,
         }}>
             {children}
         </FetchedDataContext.Provider>

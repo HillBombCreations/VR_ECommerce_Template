@@ -12,7 +12,7 @@ import axios from 'axios';
 // Wrappers
 import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
-// import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
+import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
 
 // MUI Imports
 import { ArrowBack } from "@mui/icons-material";
@@ -74,11 +74,11 @@ const ButtonGroup = styled(Box)(({ theme }) => ({
 
 const ProductPage = () => {
     const navigate = useNavigate();
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = 'https://client.vivreal.io';
     const key = import.meta.env.VITE_CLIENT_KEY;
     const stripeKey = import.meta.env.VITE_STRIPE_KEY;
     const { cartItems, setCartItems } = useContext(CartContext);
-    const { siteLogo } = useContext(FetchedDataContext)
+    const { siteLogo, businessInfo } = useContext(FetchedDataContext)
     const { products } = useContext(ProductsContext);
     const [loadingProduct, setLoadingProduct] = useState(true);
     const [loadingCheckout, setLoadingCheckout] = useState(false);
@@ -164,7 +164,9 @@ const ProductPage = () => {
                 variant={selectedVariant}
                 cartCount={Object.keys(cartItems).reduce((total, key) => total + cartItems[key].quantity, 0)}
             />
-            {/* <NoShippingBanner /> */}
+            {
+                !businessInfo?.shipping && (<NoShippingBanner />)
+            }
             <Header />
             <PageContainer>
                 {loadingProduct ? (

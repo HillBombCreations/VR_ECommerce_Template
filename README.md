@@ -18,18 +18,18 @@ This template provides a clean, professional foundation for your online store. I
 
 ## 🛠️ How to Customize for Your Business
 
-Most content you’ll want to change is marked with `// UPDATE` comments directly in the code.
+Most content you’ll want to change is marked with `[UPDATE whatever you nedd to add]` comments directly in the code.
 
 ### 🔎 How to find and update your info:
 
 1. Open the project in GitHub Codespaces or your preferred code editor.
 2. If in a Codespace or VSCode you can use the **magnifying glass icon on the left sidebar** to search the entire project.  
    - If you are using a different editor, use its global search or "Find in Files" feature (usually available via `Ctrl+Shift+F` or `Cmd+Shift+F`).
-3. Search for `// UPDATE`.
-4. Replace placeholder text such as company name, contact info, policy dates, and emails with your own details.
+3. Search for `UPDATE`.
+4. Replace placeholder text such as [UPDATE add company name], contact info, policy dates, and emails with your own details.
 5. Save your changes.
 
-> **Tip:** Searching for `// UPDATE` ensures you don’t miss any critical spots to personalize.
+> **Tip:** Searching for `UPDATE` ensures you don’t miss any critical spots to personalize.
 
 ---
 

@@ -24,7 +24,7 @@ import {
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { ShoppingCart, Cancel } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
-// import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
+import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
 
 // CSS
 import CartContext from "../../../context/cartContext.jsx";
@@ -112,7 +112,7 @@ const ProductCard = styled(Card)(({ theme }) => ({
 const ProductsPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { siteLogo } = useContext(FetchedDataContext)
+    const { siteLogo, businessInfo } = useContext(FetchedDataContext)
     const { cartItems, setCartItems } = useContext(CartContext);
     const { setProducts } = useContext(ProductsContext);
     const [selectedVariants, setSelectedVariants] = useState({});
@@ -126,7 +126,7 @@ const ProductsPage = () => {
     const [filters, setFilters] = useState([]);
     // const [searchQuery, setSearchQuery] = useState("");
 
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = 'https://client.vivreal.io';
     const key = import.meta.env.VITE_CLIENT_KEY;
     const hasMounted = useRef(false);
 
@@ -282,6 +282,9 @@ const ProductsPage = () => {
                 overflowX: "hidden",
             }}
             >
+            {
+                !businessInfo?.shipping && (<NoShippingBanner />)
+            }
             <Header />
             <PageContainer>
                 <HeaderContainer>

@@ -51,7 +51,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, variant }) => {
     const { cartItems, setOpenCartMenu } = useContext(CartContext);
     const { siteLogo } = useContext(FetchedDataContext)
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = 'https://client.vivreal.io';
     const key = import.meta.env.VITE_CLIENT_KEY;
     const stripeKey = import.meta.env.VITE_STRIPE_KEY;
 

@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Component } from "react";
+import { useState, useContext } from "react";
 import Cookies from "js-cookie";
 
 // Wrappers
 import Header from "../../../components/wrappers/header";
 import Footer from "../../../components/wrappers/footer";
+import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
 import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 
 // MUI Imports
@@ -63,19 +64,14 @@ const StyledListItem = styled("li")(() => ({
   color: "var(--color-text-primary)",
 }));
 
-export default class PrivacyPolicy extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      acceptedCookieBool: Cookies.get("acceptedcookie"),
-    };
-  }
-
-  render() {
+const PrivacyPolicy = () => {
+    const [acceptedCookieBool, setAcceptedCookieBool] = useState(Cookies.get("acceptedcookie"));
+    const { businessInfo } = useContext(FetchedDataContext);
     const acceptCookies = () => {
-      this.setState({ acceptedCookieBool: 1 });
-      Cookies.set("acceptedcookie", 1);
+        setAcceptedCookieBool(1);
+        Cookies.set("acceptedcookie", 1);
     };
+
 
     return (
       <PageContainer>
@@ -83,11 +79,11 @@ export default class PrivacyPolicy extends Component {
         <ContentWrapper>
           <SectionTitle>Privacy Policy</SectionTitle>
           <SectionSubtitle>
-            <strong>Effective Date:</strong> MM/DD/YYYY
+            <strong>Effective Date:</strong> 07/28/2025
           </SectionSubtitle>
 
           <Typography>
-            At <strong>[Your Company Name]</strong>, we respect your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data when you visit our website or interact with our services.
+            At <strong>{businessInfo?.name ? businessInfo.name : 'Comapany Name'}</strong>, we respect your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data when you visit our website or interact with our services.
           </Typography>
 
           <Divider sx={{ my: 3, backgroundColor: "var(--color-primary)" }} />
@@ -172,28 +168,37 @@ export default class PrivacyPolicy extends Component {
           <Typography>If you have any questions, please contact us:</Typography>
           <StyledList>
             <StyledListItem>
-              <strong>Email:</strong>{" "}
-              <Link
-                href="mailto:email@example.com"
-                sx={{ color: "var(--color-primary)", fontWeight: "bold" }}
-              >
-                email@example.com
-              </Link>
+                <strong>Email:</strong>{" "}
+                <Link
+                href={`mailto:${businessInfo.contactInfo.email}`}
+                sx={{ color: "var(--color-secondary)", fontWeight: "bold" }}
+                >
+                {businessInfo.contactInfo.email}
+                </Link>
             </StyledListItem>
-            <StyledListItem>
-              <strong>Phone:</strong> (000) 000-0000
-            </StyledListItem>
-            <StyledListItem>
-              <strong>Business Address:</strong> 1234 Example St, City, State ZIP
-            </StyledListItem>
-          </StyledList>
+            {
+                businessInfo?.contactInfo?.phoneNumber && (
+                    <StyledListItem>
+                        <strong>Phone:</strong> {businessInfo.contactInfo.phoneNumber}
+                    </StyledListItem>
+                )
+            }
+            {
+                businessInfo?.address?.street1 && (
+                    <StyledListItem>
+                        <strong>Business Address:</strong> {`${businessInfo.address.street1} ${businessInfo?.address?.street2 ? businessInfo?.address?.street2 : ''}, ${businessInfo.address.city}, ${businessInfo.address.state} ${businessInfo.address.zip}`}
+                    </StyledListItem>
+                )
+            }
+        </StyledList>
         </ContentWrapper>
 
         <Footer />
-        {!this.state.acceptedCookieBool ? (
+        {!acceptedCookieBool ? (
           <CookiePopup acceptCookies={acceptCookies} />
         ) : null}
       </PageContainer>
     );
-  }
 }
+
+export default PrivacyPolicy;

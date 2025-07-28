@@ -64,7 +64,7 @@ const CheckoutButton = styled(Button)({
 const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, variant }) => {
     const { siteLogo } = useContext(FetchedDataContext)
     const { cartItems, setOpenCartMenu } = useContext(CartContext);
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = 'https://client.vivreal.io';
     const key = import.meta.env.VITE_CLIENT_KEY;
     const stripeKey = import.meta.env.VITE_STRIPE_KEY;
 

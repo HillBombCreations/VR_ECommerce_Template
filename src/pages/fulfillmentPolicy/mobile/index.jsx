@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import Cookies from "js-cookie";
-
+import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
 // Wrappers
 import Header from "../../../components/wrappers/header";
 import Footer from "../../../components/wrappers/footer";
@@ -63,10 +63,7 @@ const StyledListItem = styled("li")(() => ({
 
 const FulfillmentPolicy = () => {
   const [acceptedCookieBool, setAcceptedCookieBool] = useState(false);
-
-  useEffect(() => {
-    setAcceptedCookieBool(Cookies.get("acceptedcookie"));
-  }, []);
+  const { businessInfo } = useContext(FetchedDataContext);
 
   const acceptCookies = () => {
     setAcceptedCookieBool(true);
@@ -79,12 +76,12 @@ const FulfillmentPolicy = () => {
       <ContentWrapper>
         <SectionTitle>Fulfillment and Refund Policy</SectionTitle>
         <SectionSubtitle>
-          <strong>Effective Date:</strong> MM/DD/YYYY <br />
-          <strong>Last Updated:</strong> MM/DD/YYYY
+          <strong>Effective Date:</strong> 07/28/2025 <br />
+          <strong>Last Updated:</strong> 07/28/2025
         </SectionSubtitle>
 
         <Typography paragraph>
-          At <strong>[Your Company Name]</strong>, we’re committed to providing high-quality products and services. All orders are handled with care and attention to ensure a great customer experience.
+          At <strong>{businessInfo?.name ? businessInfo.name : 'Comapany Name'}</strong>, we’re committed to providing high-quality products and services. All orders are handled with care and attention to ensure a great customer experience.
         </Typography>
 
         <Divider sx={{ my: 3, backgroundColor: "var(--color-primary)" }} />
@@ -113,7 +110,7 @@ const FulfillmentPolicy = () => {
         <StyledList>
           <StyledListItem>We offer refunds or replacements for <strong>defective, missing, or incorrect items</strong>.</StyledListItem>
           <StyledListItem>Please contact us within <strong>24 hours</strong> of receiving your order.</StyledListItem>
-          <StyledListItem>Email <strong>[your@email.com]</strong> and include your order number and photo(s) if applicable.</StyledListItem>
+          <StyledListItem>Email <strong>{businessInfo.contactInfo.email}</strong> and include your order number and photo(s) if applicable.</StyledListItem>
         </StyledList>
 
         <SectionTitle>Cancellation Policy</SectionTitle>
@@ -135,21 +132,29 @@ const FulfillmentPolicy = () => {
         <SectionTitle>Contact Us</SectionTitle>
         <Typography paragraph>If you have any questions, please reach out:</Typography>
         <StyledList>
-          <StyledListItem>
-            <strong>Email:</strong>{" "}
-            <Link
-              href="mailto:your@email.com"
-              sx={{ color: "var(--color-primary)", fontWeight: "bold" }}
-            >
-              your@email.com
-            </Link>
-          </StyledListItem>
-          <StyledListItem>
-            <strong>Phone:</strong> (000) 000-0000
-          </StyledListItem>
-          <StyledListItem>
-            <strong>Business Address:</strong> 1234 Example St, City, State, ZIP
-          </StyledListItem>
+            <StyledListItem>
+                <strong>Email:</strong>{" "}
+                <Link
+                href={`mailto:${businessInfo.contactInfo.email}`}
+                sx={{ color: "var(--color-secondary)", fontWeight: "bold" }}
+                >
+                {businessInfo.contactInfo.email}
+                </Link>
+            </StyledListItem>
+            {
+                businessInfo?.contactInfo?.phoneNumber && (
+                    <StyledListItem>
+                        <strong>Phone:</strong> {businessInfo.contactInfo.phoneNumber}
+                    </StyledListItem>
+                )
+            }
+            {
+                businessInfo?.address?.street1 && (
+                    <StyledListItem>
+                        <strong>Business Address:</strong> {`${businessInfo.address.street1} ${businessInfo?.address?.street2 ? businessInfo?.address?.street2 : ''}, ${businessInfo.address.city}, ${businessInfo.address.state} ${businessInfo.address.zip}`}
+                    </StyledListItem>
+                )
+            }
         </StyledList>
       </ContentWrapper>
 

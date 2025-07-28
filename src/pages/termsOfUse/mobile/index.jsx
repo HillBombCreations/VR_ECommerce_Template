@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Component } from "react";
+import { useContext, useState } from "react";
+import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
 import Cookies from "js-cookie";
 
 // Wrappers
@@ -51,19 +52,14 @@ const StyledListItem = styled("li")(() => ({
   color: "var(--color-text-primary)",
 }));
 
-export default class TermsOfUse extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      acceptedCookieBool: Cookies.get("acceptedcookie"),
-    };
-  }
+const TermsOfUse = () => {
+  const [acceptedCookieBool, setAcceptedCookieBool] = useState(Cookies.get("acceptedcookie"));
+  const { businessInfo } = useContext(FetchedDataContext);
 
-  render() {
-    const acceptCookies = () => {
-      this.setState({ acceptedCookieBool: 1 });
+  const acceptCookies = () => {
+      setAcceptedCookieBool(1);
       Cookies.set("acceptedcookie", 1);
-    };
+  };
 
     return (
       <PageContainer>
@@ -71,16 +67,14 @@ export default class TermsOfUse extends Component {
         <ContentWrapper>
           <SectionTitle>Terms of Use</SectionTitle>
           <Typography>
-            {/* UPDATE */}
-            <strong>Effective Date:</strong> [MM/DD/YYYY]
+            <strong>Effective Date:</strong> 07/28/2025
           </Typography>
 
           <Divider sx={{ my: 3, backgroundColor: "var(--color-primary)" }} />
 
           <SectionTitle>1. Acceptance of Terms</SectionTitle>
           <Typography>
-            {/* UPDATE */}
-            By accessing or using the website and services of <strong>[Your Company Name]</strong> ("we," "us," or "our"), you agree to abide by these Terms of Use. If you do not agree, please do not use our website.
+            By accessing or using the website and services of <strong>{businessInfo?.name ? businessInfo.name : 'Comapany Name'}</strong> ("we," "us," or "our"), you agree to abide by these Terms of Use. If you do not agree, please do not use our website.
           </Typography>
 
           <SectionTitle>2. Description of Services</SectionTitle>
@@ -88,7 +82,6 @@ export default class TermsOfUse extends Component {
             We offer a range of products and/or services, which may include but are not limited to:
           </Typography>
           <StyledList>
-            {/* UPDATE */}
             <StyledListItem>Custom goods, digital products, or professional services.</StyledListItem>
             <StyledListItem>Content, tools, or software for individual or business use.</StyledListItem>
             <StyledListItem>Online ordering, support, or consulting services.</StyledListItem>
@@ -107,32 +100,27 @@ export default class TermsOfUse extends Component {
 
           <SectionTitle>4. Intellectual Property</SectionTitle>
           <Typography>
-            {/* UPDATE */}
-            All content, including trademarks, logos, text, images, and software, is the property of <strong>[Your Company Name]</strong> or its licensors. You may not copy or distribute our content without prior written consent.
+            All content, including trademarks, logos, text, images, and software, is the property of <strong>{businessInfo?.name ? businessInfo.name : 'Comapany Name'}</strong> or its licensors. You may not copy or distribute our content without prior written consent.
           </Typography>
 
           <SectionTitle>5. Pricing & Payments</SectionTitle>
           <Typography>
-            {/* UPDATE */}
-            Prices are listed in <strong>[Your Currency]</strong> and may change without notice. Payments are securely processed via third-party providers. We do not store credit card or payment details.
+            Prices are listed in <strong>USD</strong> and may change without notice. Payments are securely processed via third-party providers. We do not store credit card or payment details.
           </Typography>
 
           <SectionTitle>6. Shipping, Delivery, or Pickup</SectionTitle>
           <Typography>
-            {/* UPDATE */}
             We may offer shipping, delivery, or local pickup depending on your location and order type. Details will be provided during checkout or via confirmation email.
           </Typography>
 
           <SectionTitle>7. Refund & Return Policy</SectionTitle>
           <Typography>
-            {/* UPDATE */}
-            We stand behind our products and services. For refund or return eligibility, please contact us at <strong>[support@example.com]</strong> within <strong>[X days]</strong> of receiving your order.
+            We stand behind our products and services. For refund or return eligibility, please contact us at <strong>{businessInfo.contactInfo.email}</strong> within <strong>14 Days</strong> of receiving your order.
           </Typography>
 
           <SectionTitle>8. Limitation of Liability</SectionTitle>
           <Typography>
-            {/* UPDATE */}
-            <strong>[Your Company Name]</strong> is not liable for indirect, incidental, or consequential damages arising from your use of our site or services.
+            <strong>{businessInfo?.name ? businessInfo.name : 'Comapany Name'}</strong> is not liable for indirect, incidental, or consequential damages arising from your use of our site or services.
           </Typography>
 
           <SectionTitle>9. Termination</SectionTitle>
@@ -142,8 +130,7 @@ export default class TermsOfUse extends Component {
 
           <SectionTitle>10. Governing Law</SectionTitle>
           <Typography>
-            {/* UPDATE */}
-            These Terms shall be governed by the laws of the jurisdiction in which <strong>[Your Company Name]</strong> operates.
+            These Terms shall be governed by the laws of the jurisdiction in which <strong>{businessInfo?.name ? businessInfo.name : 'Comapany Name'}</strong> operates.
           </Typography>
 
           <SectionTitle>11. Updates to Terms</SectionTitle>
@@ -156,25 +143,31 @@ export default class TermsOfUse extends Component {
           <StyledList>
             <StyledListItem>
               <strong>Email:</strong>{" "}
-              {/* UPDATE */}
-              <Link href="mailto:support@example.com" sx={{ color: "var(--color-primary)", fontWeight: "bold" }}>
-                support@example.com
+              <Link href={`mailto:${businessInfo.contactInfo.email}`} sx={{ color: "var(--color-primary)", fontWeight: "bold" }}>
+                {businessInfo.contactInfo.email}
               </Link>
             </StyledListItem>
-            <StyledListItem>
-              {/* UPDATE */}
-              <strong>Phone:</strong> (000) 000-0000
-            </StyledListItem>
-            <StyledListItem>
-              {/* UPDATE */}
-              <strong>Business Address:</strong> 123 Your St, Your City, ST 00000
-            </StyledListItem>
+            {
+                businessInfo?.contactInfo?.phoneNumber && (
+                     <StyledListItem>
+                        <strong>Phone:</strong> {businessInfo.contactInfo.phoneNumber}
+                    </StyledListItem>
+                )
+            }
+            {
+                businessInfo?.address?.street1 && (
+                     <StyledListItem>
+                        <strong>Business Address:</strong> {`${businessInfo.address.street1} ${businessInfo?.address?.street2 ? businessInfo?.address?.street2 : ''}, ${businessInfo.address.city}, ${businessInfo.address.state} ${businessInfo.address.zip}`}
+                    </StyledListItem>
+                )
+            }
           </StyledList>
         </ContentWrapper>
 
         <Footer />
-        {!this.state.acceptedCookieBool ? <CookiePopup acceptCookies={acceptCookies} /> : null}
+        {!acceptedCookieBool ? <CookiePopup acceptCookies={acceptCookies} /> : null}
       </PageContainer>
     );
-  }
-}
+};
+
+export default TermsOfUse;

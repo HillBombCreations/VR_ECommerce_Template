@@ -15,7 +15,7 @@ import Footer from "../../../components/wrappers/footer/index.jsx";
 // Components
 import CookiePopup from "../../../components/universal/cookiePopup.jsx";
 import AddedToCartSnackBar from "./AddedToCartSnackBar.jsx";
-// import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
+import NoShippingBanner from "../../../components/universal/noShippingBanner/index.jsx";
 
 // MUI Imports
 import {
@@ -66,7 +66,7 @@ const ProductCard = styled(Card)(() => ({
 const ProductsPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { siteLogo } = useContext(FetchedDataContext);
+    const { siteLogo, businessInfo } = useContext(FetchedDataContext);
     const { cartItems, setCartItems } = useContext(CartContext);
     const { setProducts } = useContext(ProductsContext);
     const [products, setLocalProducts] = useState([]);
@@ -80,7 +80,7 @@ const ProductsPage = () => {
     const [filters, setFilters] = useState([]);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = 'https://client.vivreal.io';
     const key = import.meta.env.VITE_CLIENT_KEY;
     const hasMounted = useRef(false);
 
@@ -198,7 +198,9 @@ const ProductsPage = () => {
         <AddedToCartSnackBar itemAdded={itemAdded} setItemAdded={setItemAdded} />
         {loadingProducts ? <LoadingPage /> : errorLoadingProducts ? (<ErrorLoadingProducts />) : (
         <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh", width: "100vw" }}>
-            {/* <NoShippingBanner /> */}
+            {
+                !businessInfo?.shipping && (<NoShippingBanner />)
+            }
             <Header />
             <PageContainer>
                 <HeaderContainer>
