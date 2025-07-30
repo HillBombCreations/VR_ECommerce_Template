@@ -2,6 +2,8 @@
 import { useState, useContext } from "react";
 import Cookies from "js-cookie";
 import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
+import formatStringFns from "../../../utils/formatStringFns.jsx";
+
 // Wrappers
 import Header from "../../../components/wrappers/header";
 import Footer from "../../../components/wrappers/footer";
@@ -64,6 +66,7 @@ const StyledListItem = styled("li")(() => ({
 const FulfillmentPolicy = () => {
   const [acceptedCookieBool, setAcceptedCookieBool] = useState(false);
   const { businessInfo } = useContext(FetchedDataContext);
+  const { formatPhoneNumber } = formatStringFns();
 
   const acceptCookies = () => {
     setAcceptedCookieBool(true);
@@ -144,7 +147,7 @@ const FulfillmentPolicy = () => {
             {
                 businessInfo?.contactInfo?.phoneNumber && (
                     <StyledListItem>
-                        <strong>Phone:</strong> {businessInfo.contactInfo.phoneNumber}
+                        <strong>Phone:</strong> {formatPhoneNumber(businessInfo.contactInfo.phoneNumber)}
                     </StyledListItem>
                 )
             }

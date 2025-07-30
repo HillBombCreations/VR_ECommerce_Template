@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "generate:robots": "node generate-robots.js",
+    "build": "npm run generate:robots && vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -16,6 +17,8 @@
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
     "axios": "^1.6.5",
+    "dotenv": "^17.2.1",
+    "fast-xml-parser": "^5.2.5",
     "install": "^0.13.0",
     "js-cookie": "^3.0.5",
     "npm": "^11.0.0",

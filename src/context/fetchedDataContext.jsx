@@ -26,6 +26,9 @@ const FetchedDataContext = createContext({
     businessInfo: {},
     setBusinessInfo: () => {},
 
+    integrationInfo: {},
+    setIntegrationInfo: () => {},
+
     siteLogo: null,
     setSiteLogo: () => {},
 });
@@ -44,6 +47,13 @@ export const FetchedDataProvider = ({ children }) => {
         if (savedBusinessInfo) return JSON.parse(savedBusinessInfo);
         return {};
     });
+
+    const [integrationInfo, setIntegrationInfo] = useState(() => {
+        const savedintegrationInfo = localStorage.getItem('integrationInfo');
+        if (savedintegrationInfo) return JSON.parse(savedintegrationInfo);
+        return {};
+    });
+
 
     const [aboutSection, setAboutSection] = useState(() => {
         const savedAboutSection = localStorage.getItem('aboutSection');
@@ -132,6 +142,11 @@ export const FetchedDataProvider = ({ children }) => {
         else localStorage.removeItem('businessInfo');
     }, [businessInfo]);
 
+    useEffect(() => {
+        if (integrationInfo) localStorage.setItem('integrationInfo', JSON.stringify(integrationInfo));
+        else localStorage.removeItem('integrationInfo');
+    }, [businessInfo]);
+
     return (
         <FetchedDataContext.Provider value={{
             contactSection, setContactSection,
@@ -143,6 +158,7 @@ export const FetchedDataProvider = ({ children }) => {
             lastUpdatedAt, setLastUpdatedAt,
             siteLogo, setSiteLogo,
             businessInfo, setBusinessInfo,
+            integrationInfo, setIntegrationInfo
         }}>
             {children}
         </FetchedDataContext.Provider>

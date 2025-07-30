@@ -7,6 +7,7 @@ import Header from "../../../components/wrappers/header";
 import Footer from "../../../components/wrappers/footer";
 import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
 import CookiePopup from "../../../components/universal/cookiePopup.jsx";
+import formatStringFns from "../../../utils/formatStringFns.jsx";
 
 // MUI Imports
 import { Box, Typography, Container, Divider, Link } from "@mui/material";
@@ -67,6 +68,7 @@ const StyledListItem = styled("li")(() => ({
 const PrivacyPolicy = () => {
     const [acceptedCookieBool, setAcceptedCookieBool] = useState(Cookies.get("acceptedcookie"));
     const { businessInfo } = useContext(FetchedDataContext);
+    const { formatPhoneNumber } = formatStringFns();
     const acceptCookies = () => {
         setAcceptedCookieBool(1);
         Cookies.set("acceptedcookie", 1);
@@ -179,7 +181,7 @@ const PrivacyPolicy = () => {
             {
                 businessInfo?.contactInfo?.phoneNumber && (
                     <StyledListItem>
-                        <strong>Phone:</strong> {businessInfo.contactInfo.phoneNumber}
+                        <strong>Phone:</strong> {formatPhoneNumber(businessInfo.contactInfo.phoneNumber)}
                     </StyledListItem>
                 )
             }

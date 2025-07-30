@@ -69,6 +69,7 @@ const  App = () => {
         setAboutSection,
         setExploreProductSection,
         setSiteLogo,
+		setIntegrationInfo
     } = useContext(FetchedDataContext);
 
 	const [loading, setLoading] = useState(false);
@@ -104,9 +105,14 @@ const  App = () => {
 			const siteData = data.siteDetails.values;
 			const root = document.documentElement;
 			const faviconUrl = siteData?.logo?.currentFile?.source || '/siteAssets/placeHolder.png';
-
+			const domainName =  data.domainName;
+			await getSitemap().then(({ data }) => {
+				const urls = xmlToJSON(data, domainName);
+				setInitialLoadingData(urls, componentDictionary, domainName);
+			});
 			setBusinessInfo(data.businessInfo);
 			setSiteLogo(faviconUrl);
+			setIntegrationInfo(data.integrationInfo);
 			updateFavicon(faviconUrl, '16x16', 'image/png');
 			updateFavicon(faviconUrl, '32x32', 'image/png');
 			// updateFavicon('/path/to/favicon.ico', null, 'image/x-icon');
@@ -170,15 +176,15 @@ const  App = () => {
 	};
 
 	const asyncHandler = async () => {
-		setLoading(true);
-		const siteMapPromise = getSitemap().then(({ data }) => {
-			const { url } = xmlToJSON(data);
-			setInitialLoadingData(url, componentDictionary);
-		});
-		const siteDataPromise = getSiteDataCall().catch(console.error);
-
-		await Promise.all([siteDataPromise, siteMapPromise]);
-		setLoading(false);
+		try {
+			setLoading(true);
+			await getSiteDataCall();
+		} catch (err) {
+			console.error(err);
+		} finally {
+			setLoading(false);
+		}
+	
 	}
 
 	useEffect(() => {

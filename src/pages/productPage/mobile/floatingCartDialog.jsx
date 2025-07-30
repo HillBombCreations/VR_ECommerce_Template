@@ -50,10 +50,8 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, variant }) => {
     const { cartItems, setOpenCartMenu } = useContext(CartContext);
-    const { siteLogo } = useContext(FetchedDataContext)
-    const API_URL = 'https://client.vivreal.io';
+    const { siteLogo, businessInfo, integrationInfo } = useContext(FetchedDataContext)
     const key = import.meta.env.VITE_CLIENT_KEY;
-    const stripeKey = import.meta.env.VITE_STRIPE_KEY;
 
     const [loadingCheckout, setLoadingCheckout] = useState(false);
     const [disableButtons, setDisableButtons] = useState(false);
@@ -88,9 +86,20 @@ const FloatingCartDialog = ({ open, onClose, product, quantity, cartCount, varia
 
         try {
             const { data } = await axios.post(
-                `${API_URL}/tenant/createCheckoutSession`,
-                { products: products, stripeKey: stripeKey, requiresShipping: false },
-                { headers: { Authorization: key, "Content-Type": "application/json" } }
+                'https://client.vivreal.io/tenant/createCheckoutSession',
+                {
+                    products: products,
+                    stripeKey: integrationInfo.stripe.secretKey,
+                    businessName: businessInfo.name,
+                    contactEmail: businessInfo.contactInfo.email,
+                    requiresShipping: businessInfo.shipping
+                },
+                {
+                    headers: {
+                        Authorization: key,
+                        "Content-Type": "application/json",
+                    },
+                }
             );
 
             if (data && !(data.status && data.status === 400)) {

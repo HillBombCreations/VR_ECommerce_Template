@@ -123,7 +123,8 @@ const LandingPage = () => {
         aboutSection,
         cardSectionData,
         exploreProductData,
-        businessInfo
+        businessInfo,
+        siteLogo
     } = useContext(FetchedDataContext);
 
     const acceptCookies = () => {
@@ -148,7 +149,7 @@ const LandingPage = () => {
             <PageContainer>
             <LandingSection>
                 <LandingWrapper>
-                    <LandingLogo src={topSection.image.currentFile.source} alt={`${businessInfo.name} Logo`} />
+                    <LandingLogo src={topSection?.image?.currentFile?.source ? topSection.image.currentFile.source : siteLogo} alt={`${businessInfo.name} Logo`} />
                     <LandingContent>
                         <LandingTitle>{topSection.title}</LandingTitle>
                         <LandingSubtitle>

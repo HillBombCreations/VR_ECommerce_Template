@@ -86,11 +86,9 @@ const ButtonGroup = styled(Box)(({ theme }) => ({
 
 const ProductPage = () => {
     const navigate = useNavigate();
-    const { siteLogo, businessInfo } = useContext(FetchedDataContext)
+    const { siteLogo, businessInfo, integrationInfo } = useContext(FetchedDataContext)
     const { cartItems, setCartItems } = useContext(CartContext);
-    const API_URL = 'https://client.vivreal.io';
     const key = import.meta.env.VITE_CLIENT_KEY;
-    const stripeKey = import.meta.env.VITE_STRIPE_KEY;
 
     const { products } = useContext(ProductsContext);
     const [selectedVariant, setSelectedVariant] = useState(null);
@@ -147,10 +145,13 @@ const ProductPage = () => {
         setLoadingCheckout(true);
         const products = [{ price: product.default_price, quantity: quantity }];
         const { data } = await axios.post(
-            `${API_URL}/tenant/createCheckoutSession`,
+            'https://client.vivreal.io/tenant/createCheckoutSession',
             {
                 products: products,
-                stripeKey: stripeKey
+                stripeKey: integrationInfo.stripe.secretKey,
+                businessName: businessInfo.name,
+                contactEmail: businessInfo.contactInfo.email,
+                requiresShipping: businessInfo.shipping
             },
             {
                 headers: {

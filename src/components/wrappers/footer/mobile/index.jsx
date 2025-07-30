@@ -7,7 +7,7 @@ import FetchedDataContext from '../../../../context/fetchedDataContext';
 const Footer = () => {
 	const navigation = useContext(NavigationContext);
     const { siteLogo, businessInfo } = useContext(FetchedDataContext);
-    const { capitalize } = formatStringFns();
+    const { capitalize, formatPhoneNumber } = formatStringFns();
 
     return (
         <Box
@@ -100,10 +100,54 @@ const Footer = () => {
 
             <Divider sx={{ marginBottom: 2 }} />
             <Box sx={{ marginBottom: 2, fontSize: '8pt' }}>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
-                    <Link href={`mailto:${businessInfo.contactInfo.email}`} underline="none" sx={{ color: 'var(--color-text-secondary)', '&:hover': { color: 'rgba(0,0,0,0.5)' } }}>
+                <Box
+                    sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 0.5,
+                    textAlign: 'center',
+                    }}
+                >
+                    {businessInfo?.contactInfo?.email && (
+                    <Link
+                        href={`mailto:${businessInfo.contactInfo.email}`}
+                        underline="none"
+                        sx={{
+                        color: 'var(--color-text-secondary)',
+                        '&:hover': { color: 'rgba(0,0,0,0.5)' },
+                        fontSize: '10px',
+                        }}
+                    >
                         {businessInfo.contactInfo.email}
                     </Link>
+                    )}
+
+                    {businessInfo?.contactInfo?.phoneNumber && (
+                    <Link
+                        href={`tel:${businessInfo.contactInfo.phoneNumber}`}
+                        underline="none"
+                        sx={{
+                        color: 'var(--color-text-secondary)',
+                        '&:hover': { color: 'rgba(0,0,0,0.5)' },
+                        fontSize: '10px',
+                        }}
+                    >
+                        {formatPhoneNumber(businessInfo.contactInfo.phoneNumber)}
+                    </Link>
+                    )}
+
+                    {businessInfo?.address?.street1 && (
+                    <Typography
+                        component="div"
+                        sx={{
+                        fontSize: '10px',
+                        color: 'var(--color-text-secondary)',
+                        }}
+                    >
+                        {`${businessInfo.address.street1} ${businessInfo.address.street2 || ''}, ${businessInfo.address.city}, ${businessInfo.address.state} ${businessInfo.address.zip}`}
+                    </Typography>
+                    )}
                 </Box>
             </Box>
 

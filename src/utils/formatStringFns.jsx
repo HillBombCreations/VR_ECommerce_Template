@@ -9,8 +9,14 @@ const capitalize = (string) => {
     return words.join(' ');
 }
 
+const formatPhoneNumber = (phone) => {
+  if (!phone || phone.length !== 10) return phone;
+  return `(${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6)}`;
+};
+
 export default function formatStrings() {
     return {
-        capitalize
+        capitalize,
+        formatPhoneNumber
     }
 }

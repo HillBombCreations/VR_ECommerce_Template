@@ -26,12 +26,10 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 const CartDialog = ({ open, onClose }) => {
-    const { siteLogo } = useContext(FetchedDataContext);
+    const { siteLogo, businessInfo, integrationInfo } = useContext(FetchedDataContext);
     const { cartItems, setCartItems } = useContext(CartContext);
     const [loadingCheckout, setLoadingCheckout] = useState(false);
-    const API_URL = 'https://client.vivreal.io';
     const key = import.meta.env.VITE_CLIENT_KEY;
-    const stripeKey = import.meta.env.VITE_STRIPE_KEY;
 
     const handleUpdateCart = (productId, type) => {
         let tempCartItems = { ...cartItems };
@@ -56,14 +54,17 @@ const CartDialog = ({ open, onClose }) => {
                 ? item.priceID[item.variant]
                 : item.priceID,
             quantity: item.quantity,
+            name: item.name
         }));
 
         const { data } = await axios.post(
-            `${API_URL}/tenant/createCheckoutSession`,
+            'https://client.vivreal.io/tenant/createCheckoutSession',
             {
-                products,
-                stripeKey,
-                requiresShipping: false
+                products: products,
+                stripeKey: integrationInfo.stripe.secretKey,
+                businessName: businessInfo.name,
+                contactEmail: businessInfo.contactInfo.email,
+                requiresShipping: businessInfo.shipping
             },
             {
                 headers: {

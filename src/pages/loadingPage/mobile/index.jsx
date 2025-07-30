@@ -13,7 +13,7 @@ const LoadingPage = () => {
         transition: 'var(--transition-base)',
       }}
     >
-      <CircularProgress size={64} thickness={4} sx={{ background: 'var(--color-primary)'}} />
+      <CircularProgress size={64} thickness={4} sx={{ color: 'var(--color-primary)'}} />
     </Box>
   );
 };

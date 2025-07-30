@@ -12,5 +12,4 @@ Disallow: /private
 Allow: /
 
 # Sitemap reference
-UPDATE
 Sitemap: https://www.domainname.com/sitemap.xml

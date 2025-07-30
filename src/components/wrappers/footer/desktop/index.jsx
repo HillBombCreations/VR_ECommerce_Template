@@ -6,7 +6,7 @@ import FetchedDataContext from '../../../../context/fetchedDataContext';
 
 const Footer = () => {
     const { siteLogo, businessInfo } = useContext(FetchedDataContext);
-    const { capitalize } = formatStringFns();
+    const { capitalize, formatPhoneNumber } = formatStringFns();
     const navigation = useContext(NavigationContext);
     return (
         <Box
@@ -57,6 +57,34 @@ const Footer = () => {
                     >
                         {businessInfo.contactInfo.email}
                     </Link>
+                    {
+                        businessInfo.contactInfo.phoneNumber && (
+                             <Link
+                                href={`tel:${businessInfo.contactInfo.phoneNumber}`}
+                                underline="none"
+                                sx={{
+                                    fontSize: "10px",
+                                    color: 'var(--color-text-secondary)',
+                                    '&:hover': { color: 'var(--color-text-secondary)' }
+                                }}
+                                >
+                                {formatPhoneNumber(businessInfo.contactInfo.phoneNumber)}
+                            </Link>
+                        )
+                    }
+                    {businessInfo?.address?.street1 && (
+                        <Typography
+                        component="div"
+                        sx={{
+                            fontSize: '10px',
+                            color: 'var(--color-text-secondary)',
+                        }}
+                        >
+                        {`${businessInfo.address.street1} ${businessInfo.address.street2 || ''}, ${businessInfo.address.city}, ${businessInfo.address.state} ${businessInfo.address.zip}`}
+                        </Typography>
+                    )}
+                   
+                    
                 </Grid>
 
                 {navigation.xmlToJSON.map((group, gIdx) => (
