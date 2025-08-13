@@ -7,6 +7,8 @@ export default function parseSitemap(xml, domain = '') {
     });
 
     const parsed = parser.parse(xml);
+    console.log('PARSED', parsed);
+    
     const urls = parsed.urlset.url.map((entry) => {
         const updatedLoc = entry.loc.replace(/placeholder/g, domain);
         return {

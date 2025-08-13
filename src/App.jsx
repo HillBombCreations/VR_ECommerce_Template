@@ -116,9 +116,8 @@ const  App = () => {
 			updateFavicon(faviconUrl, '16x16', 'image/png');
 			updateFavicon(faviconUrl, '32x32', 'image/png');
 			// updateFavicon('/path/to/favicon.ico', null, 'image/x-icon');
-
-			const formattedExplorerProducts = data.collectionObjs['Product Showcase'].map((obj) => {
-                return {
+			const formattedExplorerProducts = data.collectionObjs.filter((obj) => obj.objectValue.sectionName == 'secondSection' && !obj.objectValuerootSection).map((obj) => {
+				return {
                     id: obj.objectValue._id,
                     imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
                     title: obj.objectValue.title,
@@ -127,34 +126,34 @@ const  App = () => {
                     buttonLabel: obj.objectValue.buttonLabel,
                     productType: obj.objectValue['product-type']
                 }
-            });
+			});
 
-			const formattedCardSection = data.collectionObjs['Our Offerings'].map((obj) => {
-                return {
+			const formattedCardSection = data.collectionObjs.filter((obj) => obj.objectValue.sectionName == 'thirdSection' && !obj.objectValue.rootSection).map((obj) => {
+				return {
                     id: obj.objectValue._id,
                     imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
                     title: obj.objectValue.title,
                     description: obj.objectValue.description,
                     icon: obj.objectValue.icon,
                 }
-            });
+			});
 
-			data.collectionObjs['Hero Sections'].map((obj) => {
-                switch (obj.objectValue.sectionName) {
-                    case 'aboutSection':
-                        setAboutSection(obj.objectValue);
-                        break;
-                    case 'topSection':
+			data.collectionObjs.filter((obj) => obj.objectValue.rootSection).map((obj) => {
+				switch (obj.objectValue.sectionName) {
+					case 'firstSection':
                         setTopSection(obj.objectValue);
                         break;
-                    case 'exploreProducts':
+                    case 'secondSection':
                         setExploreProductSection(obj.objectValue);
                         break;
-                    case 'contactSection':
+                    case 'thirdSection':
+                        setAboutSection(obj.objectValue);
+                        break;
+                    case 'fourthSection':
                         setContactSection(obj.objectValue);
                         break;
                 }
-            });
+			});
 
            
 
