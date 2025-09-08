@@ -104,6 +104,7 @@ const DesktopContactComponent = () => {
             {
                 name: fullName,
                 message,
+                siteName: businessInfo.name,
                 to: businessInfo.contactInfo.email,
                 htmlInfo
             },

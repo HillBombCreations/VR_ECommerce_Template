@@ -145,7 +145,7 @@ export const FetchedDataProvider = ({ children }) => {
     useEffect(() => {
         if (integrationInfo) localStorage.setItem('integrationInfo', JSON.stringify(integrationInfo));
         else localStorage.removeItem('integrationInfo');
-    }, [businessInfo]);
+    }, [integrationInfo]);
 
     return (
         <FetchedDataContext.Provider value={{
