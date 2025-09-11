@@ -116,10 +116,10 @@ const  App = () => {
 			updateFavicon(faviconUrl, '16x16', 'image/png');
 			updateFavicon(faviconUrl, '32x32', 'image/png');
 			// updateFavicon('/path/to/favicon.ico', null, 'image/x-icon');
-			const formattedExplorerProducts = data.collectionObjs.filter((obj) => obj.objectValue.sectionName == 'secondSection' && !obj.objectValuerootSection).map((obj) => {
+			const formattedExplorerProducts = data.collectionObjs.filter((obj) => obj.objectValue.sectionName == 'secondSection' && !obj.objectValue.rootSection).map((obj) => {
 				return {
                     id: obj.objectValue._id,
-                    imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
+                    imageSource: obj.objectValue?.image?.currentFile?.source ? obj.objectValue.image.currentFile.source : '/siteAssets/placeHolder.png',
                     title: obj.objectValue.title,
                     description: obj.objectValue.description,
                     link: obj.objectValue.link,
@@ -131,7 +131,7 @@ const  App = () => {
 			const formattedCardSection = data.collectionObjs.filter((obj) => obj.objectValue.sectionName == 'thirdSection' && !obj.objectValue.rootSection).map((obj) => {
 				return {
                     id: obj.objectValue._id,
-                    imageSource: obj.objectValue?.image?.source ? obj.objectValue.image.source : '/siteAssets/placeHolder.png',
+                    imageSource: obj.objectValue?.image?.currentFile?.source ? obj.objectValue.image.currentFile.source : '/siteAssets/placeHolder.png',
                     title: obj.objectValue.title,
                     description: obj.objectValue.description,
                     icon: obj.objectValue.icon,
