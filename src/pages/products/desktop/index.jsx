@@ -453,14 +453,14 @@ const ProductsPage = () => {
                             }}
                         >
                             <Box
-                            sx={{
-                                minHeight: 32,
-                                display: "flex",
-                                flexWrap: "wrap",
-                                justifyContent: "center",
-                                gap: 0.5,
-                                mb: 1,
-                            }}
+                                sx={{
+                                    minHeight: 32,
+                                    width: '95%',
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    gap: 0.5,
+                                    mb: 1,
+                                }}
                             >
                             {Array.isArray(product.usingVariant?.values) && (
                                 <VariantRow

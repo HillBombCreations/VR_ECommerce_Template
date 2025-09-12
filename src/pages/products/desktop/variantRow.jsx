@@ -23,7 +23,7 @@ const VariantRow = ({ product, selectedVariants, setSelectedVariants }) => {
     }
 
     if (count < product.usingVariant.values.length) {
-      setVisibleCount(count - 2);
+      setVisibleCount(count - 1);
     } else {
       setVisibleCount(count);
     }
@@ -60,7 +60,7 @@ const VariantRow = ({ product, selectedVariants, setSelectedVariants }) => {
             }}
             sx={{
               fontSize: "11px",
-              minWidth: "20px",
+              textOverflow: 'ellipsis',
               px: 0.5,
               height: 24,
               borderRadius: "12px",
