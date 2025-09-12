@@ -8,6 +8,7 @@ import LoadingPage from "../../loadingPage/index.jsx";
 import ProductsContext from "../../../context/productsContext.jsx";
 import ErrorLoadingProducts from "./errorLoadingProducts.jsx";
 import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
+import VariantRow from "./variantRow.jsx";
 // Wrappers
 import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
@@ -461,51 +462,13 @@ const ProductsPage = () => {
                                 mb: 1,
                             }}
                             >
-                            {Array.isArray(product.usingVariant?.values) &&
-                                product.usingVariant.values.map((variant, idx) => {
-                                const isSelected =
-                                    selectedVariants[product.id] === variant;
-                                return (
-                                    <Button
-                                    key={idx}
-                                    variant={isSelected ? "contained" : "outlined"}
-                                    size="small"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setSelectedVariants((prev) => ({
-                                        ...prev,
-                                        [product.id]: variant,
-                                        }));
-                                    }}
-                                    sx={{
-                                        fontSize: "11px",
-                                        minWidth: "20px",
-                                        px: 0.5,
-                                        height: 24,
-                                        borderRadius: "12px",
-                                        textTransform: "none",
-                                        backgroundColor: isSelected
-                                        ? "var(--color-primary)"
-                                        : "transparent",
-                                        color: isSelected
-                                        ? "var(--color-text-inverse)"
-                                        : "var(--color-primary)",
-                                        border: isSelected
-                                        ? "2px solid var(--color-secondary)"
-                                        : "1px solid var(--color-primary)",
-                                        fontWeight: isSelected ? 600 : 500,
-                                        transition: "var(--transition-base)",
-                                        "&:hover": {
-                                        backgroundColor: isSelected
-                                            ? "var(--color-secondary)"
-                                            : "#e0f2e0",
-                                        },
-                                    }}
-                                    >
-                                    {variant}
-                                    </Button>
-                                );
-                                })}
+                            {Array.isArray(product.usingVariant?.values) && (
+                                <VariantRow
+                                    product={product}
+                                    selectedVariants={selectedVariants}
+                                    setSelectedVariants={setSelectedVariants}
+                                />
+                            )}
                             </Box>
                             <Box sx={{ width: "100%", maxWidth: "200px" }}>
                             <Typography

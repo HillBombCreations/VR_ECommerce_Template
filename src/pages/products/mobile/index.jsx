@@ -8,6 +8,8 @@ import ProductsContext from "../../../context/productsContext.jsx";
 import CartContext from "../../../context/cartContext.jsx";
 import FetchedDataContext from "../../../context/fetchedDataContext.jsx";
 import ErrorLoadingProducts from "./errorLoadingProducts.jsx";
+import VariantRow from "./variantRow.jsx";
+
 // Wrappers
 import Header from "../../../components/wrappers/header/index.jsx";
 import Footer from "../../../components/wrappers/footer/index.jsx";
@@ -273,41 +275,11 @@ const ProductsPage = () => {
                         <CardMedia component="img" sx={{ maxHeight: 180, objectFit: "contain" }} image={resolveField("productImage", product, selectedVariants[product.id])?.currentFile?.source || siteLogo} alt={resolveField("name", product, selectedVariants[product.id])} />
                         <CardContent sx={{ width: '100%' }}>
                         {Array.isArray(product.usingVariant?.values) && (
-                            <Box sx={{ display: 'flex', flexWrap: 'wrap', ml: 1, gap: 1, mb: 1 }}>
-                            {product.usingVariant.values.map((variant, idx) => {
-                                const isSelected = selectedVariants[product.id] === variant;
-                                return (
-                                    <Button
-                                        key={idx}
-                                        variant={isSelected ? 'contained' : 'outlined'}
-                                        size="small"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            setSelectedVariants(prev => ({ ...prev, [product.id]: variant }));
-                                        }}
-                                        sx={{
-                                            fontSize: "12px",
-                                            px: 1.5,
-                                            borderRadius: "12px",
-                                            textTransform: "none",
-                                            backgroundColor: isSelected ? "var(--color-primary)" : "transparent",
-                                            color: isSelected ? "#fff" : "var(--color-primary)",
-                                            fontWeight: isSelected ? 600 : 500,
-                                            border: isSelected ? "none" : "1px solid var(--color-primary)",
-                                            outline: "none",
-                                            boxShadow: "none",
-                                            WebkitTapHighlightColor: "transparent",
-                                            '&:focus': {
-                                                outline: "none",
-                                                boxShadow: "none",
-                                            }
-                                        }}
-                                    >
-                                        {variant}
-                                    </Button>
-                                );
-                            })}
-                            </Box>
+                            <VariantRow
+                                product={product}
+                                selectedVariants={selectedVariants}
+                                setSelectedVariants={setSelectedVariants}
+                            />
                         )}
                         <Typography variant="h6" sx={{ fontWeight: "bold", ml: 1 }}>{resolveField("name", product, selectedVariants[product.id])}</Typography>
                         <Typography variant="body2" sx={{ ml: 1, color: "var(--color-text-secondary)" }}>{truncate(resolveField("description", product, selectedVariants[product.id]))}</Typography>
