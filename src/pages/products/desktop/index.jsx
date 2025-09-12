@@ -84,13 +84,14 @@ const ContentContainer = styled(Box)(({ theme }) => ({
 
 const ProductsGrid = styled(Box)(({ theme }) => ({
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
     gap: theme.spacing(4),
     width: '100%',
     overflowY: "auto",
     overflowX: "hidden",
     maxHeight: "60vh",
-    paddingRight: theme.spacing(1),
+    padding: theme.spacing(2),
+    boxSizing: "border-box",
 }));
 
 const ProductCard = styled(Card)(({ theme }) => ({
@@ -102,7 +103,8 @@ const ProductCard = styled(Card)(({ theme }) => ({
     width: "100%",
     maxWidth: 300,
     height: 340,
-    padding: theme.spacing(2),
+    marginRight: 'auto',
+    paddingBottom: theme.spacing(2),
     cursor: "pointer",
     boxShadow: "var(--shadow-medium)",
     borderRadius: "var(--radius-base)",
